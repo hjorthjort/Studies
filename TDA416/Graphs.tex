@@ -8,7 +8,9 @@
 
 %Formatting
 \usepackage{hyperref}
-\newtheorem{treedef}{Tree definition}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 \hypersetup{colorlinks=true}
 \usepackage{graphicx}
 \graphicspath{ {img/} }
@@ -19,12 +21,12 @@
 \author{Hjort}
 
 \begin{document}
-  \pagenumbering{arabic}
-  \maketitle
+\pagenumbering{arabic}
+\maketitle
 
-  \section{Asymptotic properties}
+\section{Asymptotic properties}
 
-      \subsection{For the graph itself}
+  \subsection{For the graph itself}
 
       $$\abs{V} = n \text{ (order)}$$
 
@@ -38,7 +40,7 @@
 
       $$\abs{E} \leq n^2 - n \text{ (for undirected graphs)}$$
 
-      \subsection{For the represenation}
+  \subsection{For the represenation}
 
       Adjacency matrix (efterföljarmatris) has size 
       
@@ -48,20 +50,78 @@
       
       $$\in O(n + e)$$
 
-      \section{Tree (fritt träd)}
+\section{Tree (fritt träd)}
 
-      \begin{treedef}
-          Undirected, acyclic and connected graph
-      \end{treedef}
+  \begin{definition}
+      Undirected, acyclic and connected graph
+  \end{definition}
 
-      \begin{treedef}
-          A spanning tree for a graph $G = (V, E)$ is a free tree
-          $T=(V,E^{\prime})$ where $E^{\prime} \subseteq E$ 
-      \end{treedef}
+  \begin{definition}
+      A spanning tree for a graph $G = (V, E)$ is a free tree
+      $T=(V,E^{\prime})$ where $E^{\prime} \subseteq E$ 
+  \end{definition}
 
-      Thus, to create a spanning tree from a connected graph, we remove all
-      cycles.
-      
+  Thus, to create a spanning tree from a connected graph, we remove all
+  cycles.
+
+\section{Searching}
+
+    \subsection{Depth First Search (DFS)}
+
+        Equivalent to pre/post/inorder search in the case of trees.
+
+        Since there are cycles, we could potentially loop through nodes
+        forever. Thus, we have to flag visisted nodes somehow.
+
+        \begin{enumerate}
+            \item for every node $v \in V$
+            \item \hspace{10pt} $v.visited = false$
+            \item as long as there are unvisited nodes
+            \item \hspace{10pt} pick one unvisited, $v$
+            \item \hspace{10pt} $dfs(v)$
+        \end{enumerate}
+
+        \subsubsection(Time complexity)
+        Time complexity for DFS is $O(n+e)$ since we visit every node once, and 
+        check every edge from every node to see if they lead to a previously 
+        unvisited node.
+
+        Expressed in only one variable.
+
+        $$\text{(only n) } e < n^2 \implies O(n+e) \subseteq O(n + n^2) =
+        O(n^2)$$
+
+        $$\text{(only e, for connected graph) } n < e + 2 \implies O(n + e)
+        \subseteq O(e + e) = O(e)$$
+
+    \subsection{Breadth First Search (BFS)}
+
+        
+\section{Minimal Spanning Trees (MST)}
+
+    \begin{definition}
+        An MST for a weighted graph is a spanning tree for which the sum of the
+        weights of the edges is the smallest possible.
+    \end{definition}
+
+    \begin{theorem}
+        Consider 2 disjoint set of vertices in a graph, $S$ and $V \setminus
+        S$, such that they have a spanning tree that is also part of the MST
+        for the entire graph. Now every edge between these two sets that has
+        minimal weight – that is, minimal among these specific edges – will be
+        part of a minimal spanning tree.
+    \end{theorem}
+
+    \begin{proof}
+        If we consider each of the sets of vertices and the edges between them
+        as separate graphs, then we can create two spanning trees for the sets
+        $T_S$ and $T_{V \setminus S}$. An MST for the whole graph must consist
+        of some version of these two trees, and exactly one edge connecting
+        them, which must be a minimal edge.
+    \end{proof}
+
+    This will be used when constructiong Prim's algorithm.
+
 \bibliography{Bibl} 
 
 \bibliographystyle{ieeetr}
