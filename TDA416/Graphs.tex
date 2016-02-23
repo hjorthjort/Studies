@@ -1,0 +1,69 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+
+%Formatting
+\usepackage{hyperref}
+\newtheorem{treedef}{Tree definition}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Graphs}
+\date{2016-02-23}
+\author{Hjort}
+
+\begin{document}
+  \pagenumbering{arabic}
+  \maketitle
+
+  \section{Asymptotic properties}
+
+      \subsection{For the graph itself}
+
+      $$\abs{V} = n \text{ (order)}$$
+
+      $$\abs{E} = e \text{ (size)}$$
+
+      We assume these are not \href{https://en.wikipedia.org/wiki/Multigraph}{multigraphs}.
+
+      $$ \abs{E} \in O(\abs{V}^2) $$
+
+      $$\abs{E} \leq \cfrac{n(n-1)}{2}$$
+
+      $$\abs{E} \leq n^2 - n \text{ (for undirected graphs)}$$
+
+      \subsection{For the represenation}
+
+      Adjacency matrix (efterföljarmatris) has size 
+      
+      $$ \in O(n^2)$$
+
+      Adjacency list (efterföljarlista) has size
+      
+      $$\in O(n + e)$$
+
+      \section{Tree (fritt träd)}
+
+      \begin{treedef}
+          Undirected, acyclic and connected graph
+      \end{treedef}
+
+      \begin{treedef}
+          A spanning tree for a graph $G = (V, E)$ is a free tree
+          $T=(V,E^{\prime})$ where $E^{\prime} \subseteq E$ 
+      \end{treedef}
+
+      Thus, to create a spanning tree from a connected graph, we remove all
+      cycles.
+      
+\bibliography{Bibl} 
+
+\bibliographystyle{ieeetr}
+
+\end{document}
