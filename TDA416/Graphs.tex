@@ -81,6 +81,13 @@
             \item \hspace{10pt} $dfs(v)$
         \end{enumerate}
 
+        This means that, as soon as we follow an edge to antoher vertix, we
+        will continue our search from this new vertix. To keep track of nodes
+        we have visited, but whose edges we haven't controlled all of ad are
+        thus not done with, we put these on a stack. When we can't visit any
+        more vertices from the vertix we are standing on, we pop from the stack
+        and continue from that node, looking for unvisited nodes.
+
         \subsubsection(Time complexity)
         Time complexity for DFS is $O(n+e)$ since we visit every node once, and 
         check every edge from every node to see if they lead to a previously 
@@ -96,6 +103,7 @@
 
     \subsection{Breadth First Search (BFS)}
 
+        [Uses a queue]
         
 \section{Minimal Spanning Trees (MST)}
 
