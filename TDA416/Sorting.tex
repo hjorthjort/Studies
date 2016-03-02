@@ -1,0 +1,269 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+
+%Formatting
+\usepackage{hyperref}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Sorting}
+\date{2016-03-01}
+\author{Hjort}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+\section{Why study sorting algorithms?}
+
+\begin{itemize}
+    \item Regular task
+    \item Some tasks become easiser when the data is sorted
+        \begin{itemize}
+            \item searching: to sort a list of $n$ items and perform $k$ seaches has complexity $O(n \log n + k \log n)$ compared to $O(kn)$ which may be higher.
+            \item find duplicates: $O(n^2)$ for naive algorithm, $O(n\log n)$ for sorting an removing.
+            \item find median, k:th largest element ...
+            \item geometry: find the convex hull of a set of points
+        \end{itemize}
+    \item Are implemented in most languages' API:s
+        \begin{itemize}
+            \item it's still good to know how they work to make an informed choiche when choosing sorting algorithm
+            \item important for the studies of algorithm
+                \begin{itemize}
+                    \item simple to specify – a challenge to implement a smart algorithm
+                    \item the different solutions to the sorting problem are examples of general ways to tackle algorithms, especially divide-and-conquer
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+\subsection{ What algorithms will we study? }
+\begin{itemize}
+    \item Not so good ones
+    \begin{itemize}
+        \item Selection sort (urvalssortering)
+        \item Bubble sort
+        \item Insertion sort (insättningssortering)
+    \end{itemize}
+    \item The useful ones
+        \begin{itemize}
+            \item Merge sort
+            \item Quicksort
+            \item Heap sort
+        \end{itemize}
+\end{itemize}
+
+We will only study integer sorting, but the solution is generic for anything with a total ordering.
+
+We will specifically study sorting in arrays, and not linked lists.
+
+\subsubsection{Stable sorting}
+
+If a pair of elements $x$ and $y$ are equal and $x$ comes before $y$ in the indata, then $x$ will before $y$ in the sorted list.
+
+True for Merge sort, but not Heap sort, for example.
+
+\section{Selection sort (urvalssortering)}
+
+Find the smallest element and put it in a growing sorted list.
+
+$$\text{Indata: } [35], 65, 30, 60, 20 $$
+
+[  ] denotes the pointer of the sorted array.
+
+20 is the smallest element, so we swap it for the last element in the sorted set
+
+$$ 20, [65], 30, 60, 35 $$
+
+We repeat
+
+$$ 20, 30, [65], 60, 35 $$
+
+$$ 20, 30,  60, [65], 35 $$
+
+$$ 20, 30,  60, 35, 65 $$
+
+\subsection{Pseudocode}
+
+\begin{verbatim}
+
+sort(a):
+    Loop1: for i=0 .. n-2
+        int minpos = i
+        int mival = a[i]
+        Loop2: for j = i + 1 .. n-1
+            if (a[j] < minval)
+                minval = a[j]
+                minpos = j
+        swap(i, j, a)
+
+swap(i, j, a):
+    int tmp = a[i]
+    a[i] = a[j]
+    a[j] = a[i]
+\end{verbatim}
+
+\subsection{Complexity}
+
+Loop1 is repeated $O(n)$ times. Loop2 is also repeated $O(n)$ times in total.
+
+When we perform complexity analyses we are often interested in both the number of \textbf{comaprisons} and the number of \textbf{array accesses} separately.
+
+Comparisons are made inside the inner loop, and thus is performed $O(n^2)$ times. After every swap, one more item is in place, so we can perform a maximum of $n$ swaps, which of course is $O(n)$.
+
+\section{Insertion sort}
+
+Instead of locating the next element like in selection sort, which requires searching, we take the next element, insert it into the sorted list that is being built.
+
+$$\text{Indata: } [30],25,15,20,28$$
+
+[  ] is the sorted list
+
+$$[25, 30], 15, 20,28$$
+
+$$[15, 25, 30], 20, 28 $$
+
+$$[15, 20, 25, 30], 28$$
+
+$$[15, 20, 35, 28, 30]$$
+
+\subsection{Complexity}
+
+$O(n^2)$ for both comparisons and array accesses.
+
+However, just like with Bubble sort, we get $O(n)$ for comparisons and $O(1)$ for array accesses when the input is already sorted.
+
+\section{Stability}
+
+Are these algorithms stable?
+
+\subsection{Selection sort}
+
+Yes, if we traverse the array from the beginning, two equal elements will be put in stable order, since we will put the first of them into the sorted part of the array first.
+
+\subsection{Bubble sort}
+
+Yes, if we choose to only swap when one element is less than the other, since then an equal element occuring before another will stop right before the other.
+
+\subsection{Insertion sort}
+
+Yes, if we do it correctly. In this case, "correctly" means that when we insert an element into the sorted part of the array, we make sure to put it \textit{after} any element equal to it.
+
+The correct way to implement insertion sort is to iterate \textit{backwards} in the sorted part of the array, moving larger elements up as we pass them, until we reach the right place.
+
+
+\section{The good algorithms: Merge sort and Quick sort}
+
+\subsection{Divide and conquer}
+
+\begin{enumerate}
+    \item divide the problem into smaller problems
+    \item solve each part of the problem on its own
+    \item take the solved partial problems, and put their solutions together into a larger solution
+\end{enumerate}
+
+For merge sort the easy part is dividing (step 1) and the hard part is putting it back together (step 3).
+
+For quick sort it is the opposite.
+
+\subsection{Merge sort}
+
+\begin{enumerate}
+    \item split the array in two
+    \item recursively sort each half
+    \item merge the two sorted lists
+\end{enumerate}
+
+\subsubsection{The merge function}
+
+\begin{verbatim}
+
+sort(n):
+    if (n.length < 1) return n 
+    arr1 = arraycopy(n, start, end/2)
+    arr2 = arraycopy(n, end/2 + 1, end)
+    return merge(sort(arr1, start, end/2), sort(arr2, end/2+1, end))
+
+a = [1, 3, 5, 9]
+b = [2, 3, 4]
+
+merge(a, b):
+
+    array ret = int[a.length + b.length]
+    int aPointer = 0
+    int bPointer = 0
+    int retPointer = 0
+
+    while (aPointer < a.length && bPointer < b.length)
+        if (a[aPointer] <= b[bPointer])
+            ret[retPointer] = a[aPointer++]
+        else
+            ret[retPointer] = b[bPointer++]
+        retPointer++
+    
+    while (aPointer < a.length)
+        ret[retPointer++] = a[aPointer++]
+            
+    while (bPointer < b.length)
+        ret[retPointer++] = b[bPointer++]
+
+    return ret
+
+\end{verbatim}
+
+\begin{definition}
+    A definition.
+\end{definition}
+
+\begin{theorem}
+    A theorem.
+\end{theorem}
+
+\begin{proof}
+    Prooving something!
+\end{proof}
+
+\begin{align*}
+    \text{A set of equations: } & \\
+    2x &= 10 \\
+    y^2 + 3 &= 100 \\
+    19 f(x)g(x_t) &= 0
+\end{align*}
+
+\begin{gather*}
+    \text{A set of equations: } \\
+    2x = 10 \\
+    y^2 + 3 = 100 \\
+    19 f(x)g(x_t) = 0
+\end{gather*}
+
+\begin{enumerate}
+    \item A
+    \item numbered
+    \item list
+\end{enumerate}
+
+\subsection{Symbols}
+
+\subsubsection{Sets}
+
+\begin{align*}
+    & \subset \text{Proper subset} \\
+    & \subseteq \text{Subset} \\
+    & \setminus \text{\textbackslash} \\
+\end{align*}
+
+\bibliography{Bibl} 
+
+\bibliographystyle{ieeetr}
+
+\end{document}
