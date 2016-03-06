@@ -31,6 +31,18 @@ describe it
 
 Classical
 
+#### Lock based programming in Java
+
+Two types of monitors: `synchronized` and `ReentrantLock` (aka Java 5 monitors).
+
+`synchronized` is simpler. `ReetrantLock` offers:
+
+* More than one condition per monitor (`synchronized` only offers `wait`/`notify`, which is a single condition).
+* Fairness. You can make `ReentrantLock` fair. This gurantess no starvation, but hurts performance.
+* Timeouts while waiting
+* `tryAcquire` might be seen as a subset of timeouted waiting: immediate timeout.
+* Ability to check if a lock is being held.
+
 ### Message passing
 
 Erlang model
