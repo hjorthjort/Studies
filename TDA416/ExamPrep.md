@@ -30,6 +30,8 @@ Things that are not part of *this* year's exam
 ----------------------------------------------
 
 * 2-3-trees
+* Splay tree implementation
+* AVL tree implementation
 
 Things to prepare for:
 ----------------------
@@ -50,6 +52,9 @@ Things to prepare for:
     * rules for manipulation (removal of constants, addition)
     * analysis of programs (both iterative and recursive implementations)
         * Does not require deep knowledge, since we have not went very deep in this course
+    * time and space complexity
+    * arithmetic sum is good to know
+    * no focus on amortized complexity
 * lists
     * array/array list
     * linked list, single & double
