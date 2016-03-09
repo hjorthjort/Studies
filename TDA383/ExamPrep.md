@@ -73,6 +73,16 @@ resource, the server
   with a single condition.
 * Implementing monitors using compare-ans-swap
 
+## Dining phikosphers solutions 
+    
+### Asymetry
+
+Make one philosphoer acquire in different order
+
+### Locking order
+
+Make sure that all philosphers acquire locks according to a general order, so that if both A and B must be acquired, everyone will acquire A before B.
+
 # Solutions and algorithms
 
 * Petersons' algorithm
