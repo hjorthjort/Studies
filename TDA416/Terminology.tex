@@ -1,0 +1,68 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+
+%Formatting
+\usepackage{hyperref}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Datastructures and algorithms - Terminology}
+\date{2016-03-11}
+\author{Hjort}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+\section{Graphs}
+
+\textbf{Sources: \href{http://www.cse.chalmers.se/edu/course/tda416/mtrl/lectures/F9.pdf}{Slides} and \href{https://en.wikipedia.org/wiki/Glossary_of_graph_theory}{Wikipedia}.}
+
+\begin{tabular}{l || l || p{5cm}}
+
+    English & Swedish & Definition \\ \hline\hline
+%--------------------------------------------------
+    degree & grad & the number of edgeds connecting to a vertix \\\hline
+    in-degree & ingrad & the number of edgeds that end in a vertix (directed graphs only)\\\hline
+    out-degree & utgrad & the number of edgeds that begin in a vertix (directed graphs only)\\\hline
+    density & densitet & the number of edges divided by the number of potential edges \\\hline
+    density (undirected) & - & $\dfrac{ 2 * \lvert E\rvert }{ \lvert V\rvert * (\lvert V\rvert - 1)}$ \\\hline
+    density (undirected) & - & $\dfrac{ \lvert E\rvert }{ \lvert V\rvert ^2}$ \\\hline
+    edge & båge & - \\\hline
+    order & ordning & the number of vertices in the graph \\\hline
+    size & storlek & the number of edges in the graph \\\hline
+    vertix & nod & - \\\hline
+    
+\end{tabular}
+
+\begin{enumerate}
+    \item A
+    \item numbered
+    \item list
+\end{enumerate}
+
+\subsection{Symbols}
+
+\subsubsection{Sets}
+
+\begin{align*}
+    & \subset \text{Proper subset} \\
+    & \subseteq \text{Subset} \\
+    & \setminus \text{\textbackslash} \\
+\end{align*}
+
+\bibliography{Bibl} 
+
+\bibliographystyle{ieeetr}
+
+\end{document}
