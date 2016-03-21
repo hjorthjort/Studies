@@ -1,3 +1,13 @@
+Contact
+=======
+
+Dan: 0708-85 83 81, dan@chalmers.se
+
+Birgit: grohe@chalmers.se
+
+Intro
+=====
+
 We will get to know some of the plurality of mathematical and scientific models.
 
 We will also get familiar with how to choose models for a specific problem
