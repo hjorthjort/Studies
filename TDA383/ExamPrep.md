@@ -66,6 +66,7 @@ resource, the server
 # Problems that can be solved
 
 * Dining philosophers
+* Producers and consumers
 * Readers and writers
 * Implementing semaphores with monitors
 * Implementing monitors with sempahores
