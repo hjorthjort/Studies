@@ -1,0 +1,167 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+
+%Formatting
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{alltt}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{example}{Example}[section]
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Intro}
+\date{2016-03-21}
+\author{Hjort}
+
+\begin{document}
+\maketitle
+\pagenumbering{arabic}
+
+\section{Automata}
+
+\begin{definition}
+    A mechanism that is relatively self operating, and acts according to a set of rules.
+\end{definition}
+
+Goes through a set of states, starting at an \textit{initial state}.
+
+Example:
+
+\begin{enumerate}
+    \item State: OFF
+    \item Push
+    \item State: ON
+    \item Push
+    \item State: OFF
+\end{enumerate}
+
+Finite state machines have \textit{finite memory}.
+
+We can prove correctness of an automata, and we will focus on these proofs a
+lot in this course.
+
+\begin{definition}
+    There are deterministic and non-deterministic automata.
+    In automata theory, a finite state machine is called a deterministic finite automaton (DFA), if
+    each of its transitions is uniquely determined by its source state and input symbol, and
+    reading an input symbol is required for each state transition.
+    A nondeterministic finite automaton (NFA), or nondeterministic finite state machine, does not need to obey these restrictions. In particular, every DFA is also an NFA.
+\end{definition}
+Source: \href{https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton}{Wikipedia}
+
+\subsection{A concrete problem}
+
+The classic: A man, a goat, a wolf and a cabbage should cross a river. The boat can hold only two of these.
+
+We can model this as a finite automata.
+
+We have a very specific problem with a set of rules, and a set of possible states. This lends itself well to modelling with an automata.
+
+\section{Formal languages}
+
+\begin{definition}
+    In mathematics, computer science, and linguistics, a formal language is a set of strings of symbols that may be constrained by rules that are specific to it.
+\end{definition}
+
+\begin{example}{The alphabet}
+    The alphabet of a formal language is the set of symbols, letters, or tokens from which the strings of the language may be formed; frequently it is required to be finite. The strings formed from this alphabet are called words, and the words that belong to a particular formal language are sometimes called well-formed words or well-formed formulas. A formal language is often defined by means of a formal grammar such as a regular grammar or context-free grammar, also called its formation rule.
+\end{example}
+
+Source: \href{https://en.wikipedia.org/wiki/Formal_language}{Wikipedia}
+
+\begin{alltt}
+    L -> A | B | ... | Z
+    D -> 0 | 1 | 2 | ... | 9
+
+    Nr -> D | D Nr
+    Id -> L LLoD
+    LLoD -> L LLoD | D LLoD | \( \in \)
+
+    E -> E + E | E - E | E * E | E / E | (E) | Nr | Id
+\end{alltt}
+
+\subsection{Context-free grammar}
+
+\begin{definition}
+    A formal grammar is considered "context free" when its production rules can be applied regardless of the context of a nonterminal. No matter which symbols surround it, the single nonterminal on the left hand side can always be replaced by the right hand side. This is what distinguishes it from a context-sensitive grammar.
+\end{definition}
+
+Source: \href{https://en.wikipedia.org/wiki/Context-free_grammar}{Wikipedia}
+
+\section{Parts of the course}
+
+\subsection{Formal Proofs}
+
+We often want to prove that our program/model/grammar is "correct" (meaning it satisfies a certain specification/property).
+
+In particluar, you won't get a complex program/model/grammar right if you don't understand what is going on.
+
+Often it is too expensive to prove correctness for everything we do, but it is often worthwile to prove that it certain core parts are absolutely correct
+
+\subsubsection{Types of proofs}
+
+\begin{enumerate}
+    \item Deductive proof
+    \item Proof by contradiction
+    \item Proof by counterexample
+    \item \textbf{Proof by (structural) induction} (big focus of course)
+\end{enumerate}
+
+\subsubsection{Regular Languages}
+
+\textbf{Finite automate} were originally proposed in the 1940's as models of neural networks. Turned out to have many other uses!
+
+Finite automate \textbf{define} regular languages.
+
+In 1950's regular expressions were defined using mathematical notation.
+
+\subsubsection{Context-free Languages}
+
+We can only model things with finite memory with regular langagues, but we can add \textbf{more power} with CFL.
+
+We do this by adding a stack that contains data and obtain a \textbf{push down automata}.
+
+Context-free grammars were invented by Naom Chomsky(!) in mid 1950's.
+
+These grammars play a core role in the description and design of programmings languages, interpreters and compilers.
+
+\textbf{Both push-down automata and context-free grammars both define context-free languages.}
+
+\subsubsection{Church-Turing Theorem}
+
+Will be focus of only the last part of the course. We will spend about a week here.
+
+\begin{enumerate}
+    \item Recursive functionos by Stephen Kleene (after ideas of Kurt Gödel).
+    \item $\lambda$-calculus
+\end{enumerate}
+
+The halting problem
+
+Tractable (polynomial) vs intractable (NP-Complete / NP-Hard) problems
+
+\section{Learning Outcomes}
+
+\begin{enumerate}
+    \item Explain and manipulate the concpets of automata theroy and formal languages.
+    \item understand the equivalnce between (non-)deterministic finite automate and regular expressions
+    \item good understanding of the power and limitations of regular languages and CFL.
+    \item Prove properties of languages, grammars and automata with formal mathematical methods.
+    \item design automata, regexes and CFG:s \textbf{acceptin} or \textbf{generating} a certain language
+    \item describe the language accepted by an automata or genereted by a regex or CFG
+    \item  Simplify automata and CFG:s
+    \item Determine if a certain word belongs to a language
+    \item Define Turing Machines peforming simple tasks.
+    \item Differentiate and manipulate formal descriptions of langagues, automata and grammars
+\end{enumerate}
+
+\end{document}
