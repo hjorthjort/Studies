@@ -1,0 +1,128 @@
+# How to create a model
+
+1. Model selection: What kind of formula do you want? This is a very human
+   step, and very intuitve.
+1. Parameter extimation: Based on data, we can input parameters. This often
+   requires calculation (or some computer help)
+
+Example: population (p) grows exponentially
+
+p = C*a^(at)
+
+Opting to use an exponential function is *model selection*. Deciding on values
+for C and a is *parameter estimation*
+
+## What can the model be used for?
+
+### Understanding an explaining
+
+> p' = a*p
+
+The growth is proportional to the current population size.
+
+### Draw conclusions
+
+How large will the population be in 2020?
+
+# Models and model type
+
+## Terminology
+
+The terminology is confused: model, model type, problem, hypothesis – used
+interchangably!
+
+Here is good terminology:
+
+> **Model**: A particular model, i.e., a model instance, e.g., 7.5*a^(at)
+> **Model type**: A class of models with similar mathematical properties, e.g.,
+> C*a^(at)
+
+## Standard model types
+
+Each weekly module will focus on different model types!
+
+### Functions and equations:
+
+* liniear
+* quadratic
+* non-linear
+
+### Optimization models
+
+* unconstrained/constrained
+* linear programming
+* nonlinear programming
+* integer programming
+
+### Dynamic models (differential equations)
+
+* ordinal/parity
+* linear/nonlinear
+
+## Important characteristics of a model type
+
+Two things are important:
+
+* what can a model or model type describe?
+* what can you do with it? (algorithms)
+
+What you can do is very important! A very complex model might describe reality
+very well, but be almost impossible to work with! And sometimes we choose
+linear models even though reality is *not* linear in that case, because those
+are easy to work with.
+
+### Standard models and types
+
+A good thing with standard models are that they are very expressive and can
+cover a lot of cases, while there are also lots of common and known ways to
+manipulate and draw conclusions from them.
+
+#### Example: Linear equations
+
+Fairly powerful, can be used a lot of the time, but can't really express
+everything. It is also fairly easy to work with, and can always be solved.
+
+#### A better model: [Linear programming](https://en.wikipedia.org/wiki/Linear_programming)
+
+*Very* expressive*, significant algorithmic power, a very successful balance!
+
+We are using the computers analytical power to the max with linear programming,
+which makes it stronger than linear equations (more expressive, more powerful)
+and better than many more expressive models, since they might not be as easy to
+work with algorithmically.
+
+# An insight into standard models: VRP
+
+> Vehicle routing problem
+
+A central warehouse, and a number of delivery points in a city, and trucks with
+a limited capacity.
+
+Everyone working with transportation algorithms know this model, and standard
+solutions, and ways to manipulate the model.
+
+There is a lot of knowledge around every standard knowledge to draw from.
+
+# The model cycle
+
+Modelling is iterative! Baed on data we create a model that we draw conclusions
+from to predict new data which we match agaianst real world data which we use
+to create a better model ...
+
+data -> model -> mathematical conclusions -> explanations/predictions -> data
+
+We name the steps like this
+```
+data ->                  model ->       mathematical conclusions ->             explanations/predictions ->           data
+     modelling                 analysis                          interpretation                          verification
+   (aka mathematization)
+```
+
+> It never hurts to model something to simply. We can always make more complex,
+> and simple models can usually give insights, too
+
+## Some rules of thumb
+
+* as simple as possible, but no simpler
+* choose a suitable level of abstraction
+* make reasonable assumptions
