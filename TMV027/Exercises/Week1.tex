@@ -1,0 +1,43 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+
+%Formatting
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{alltt}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{example}{Example}[section]
+\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\begin{document}
+
+\section{Logic}
+
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item $ p \land q $
+            \item $ p \to r $
+            \item \label{itm:arrows} $ \lnot p \to \lnot q \land r \Leftrightarrow p \to q \lor \lnot r $
+            \item $ q \leftrightarrow \lnot p $
+            \item $ \lnot r \to q $
+        \end{enumerate}
+        General question: When exactly do I want to use a double arrow
+        ($\Leftrightarrow$) and when do i want single arrow
+        ($\leftrightarrow$). Have I used the conventions correctly in
+        \ref{itm:arrows}, where I used the double arrow to denote two
+        statements that are logically equivalent, but single arrow to denote
+        the statement, that might be true or false?
+\end{enumerate}
+
+\end{document}
