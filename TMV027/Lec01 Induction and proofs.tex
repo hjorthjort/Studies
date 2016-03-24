@@ -1,0 +1,126 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%Formatting
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{alltt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Induction and proofs}
+\date{March 2016}
+\author{Hjort}
+
+\begin{document}
+
+\maketitle
+
+\section{Proofs}
+
+\subsection{How formal should a proof be?}
+
+\begin{itemize}
+        \item Depends on who it is for! The "consumer" of the proof must be able to understand that it is formally correct.
+        \item How rigorous it must be depends on what it will be used for.
+        \item The validity of each step should be easily understood, and every step must have a justifictation.
+\end{itemize}
+
+\subsection{Proof by Contradiction}
+
+$ H \Rightarrow C \Leftrightarrow H \land \lnot C \Rightarrow \text{something known to be false}$
+
+\subsection{Induction, formally speaking}
+
+To prove something, e.g., for all natural numbers $n$
+
+$$ 
+f(n) =
+    \begin{cases}
+        0 & \text{when } n = 0 \\
+        f(n-1) + n & \text{when }n > 0
+    \end {cases}
+$$
+
+$$
+\text{Prove } \forall n \in \mathbb{N} . f(n) = \dfrac{n(n+1)}{2}
+$$
+
+\begin{enumerate}
+    \item choose to use mathematical induction
+    \item decide what property to prove. In our case, $P(n) = f(n) = \dfrac{n(n+1)}{2} $
+    \item Prove the base case.
+    \item Assume $P(n)$ (or, when using strong induction, $\forall m . m \geq 0 \land m \geq n \Rightarrow P(m) $)
+    \item With your assumption as an available tool, prove $P(n+1)$
+\end{enumerate}
+
+\begin{example}
+    Prove that if $ N \geq8 \text{then } n \text{ can be written as a sum of 3's and 5's}$
+\end{example}
+
+\begin{proof}
+    \begin{align}
+        &P(8): & 8 = 3 + 5 \\
+        &P(9): & 9 = 3*3 + 5*0 \\ 
+        &P(10): & 10 = 3 * 0 + 5*2 \\
+        &\text{Assume:} & P(m) \text{ holds for all m from 0 to n} \\
+        &\text{By step 4}  &P(n+1-3) \text{ holds} \\
+        &P(n+1): & n+1 = f(n-2) + 3
+    \end{align}
+\end{proof}
+
+\subsection{Induction mnemonic}
+
+\
+\begin{center}
+\noindent\fbox{
+    \parbox[b][2em][c]{0.75\textwidth}{%
+        \begin{center}
+        \textbf{MPBHDC}
+
+        My Professor Brings Home Prank Cockroaches (Dude)
+        \end{center}
+    }
+}
+\end{center}
+
+\begin{tabular}{l l}
+    \textbf{M}ethod: &Determine and state the method you are using, e.g. "structural induction". \\
+    \textbf{P}roperty: &State property P, which is what you will prove holds for all cases. \\
+    \textbf{B}ase case: &Identify the BC:s and prove that P holds for them. \\
+    Induction \textbf{H}ypothesis: &State the IH: $P(n)$ holds (weak ind.), or $\forall m: m \leq n \Rightarrow P(m)$ (strong ind.). \\
+    \textbf{P}rove: & Prove that $IH \Rightarrow P(n+1)$ by any means available \\
+    \textbf{C}losure: &State the closure: $ (BC \land IH \Rightarrow P(n+1)) \Rightarrow \forall n: P(n) $ \\
+\textbf{D}educe (If necessary): &Deduce what you wanted to prove from P.
+\end{tabular}
+
+\section{Closure}
+
+Formally, it might be important to state a closure when creating inductive sets.
+
+\begin{definition}
+    The \textit{closure} is the statement in an inductive definitions of sets, usually stated after the base cases and the inductive steps, that states that the base cases and inductive steps are \textit{the only} way to produce elements in the set. The closure is often implicit, but it is necessary for any inductive reasoning to hold, since the closure is what makes sure that there aren't any other, unknown elements in the set than those we reach by our inductive reasoning.
+\end{definition}
+
+\begin{example}
+    Lets say that $0 \in \mathbb{N}$ (base case) and $n \in \mathbb{N} => n+1 \in \mathbb{N}$ (inductive step). Now, to be very strict, we are not sure if $n \in \mathbb{N} => n-1 \in \mathbb{N}$, so from 0 to infinity isn't enough. We also don't know if $n \in \mathbb{N} => \sqrt{n} \in \mathbb{N}$, and so forth, which makes induction possible. Therefore we state the closure: the base case and inductive steps are \textit{the only} ways to construct elements in $\mathbb{N}$. However, we usually omit this part, and take it to be implicit that the only way to construct elements are the ones we are given.
+\end{example}
+
+\bibliography{Bibl} 
+
+\bibliographystyle{ieeetr}
+
+\end{document}
