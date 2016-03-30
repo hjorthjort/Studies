@@ -50,7 +50,7 @@
             \item Is neither raining or the sun is shining, and there are clouds in the sky.
         \end{enumerate}
     \item The weather where I am right now is cloudy, no sun, no rain. I will give truth values based on this.
-        
+
         Excercise 1:
         \begin{enumerate}
             \item false
@@ -69,7 +69,7 @@
             \item true
         \end{enumerate}
 
-    \item 
+    \item
         \begin{itemize}
             \item $\lnot q \Rightarrow \lnot p$
             \item $\lnot p \lor q$
@@ -77,7 +77,7 @@
 
     \item
         \begin{enumerate}
-            \item 
+            \item
                 \begin{tabular}{c | c | c | c | c | c}
                     p & q & $ p \Rightarrow q $ & $p \lor \lnot q $ & $ p \lor q $ & Complete \\ \hline
                     T & T & T & T & T & T \\
@@ -92,7 +92,7 @@
             \item $p \lor q$ is true (since p is true);
             \item $q \Rightarrow p$ is true, since an implication is always true when the antecendent is false.
         \end{itemize}
-    \item With logical symbols the statement is $\forall x : \exists y : y < x$. Negating yields 
+    \item With logical symbols the statement is $\forall x : \exists y : y < x$. Negating yields
         \begin{align*}
             \lnot(\forall x : \exists y : y < x) \Leftrightarrow \\
             \exists x : \lnot(\exists y : y < x) \Leftrightarrow \\
@@ -107,7 +107,7 @@
             \exists x.\lnot (P(x) \Rightarrow Q(x)) \Leftrightarrow \\
             \exists x. P(x) \land \lnot Q(x)
         \end{align*}
-        
+
     \item
         $ \forall x . \exists y . \exists z . L(x,y,z)$
 
@@ -127,11 +127,11 @@
 \section{Sets}
 
 \begin{enumerate}
-    \item 
+    \item
         \begin{enumerate}
             \item ${a, o, u, e, i}$ (English vowels)
             \item ${12,15,18}$
-            \item This cannot be enumerated, since every number $5k + 1, k \in \mathbb{N}$ is a natural number and has a remainder of 1 when divided by five. Since there are an infinite number of possible values for $k$, and each choice of $k$ renders a different number, this is not an enumeratable set. We can, however, define it using the characteristic property: 
+            \item This cannot be enumerated, since every number $5k + 1, k \in \mathbb{N}$ is a natural number and has a remainder of 1 when divided by five. Since there are an infinite number of possible values for $k$, and each choice of $k$ renders a different number, this is not an enumeratable set. We can, however, define it using the characteristic property:
                 $$\{x \in \mathbb{N} | x \equiv 1 \mod{5}\} $$
         \end{enumerate}
     \item
@@ -141,7 +141,7 @@
             \item $\{ x^2 | x \in \mathbb{Z}_+\}$
         \end{enumerate}
 
-    \item 
+    \item
         $A \times B = \{(a,p), (a,q),(b,p),(b,q), (c,p),(c,q)\}$
 
         $A^2 = A \times A = \{(a,a), (a,b), (a,c), (b,a), (b,b), (b,c),(c,a), (c,b), (c,c)\}$
@@ -159,18 +159,18 @@
             \item First false, second true.
         \end{enumerate}
 
-    \item 
+    \item
         \begin{enumerate}
             \item $\{9,11\}$;
             \item $\{8, 9, 10, 11, 12, 0, 3, 6\}$;
             \item $\{0, 2,4,6,8,10,12\}$;
-            \item 
+            \item
                 \begin{align*}
                     \overline{B} &= \{0, 1, ..., 7\} \\
                     A \cup \overline{B} &= \{0,1,2,3,4,5,6,7,9,11\} \\
                     (A \cup \overline{B}) \cap C &= \{0, 3,6,9\}
                 \end{align*}
-            \item 
+            \item
                 \begin{align*}
                     \overline{A \cup C} \cup \overline{C} = \\
                     (\overline{A} \cap \overline{C}) \cup \overline{C} = \\
@@ -180,8 +180,8 @@
                     &\{2,4,8,10\}
                 \end{align*}
         \end{enumerate}
-        
-    \item 
+
+    \item
         \begin{proof}
 
         \begin{tabular}{l | l | l}
@@ -193,10 +193,10 @@
 
         We find that $A \cup \overline{B} $ is in our table, which was constructed using only laws of sets and the given set, and we thus conclude that the given set $\overline{\overline{A} \cup B} = A \cup \overline{B}$.
     \end{proof}
-        
+
     \item
         \begin{enumerate}
-            \item 
+            \item
                 \begin{proof}
                     Assume an element $x$ is in $A$ but not in $B$. Now, by definition of difference, $x$ is in  $A - B = \{a | a \in A \land a \not\in B\}$. However, since $B - A = \{b | b \in B \land b \not\in A\}$ we conclude that $x$ is not in $B - A$ (since $x$ fails both conditions) and thus $A - B \not= B - A$ in this case.
                 \end{proof}
@@ -208,7 +208,7 @@
                         A - (B - C) &= \{x | x \in A \land \lnot(x \in B  \land \lnot(x \in C))\} \label{eq:1} \\
                         (A - B) - C &= \{x | x \in A \land \lnot(x \in B) \land \lnot(x \in C)\} \label{eq:2}
                     \end{align}
-                    
+
                     We ommit parentheses in the characteristics in \ref{eq:2} since conjunction is associative.
 
                     We see that we have two different conditions for $x$ to be in each of the sets. If we can prove that these conditions are not logically equivalent, then we know that for some element they have a different truth value, meaning that that element is in one of the sets and not the other, which would prove that difference is not associative.
@@ -225,19 +225,19 @@
     \item
         \begin{enumerate}
             \item \label{proof:neg} $A - B = \{x | x \in A \land x \not\in B\}$ and $A \cap \overline{B} = \{x | x \in A \land x \in \overline{B}\}$. Since an element is not in $B$ iff it is in $\overline{B}$, these sets are equivalent.
-            \item 
+            \item
                 \begin{proof}
                     (If part): By definition $A \subseteq B \Leftrightarrow (x \in A \Rightarrow x \in B)$. Thus we know every element in $A$ is also in B. $A - B = \{x | x \in A \land x \not\in B\}$. Since $x \in A \Rightarrow x \in B$, this means $A - B = \emptyset$.
 
                     (Only-if part): Conversely, when $A - B = \{x|x\in A \land x \not\in B\} = \emptyset$ we know there are no elements in A which are not also in B, since no element satisfies the condition, meaning $ x \in B \lor x \not\in A$ which is equivalent to $x \in A \Rightarrow x \in B$, which means $A \subseteq B$.
                 \end{proof}
-            \item 
+            \item
                 \begin{proof}
-                    $A - (A - B) = A - (A \cap \overline B) = A \cap \overline{A \cap \overline{B}}$ as shown in \ref{proof:neg}. By de Morgan's law and laws of complement $A - (A - B) = A \cap (\overline{A} \cup \overline{\overline{B}}) =  A \cap (\overline{A} \cup B)$ and by the distributive law, law of complements and laws for $\emptyset$, $ A \cap (\overline{A} \cup B) = (A \cap \overline{A}) \cup (A \cap B) = \emptyset \cup (A \cap B) = A \cap B$ 
+                    $A - (A - B) = A - (A \cap \overline B) = A \cap \overline{A \cap \overline{B}}$ as shown in \ref{proof:neg}. By de Morgan's law and laws of complement $A - (A - B) = A \cap (\overline{A} \cup \overline{\overline{B}}) =  A \cap (\overline{A} \cup B)$ and by the distributive law, law of complements and laws for $\emptyset$, $ A \cap (\overline{A} \cup B) = (A \cap \overline{A}) \cup (A \cap B) = \emptyset \cup (A \cap B) = A \cap B$
                 \end{proof}
 
             \item For an element to be in $A \cap B$ it must be in both $A$ and $B$. For it to be in the superset, it must be either in $A\cap B$ or $B \cap \overline{C}$, or both. Since for every proposition $p$ it is true that $p \Rightarrow p \lor q$, if an element is in $A \cap B$ it must be in $(A \cap B) \cup (B \cap \overline{C})$, which is the definition of being a subset.
-            \item The subset in this task requires that an element $x$ has the property $(x \in A \lor x \in C) \land (x \in B \lor x \not\in C)$. Any element fulfilling this must be in $B$ and $C$ or $A$ and $\overline{C}$ or in both $A$ and $B$ for both parts of the conjunction to hold. (Note that an element can't be both in $C$ and $\overline{C}$). So for every such element, either $x \in A$ holds, or $x \in B$ holds. 
+            \item The subset in this task requires that an element $x$ has the property $(x \in A \lor x \in C) \land (x \in B \lor x \not\in C)$. Any element fulfilling this must be in $B$ and $C$ or $A$ and $\overline{C}$ or in both $A$ and $B$ for both parts of the conjunction to hold. (Note that an element can't be both in $C$ and $\overline{C}$). So for every such element, either $x \in A$ holds, or $x \in B$ holds.
             \item $A \cap B = \emptyset$ means that no element $x$ in the universe is such that $x \in A \land x \in B$ which is the same as
                 \begin{align*}
                     \forall x . \lnot (x \in A \land x \in B) \Leftrightarrow \\
@@ -265,14 +265,14 @@
 \end{enumerate}
 
 \section{Relations}
-    
+
 \begin{enumerate}
-    \item 
+    \item
         \begin{enumerate}
             \item Symmetric, transitive
             \item Antisymmetric
             \item Antisymmetric, transitive
-            \item  Reflexive, symmetric, transitive (equivalence relation)\label{rel:int} 
+            \item  Reflexive, symmetric, transitive (equivalence relation)\label{rel:int}
             \item Reflexive, antisymmetric, transitive
             \item \label{rel:square} Reflexive, symmetric, transitive (equivalence relation)
         \end{enumerate}
@@ -290,7 +290,7 @@
 
         Since $R$ is reflexive, symmetric and transitive, logical equivalence is an equivalence relation.
 
-    \item 
+    \item
         As above, we must show that $R$ is reflexive, symmetric and transitive.
 
         (Reflexive) $xRx$ means $x-x = 4k, k \in \mathbb{Z}$. Since $x-x = 0 = 4*0$ and $0 \in \mathbb{Z}$, $R$ is reflexive.
@@ -301,7 +301,7 @@
 
         We have shown that $R$ is reflexive, symmetric and transitive, and is thus an equivalence relation.
 
-        $R$ partitions $\mathbb{Z}$ into 4 classes: 
+        $R$ partitions $\mathbb{Z}$ into 4 classes:
         \begin{align*}
             \{0,4,8, ...\} \\
             \{1,5,9, ...\} \\
@@ -311,21 +311,21 @@
         This is the same as the classes of $\mathbb{Z}_4$, where $[x] = \{ y | y \equiv x \mod{4}\}$
 
 
-    \item 
+    \item
         We try all combinations:
 
-        (Reflexive and symmetric) Let $A = \{a,b,c\}$ and 
+        (Reflexive and symmetric) Let $A = \{a,b,c\}$ and
         $$R_1 = \{(a,a), (b,b), (c,c), (a,b), (b,a), (b,c), (c,b)\}$$ Now every eleent in $A$ relates to itself, and every element that relates to another one has the other element relating back to it. However, $a$ relates to $b$ and $b$ relates to $c$, but $a$ does not relate to $c$, so the relation is not transitive.
 
-        (Reflexive and transitive) Let $A$ be as before and 
+        (Reflexive and transitive) Let $A$ be as before and
         $$R_2 = \{(a,a), (a,b), (b,b), (b,c), (c,c), (a,c)\}$$
-        Now every element in A relates to itself. Also, whenever there is a relationship $xRy$ and $yRz$, then also $xRz$. There is only one such nontrivial case: $aRb$ and $bRc$. As required, now $aRc$. However, $aRb$ but $\lnot(b R a)$, so the relation is not symmetric. 
+        Now every element in A relates to itself. Also, whenever there is a relationship $xRy$ and $yRz$, then also $xRz$. There is only one such nontrivial case: $aRb$ and $bRc$. As required, now $aRc$. However, $aRb$ but $\lnot(b R a)$, so the relation is not symmetric.
 
-        (Symmetric and transitive) Let $A$ be as above and 
+        (Symmetric and transitive) Let $A$ be as above and
         $$R_3 = \{(a,b),(b,a), (a,a), (b,b)\}$$
         Now every case of $xRy$ has a corresponding case $yRx$, and every case $xRy \land yRz$ has a corresponding $xRz$. However, $c$ is in no element in the relation, and thus $\lnot(cRc)$ which means the relation is not reflexive.
 
-        \textbf{Comment:} The last combination I find the most interesting. If we were to have any cases of $xRy$ and $yRz$ where $x\neq z$, we would be required to have a relfexive relation. Only by completely omitting an element from every pair of the relation may we have a symmetric, transitive and non-reflexive relation. 
+        \textbf{Comment:} The last combination I find the most interesting. If we were to have any cases of $xRy$ and $yRz$ where $x\neq z$, we would be required to have a relfexive relation. Only by completely omitting an element from every pair of the relation may we have a symmetric, transitive and non-reflexive relation.
 
     \item
         (Reflexive) It is safe to say that any student has atleast one class with themselves, assuming no student has 0 classes. Under that assumption, $R$ is reflexive.
@@ -362,14 +362,14 @@
         \item If $(x,y)$ is in one of the relations, so is $(y,x)$. Thus if $(x,y)$ is in the union so is $(y,x)$, and the union is thus reflexive.
         \item If $(x,y)$ is in one of the relations but $(y,z)$ and $(x,z)$ is not, that does not violate transitivity of the relations. Identically, if $(y,z)$ is in the other relation, but $(x,y)$ and $(x,z)$ is not, that does not violate transitivity. However, that means that in the union both $(x,y)$ and $(y,z)$ exists, but not $(x,z)$, which violates transitivity. The union is thus not necessarily transitive.
         \end{enumerate}
-        
+
     \item
         \begin{enumerate}
             \item Reflexive and transitive. Wouldn't matter if the empty set was included. This is true for the relation $\subseteq$ over any set.
-            \item Reflexive and symmetric. Would change if the empty set was included, since that would break reflexivity because $\emptyset \cap \emptyset = \emptyset$. 
-                
+            \item Reflexive and symmetric. Would change if the empty set was included, since that would break reflexivity because $\emptyset \cap \emptyset = \emptyset$.
+
                 Reflexivity comes from that for any nonempty set, it has at least one element in common with itself, and is thus not disjoint with itself. Symmetry comes from disjunction being commutative, so $A \cap B = B \cap A$ and thus if $A R B \Rightarrow A \cap B = B \cap A \neq \emptyset \Rightarrow B R A$.
-            \item Symmetric and transitive. Wouldn't change if empty set was included. 
+            \item Symmetric and transitive. Wouldn't change if empty set was included.
 
                 The realtion is not refelxive since not every subset of $\mathbb{N}$ contains 1. It is symmetric since if $1 \in A \cap B$ then $1 \in B \cap A$ by commutativity. It is transitive since every set that contains 1 will relate to every other set that contains 1.
         \end{enumerate}
@@ -403,10 +403,10 @@
 \section{Functions}
 
 \begin{enumerate}
-    \item 
+    \item
         \begin{enumerate}
             \item (Reflexive) $f(x) = f(x)$
-                
+
                 (Symmetric) $f(x) = f(y) \Rightarrow f(y) = f(x)$
 
                 (Transitive) $f(x) = f(y) \land f(y) = f(z) \Rightarrow f(x) = f(z)$.
@@ -419,7 +419,7 @@
                     \item Exactly $n$ classes: $\forall x,y \in A . x \neq y \Rightarrow f(x) \neq f(y)$, so every element in $A$ makes up its own class.
                     \item Anywhere between 1 and $n$ classes. It is possible that $\forall x,y \in A . f(x) = f(y)$ which means every element relates to every other, and its also possible that $\lnot\exists x,y . x \neq y \land f(x) = f(y)$, which means every element relates only to itself.
                 \end{enumerate}
-            
+
         \end{enumerate}
 
     \item
@@ -430,9 +430,9 @@
         injective iff $\forall x,y \in A. f(x) = f(y) \Leftrightarrow x = y$
 
         \begin{enumerate}
-            \item 
+            \item
                 The reverse function is such that $f((s)) = s$, meaning that the reverse function is its own inverse. Hence, the reverse function is an involution. Since there is an inverse of the function on the set, and it is closed under the reverse function, the function must be injective and surjective.
-                
+
                 For those in need of further proof, consider any string $x \in S$. We define $f(x) = x_{rev}$. Now, since the set is closed under the reverse function, $x_{rev} \in S$. Thus, $f(x)$ is defined for any choice of $x$. We can prove that $f$ is surjective by taking the assumption that $f$ is injective to be obvious (there is only one way to reverse a string, and for any reversed string $f(x)$ the value of $x$ can be easily deduced; a more rigorous proof of this should be failry easy, but I will not try to make one here). Since $f$ is injective, if we reverse any string in $S$ we get another element (which might be the same element, in case of palindromes) in $S$, which in turn can be reversed to render the original string. Thus every string in $S$ has exactly one string in $S$ which can be reversed to render the former, which makes $f$ surjective.
             \item
                 $g$ is not injective. Proof by counterexample: $g(2,3) = g(3,2) = g(1,4)$. Each equality violates injectivity. There are in fact an infinite amount of elements in $\mathbb{R} \times \mathbb{R}$ that map to any element in $\mathbb{R}$ via $g$. $\forall a \in \mathbb{R} . g(x,y) = g(x-a, x+a)$.
@@ -448,7 +448,7 @@
                 Neither. For any set with more than one element, there will be at least two elements in the power set which are sets that contain only one element, so it is not injective. And for any finite set $A$, the power set contains only subsets of $A$, the largest of which is $A$. So if $A$ cardinality $n$, then there is no subset of $A$ which has cardinality $n + 1$, but $n + 1 \in \mathbb{N}$, so it is not surjective.
         \end{enumerate}
 
-    \item 
+    \item
         $R_f = \set{(1,3), (2,1), (3,4), (4,2), (5,0)}$
 
         $f$ is injective, since the second element of every pair is unique compared to every other pair. It is not surjcetive, since no pair has 5 as its second element.
@@ -464,7 +464,7 @@
             \item $\set{1,2,3,4,5,74}$
             \item $\set{0, 0, 1, 2, 3, 72}$
             \item $f$ is injective since $\forall m,n \in \mathbb{N}. m + 1 = n + 1 \Leftrightarrow m = n$, which means that only one element in $\mathbb{N}$ maps to another. $f$ is not surjective since there $f(n) = 0 \Leftrightarrow n = -1 \not\in \mathbb{N}$.
-            \item $g$ is not injective since $g(0) = g(1)$ and $0 \neq 1$. $g$ is surjective since two elements map to $0$, and $\forall n \in \mathbb{N} . n > 0 \Rightarrow g(n + 1) = n$, so all natural numbers have some other number mapping to them. 
+            \item $g$ is not injective since $g(0) = g(1)$ and $0 \neq 1$. $g$ is surjective since two elements map to $0$, and $\forall n \in \mathbb{N} . n > 0 \Rightarrow g(n + 1) = n$, so all natural numbers have some other number mapping to them.
             \item
                 $g \circ f(n) = g(n+1) = \max\{0,n+1-1\} = \max\{0,n\}$. Since $\forall n \in \mathbb{N} . n \geq 0 $ and $\max\{a,b\}$ will return the element that is greater than or equal to the other, $g \circ f(n) = n$.
 
@@ -473,10 +473,24 @@
 
     \item
         \begin{enumerate}
-            \item 
-                If $f(x) = 3x + 2$ then $\dfrac{f(x) - 2}{3} = x$. Thus $f^{-1}(y) = \dfrac{y - 2}{3}$. 
+            \item
+                If $f(x) = 3x + 2$ then $\dfrac{f(x) - 2}{3} = x$. Thus $f^{-1}(y) = \dfrac{y - 2}{3}$.
             \item No inverse exists, since $\forall x \in \mathbb{R}.f(x) = f(-x)$ and $x \neq -x$ in the general case, and thus $|\_|$ is not injective, and therefore it is not bijective, and therefore there can be no inverse. (We could also prove that $|\_|$ is not surjective by saying that $\forall x \in \mathbb{R} . |x| \geq 0$ and thus for any $y \in \mathbb{R}. y < 0$ there is a value $x$ such that $|x| = y$.
 
+                \item We can easily see that if $x$ is odd, $g(x)$ is even and vice versa. Thus any result of $g(x)$ must have been yielded by an even $x$.
+
+                    We prove that $g$ is injective by proof of contradiction. Assume there are two numbers, $x$ and $y$, for which $g(x) = g(y)$. Furhter assume that $g(x)$ is odd (the proof for the even case is completely analog) Now, $x$ and $y$ are both even, meaining that for some $k,j \in \mathbb{N}$, $x=2k$ and $y=2j$. From what we know we can do the following manipulations:
+
+                    $$g(x) = g(y) \Leftrightarrow 2k-1 = 2j-1 \Leftrightarrow j = k \Leftrightarrow x = y$$
+
+                    We have thus proved that $g$ is injective.
+
+                    To prove that $g$ is surjective, it is enough to note that $\forall n \in \mathbb{N} . n = g(x) \Rightarrow x = n - 1 \lor x = n + 1$. And since a natural number plus or minus 1 is also a natural number, the function is surjective. (Here we assume the natural numbers don't include 0. If they do, then the function is not bijective, since no natural number produces 0 as ouput for $g$).
+
+                The inverse is $g^{-1}(x) = \begin{cases} x - 1 \text{if } x \text{ is odd }\\ x + 1 \text{if } x \text{ is even } \end{cases}$
+
+
+                \item The function is not necessarily surjective, and thus cannot have an inverse. Proof by counterexample: Let $S = \set{abc, def, ghi}$. None of these str:
         \end{enumerate}
 
 
