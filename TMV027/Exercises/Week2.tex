@@ -1,0 +1,56 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%Formatting
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{alltt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Title}
+\date{\today}
+\author{Hjort}
+
+\begin{document}
+\maketitle
+
+\section*{DFA}
+\subsection*{Basic exercises}
+
+\begin{enumerate}
+    \item \textbf{Exercise 2.2.4:} Give DFA's accepting the following languages over the alphabet \{0,1\}:
+
+        \begin{enumerate}
+            \item The set of all strings ending in $00$.
+
+                $
+                \begin{array}{r | c | c}
+                     & 0 & 1 \\ \hline \hline
+                    \to q_0 & q_1 & q_0 \\
+                    q_1 & q_2 & q_0\\
+                    *q_2 & q_2 & q_0
+                \end{array}
+                $
+        \end{enumerate}
+\end{enumerate}
+
+\bibliography{Bibl}
+
+\bibliographystyle{ieeetr}
+
+\end{document}
