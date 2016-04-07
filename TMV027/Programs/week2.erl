@@ -49,7 +49,7 @@ delta000(q3, "1") ->
 
 delta000(_, "1") ->
     q0.
-    
+
 
 delta011(State, "0") ->
     case State of 
