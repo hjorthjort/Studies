@@ -72,6 +72,27 @@
                 $
 
         \end{enumerate}
+
+        % 2
+    \item
+        A language is a regular language iff it is accepted by some finite automata. We thus construct this automata to prove that this is a regular language.
+
+        $ \begin{array}{r|c|c}
+            & 0 & 1 \\ \hline \hline
+            \to q_0 & q_1 & q_0 \\
+            q_1 & q_1 & q_2 \\
+            q_2 & q_3 & q_0 \\
+            q_3 & q_4 & q_2 \\
+            *q_4 & q_1 & q_2
+        \end{array}
+        $
+
+        \begin{proof}
+            (If part) A string ending in 0100 can be in any state when these last digits are encountered. For every state, we follow the arcs labeled 0,1,0,0 in turn and find we always end in $q_4$, which is an accepting state, so the string is accepted.
+
+            (Only if part) A string has been accepted by the DFA. Since it takes a minimum of 4 transitions to get there, the string must be of at least length 4. We can only reach $q_4$ from $q_3$ following a 0, so the last digit must have been 0. We could only get to $q_3$ from $q_2$, following the arc labeled 0, so the string ends in 00. Every arc into $q_2$ is labeled 1, so the string must end in 100. We can get to $q_2$ only from $q_4$, $q_3$ and $q_1$. All these three states only have arcs labeled 0 going int to them, so the string must end in 0100.
+        \end{proof}
+
 \end{enumerate}
 
 
