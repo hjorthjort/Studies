@@ -2,17 +2,23 @@
 -include_lib("./automata.hrl").
 -compile(export_all).
 
-end_in_00(Strings) ->
-    Automata = automata:new_automata(fun(State, Char) -> delta00(State,Char) end, q0, [q2]),
+do(Strings, Fun, Accepting) ->
+    Automata = automata:new_automata(Fun, q0, Accepting),
     automata:offer(Strings, Automata).
+
+
+end_in_00(Strings) ->
+    do(Strings, fun delta00/2, [q2]).
 
 has_000(Strings) ->
-    Automata = automata:new_automata(fun delta000/2, q0, [q3]),
-    automata:offer(Strings, Automata).
+    do(Strings, fun delta000/2, [q3]).
 
 has_011(Strings) ->
-    Automata = automata:new_automata(fun delta011/2, q0, [q3]),
-    automata:offer(Strings, Automata).
+    do(Strings, fun delta011/2, [q3]).
+
+end_in_0100(Strings) ->
+    do(Strings, fun delta0100/2, [q4]).
+
 
 delta00(q0, "1") ->
     q0;
@@ -33,7 +39,7 @@ delta00(q2, "0") ->
     q2.
 
 delta000(State, "0") ->
-    case State of 
+    case State of
         q0 ->
             q1;
         q1 ->
@@ -52,7 +58,7 @@ delta000(_, "1") ->
 
 
 delta011(State, "0") ->
-    case State of 
+    case State of
         q0 ->
             q1;
         q1 ->
