@@ -9,6 +9,11 @@
 \usepackage{amssymb}
 
 %Formatting
+
+%%Automata
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
 \usepackage{bussproofs}
 \usepackage{hyperref}
 \usepackage{amsthm}
@@ -93,6 +98,45 @@
             (Only if part) A string has been accepted by the DFA. Since it takes a minimum of 4 transitions to get there, the string must be of at least length 4. We can only reach $q_4$ from $q_3$ following a 0, so the last digit must have been 0. We could only get to $q_3$ from $q_2$, following the arc labeled 0, so the string ends in 00. Every arc into $q_2$ is labeled 1, so the string must end in 100. We can get to $q_2$ only from $q_4$, $q_3$ and $q_1$. All these three states only have arcs labeled 0 going int to them, so the string must end in 0100.
         \end{proof}
 
+
+    \item
+
+        The state diagram for the DFA accpting words containing $bba$ is seen below.
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+            \node[initial, state]   (q0)    {$q_0$};
+            \node[state]            (q1) [right of=q0]    {$q_1$};
+            \node[state]            (q2) [right of=q1]    {$q_2$};
+            \node[state, accepting] (q3) [right of=q2]    {$q_3$};
+
+            \path[->]
+                (q0) edge [loop above]  node {a} (q0)
+                     edge   node {b} (q1)
+                 (q1) edge  [bend left] node {a} (q0)
+                     edge   node {b} (q2)
+                (q2) edge   node {a} (q3)
+                    edge   [loop above] node {b} (q2)
+                (q3) edge  [loop right] node {a,b} (q3);
+        \end{tikzpicture}
+
+        The DFA accepting only words without $bba$ as subword must be the words that are not in an accepting state after processing a word with $bba$ as subword, and in an accepting state otherwise. Thus, we simply create an opposite of the DFA above.
+
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+            \node[initial, state, accepting]   (q0)    {$q_0$};
+            \node[state, accepting]            (q1) [right of=q0]    {$q_1$};
+            \node[state, accepting]            (q2) [right of=q1]    {$q_2$};
+            \node[state] (q3) [right of=q2]    {$q_3$};
+
+            \path[->]
+                (q0) edge [loop above]  node {a} (q0)
+                     edge   node {b} (q1)
+                 (q1) edge  [bend left] node {a} (q0)
+                     edge   node {b} (q2)
+                (q2) edge   node {a} (q3)
+                    edge   [loop above] node {b} (q2)
+                (q3) edge  [loop right] node {a,b} (q3);
+        \end{tikzpicture}
 \end{enumerate}
 
 
