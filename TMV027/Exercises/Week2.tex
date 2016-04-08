@@ -267,5 +267,152 @@
 
 \end{enumerate}
 
+\subsection*{Additional exercises}
 
-\end{document}
+\begin{enumerate}
+    \item 
+        We give $D_1$ in two ways:
+
+        $
+        \begin{array}{r || c | c | c }
+            & a & b & c \\ \hline \hline
+            \to *q_0& q_1 & q_0 & q_0 \\
+            *q_1 & q_1 & q_2 & q_0 \\
+            q_2 & q_2 & q_2 & q_2
+        \end{array}
+        $
+
+%   \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,node distance=2cm,auto]
+            \node[state,initial,accepting] (q0) {$q_0$};
+            \node[state,accepting] (q1) [right of=q0]{$q_1$};
+            \node[state] (q2) [below right of=q0] {$q_2$};
+
+            \path[->]
+                (q0) edge [loop below] node {b,c} (q0)
+                edge [bend left] node {a} (q1)
+                (q1) edge [loop right] node {a} (q1)
+                    edge node {b} (q2)
+                    edge [bend left] node {c} (q0)
+                (q2) edge [loop below] node {a,b,c} (q2)
+                ;
+        \end{tikzpicture}
+
+        And we also give $D_2$ in two ways:
+
+        $
+        \begin{array}{r || c | c | c }
+            & a & b & c \\ \hline \hline
+            \to *p_0& p_0 & p_0 & p_1 \\
+            *p_1 & p_0 & p_2 & p_1 \\
+            p_2 & p_2 & p_2 & p_2
+        \end{array}
+        $
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,node distance=2cm,auto]
+            \node[state,initial,accepting] (p0) {$p_0$};
+            \node[state,accepting] (p1) [right of=p0]{$p_1$};
+            \node[state] (p2) [below right of=p0] {$p_2$};
+
+            \path[->]
+                (p0) edge [loop below] node {a,b} (p0)
+                edge [bend left] node {c} (p1)
+                (p1) edge [loop right] node {c} (p1)
+                     edge node {b} (p2)
+                    edge [bend left] node {a} (p0)
+                (p2) edge [loop below] node {a,b,c} (p2)
+                ;
+        \end{tikzpicture}
+
+        One may note that the only difference between these two automata is that all arcs labeled a are now labeled c and vice versa in the diagram, and in the table the columns for a and c has switched places.
+
+        We produce the product of these two automata. We denote that $D_1$ is in state $q_i$ and $D_2$ in state $p_j$ with the combined state $ij$.
+
+        We construct the product automata, $D = \set{Q, \set{a,b,c}, \delta, 00, \set{00,01,10,11}}$ where $Q$ is the set of all states $ij$, $i=0,1,2$  and $j = 0, 1, 2$, and $\delta$ is defined as
+
+        $$\delta((q_i,p_j), s) = (\delta_1(q_i, s), \delta_2(p_j, s))$$
+
+        where $s$ is a symbol on the alphabet and $\delta_1$ and $\delta_2$ are the transition functions of $D_1$ and $D_2$ respectively.
+
+        The result is the following automata:
+
+        $
+        \begin{array}{r || c | c | c}
+                & a & b & c \\ \hline \hline
+            \to *00 & 10 & 00 & 01 \\
+            *10 & 10 & 20 & 01 \\
+            * 01 & 10 & 02 & 01 \\
+            20 & 20 & 20 & 21 \\
+            02 & 12 & 02 & 02 \\
+            21 & 20 & 22 & 21 \\
+            12 & 12 & 22 & 02 \\
+            22 & 22 & 22 & 22
+        \end{array}
+        $
+
+        \begin{tikzpicture}[>=stealth', shorten >=1pt, auto, node distance=2cm]
+            \node[state, initial, accepting] (00) {00};
+            \node[state, accepting] (10) [above right of=00] {10};
+            \node[state, accepting] (01) [below right of=00] {01};
+            \node[state] (20) [right of=10]{20};
+            \node[state] (02) [right of=01]{02};
+            \node[state] (21) [right of=20]{21};
+            \node[state] (12) [right of=02]{12};
+            \node[state] (22) [below right of=21]{22};
+
+
+            \path[->]
+                (00) edge node {a} (10)
+                    edge [loop below] node {b} (00)
+                    edge  node {c} (01)
+                (10) edge [loop above] node {a} (10)
+                    edge node {b} (20)
+                    edge [bend left] node {c} (01)
+                (01) edge node {a} (10)
+                    edge node {b} (02)
+                    edge [loop below] node {c} (01)
+                (20) edge [loop above] node {a,b} (20)
+                    edge node {c} (21)
+                (02) edge [loop below] node {b,c} (02)
+                    edge node {a} (12)
+                (21) edge [bend left] node {a} (20)
+                    edge node {b} (22)
+                    edge [loop above] node {c} (21)
+                (12) edge [bend left] node {c} (02)
+                    edge node {b} (22)
+                    edge [loop below] node {a} (21)
+                ;
+        \end{tikzpicture}
+
+        We want to prove that this automaton doesn't accept any word where $b$ occurs after $a$ or $c$.
+
+        Let $P(n)$ mean that for all words of length $n$, the automaton rejects words where $b$ occurs after $a$ or $c$.
+
+        \begin{proof}
+            Let $w$ be a word. We perform simple induction on $|w|$.
+
+            \begin{description}
+                \item[Base case] 
+                    After processing the empty string, the automata is in the initial state which is accepting, and $b$ has not occured at all. $\therefore P(0)$.
+
+                \item[Inductive hypothesis]
+                    Assume $P(n)$ and let $x$ be a word of length $n$. Let $w = xd$ (we choose the letter $d$ to avoid confusion with our alphabet) so that $|w| = n+1$.
+
+                    Let's first assume that $x$ was rejected by the automaton. Since there are no transitions from a non-accepting state to an accepting state, the automaton must also reject $w$. By our indutive hypothesis, a $b$ occured after an $a$ oor $c$ in $w$, so this is correct.
+
+                    Let's now assume that $x$ was accepted by the automaton. By the inductive hypothesis this means that $x \in b^k\set{a,c}^{n-k}$ for some $0 \leq k \leq n$, meaning that no $b$ has occured after an $a$ or a $c$. Informally, any $b$'s are at the beginning of the word. There are two cases to handle: 
+                    \begin{description}
+                        \item[First case] There are no $a$'s or $c$'s in the word, so it consists of all $b$'s. Looking at the transition function, we see that $\hat{\delta}(00, b*) = 00$. We also see that for any value of $d$ (recall that $w=xd$) can we transition anywhere other than 00, 10 or 01, which are all accepting. Since the word begins with all $b$'s, $d$ must come after a $b$ and not after any $a$'s or $c$'s, so the automaton should not rjecect, which it doesn't.
+                        \item[Second case] There are $a$'s or $c$'s in $x$, meaning, by our inductive hypothesis, that it ends in $a$ or a $c$. We see from the transition function that such a word must be in state 01 or 10, which are both accepting. If $d$ is either $a$ or $c$, then we transition to 01 or 10, which are both accepting. Since no new $b$ has occured, we should accept the string, which we do. However, if $d=b$, then we transition to a non-accepting state. This also means that $x$ contained an $a$ or $c$, which means $w = xb$ has a $b$ after an $a$ or a $c$. We should reject the word, which we do.
+                    \end{description}
+
+                    That covers all possible cases: $x$ was rejected, and $x$ was accepted, where the latter had the following sub-cases: $x$ was all b's, $x$ was not all $b$'s. By the law $A \cup \overline{A} = U$, this covers all cases.
+                    
+                \item[Closure]
+                    Since $P(0) \land (P(n) \Rightarrow P(n+1))$ we conclude $\forall n \in \mathbb{N}. P(n)$.
+            \end{description}
+        \end{proof}
+        
+\end{enumerate}
+
+
