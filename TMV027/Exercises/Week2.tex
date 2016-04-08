@@ -46,7 +46,7 @@
             \item The set of all strings ending in $00$.
 
                 $
-                \begin{array}{r | c | c}
+                \begin{array}{r || c | c}
                         & 0 & 1 \\ \hline \hline
                     \to q_0 & q_1 & q_0 \\
                         q_1 & q_2 & q_0\\
@@ -56,7 +56,7 @@
 
             \item The set of all strings with three consecutive 0's (not necessarliy at the end)
 
-                $ \begin{array}{r|c|c}
+                $ \begin{array}{r||c|c}
                             & 0 & 1 \\ \hline \hline
                     \to q_0 & q_1 & q_0 \\
                     q_1 & q_2 & q_0 \\
@@ -67,7 +67,7 @@
 
             \item The set of strings with 001 as a substring
 
-                $ \begin{array}{r|c|c}
+                $ \begin{array}{r||c|c}
                             & 0 & 1 \\ \hline \hline
                     \to q_0 & q_1 & q_0 \\
                     q_1 & q_1 & q_2 \\
@@ -82,7 +82,7 @@
     \item
         A language is a regular language iff it is accepted by some finite automata. We thus construct this automata to prove that this is a regular language.
 
-        $ \begin{array}{r|c|c}
+        $ \begin{array}{r||c|c}
             & 0 & 1 \\ \hline \hline
             \to q_0 & q_1 & q_0 \\
             q_1 & q_1 & q_2 \\
@@ -137,6 +137,134 @@
                     edge   [loop above] node {b} (q2)
                 (q3) edge  [loop right] node {a,b} (q3);
         \end{tikzpicture}
+
+    \item
+        \begin{equation*}
+            D_1 =
+            \begin{array}{r || c | c | c}
+                &a  &b  &c \\ \hline \hline
+                \to A & B & A & A \\
+                B & B & A & C \\
+                *C & C & C & C
+            \end{array}
+        \end{equation*}
+
+        \begin{equation*}
+            D_2 =
+            \begin{array}{r || c | c | c}
+                &a  &b  &c \\ \hline \hline
+                \to D & E & D & D \\
+                E & E & F & D \\
+                *F & F & F & F
+            \end{array}
+        \end{equation*}
+
+        We then create the DFA $D_3$ which will accept both $ab$ and $ac$ by the product construction.
+
+        \begin{equation*}
+        D_3 = (\set{A,B,C} \times \set{D,E,F}, \set{a,b,c}, \delta, AD, \set{C}\times\set{F})
+        \end{equation*}
+
+        Where $\delta$ is defined as general in the product rule. We obtain the automata below.
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+            \node[state, initial] (AD) {AD};
+            \node[state] (BE) [right of=AD] {BE};
+            \node[state] (AF) [above right of=BE] {AF};
+            \node[state] (CD) [below right of=BE] {CD};
+            \node[state] (BF) [right of=AF] {BF};
+            \node[state] (CE) [right of=CD] {CE};
+            \node[state, accepting] (CF) [below right of=BF] {CF};
+
+            \path[->]
+                (AD) edge [loop above] node {b,c} (AD)
+                    edge node {a} (BE)
+                (BE) edge [loop above] node {a} (BE)
+                    edge node {b} (AF)
+                    edge node {c} (CD)
+                (AF) edge [loop above] node {b,c} (AF)
+                    edge node {a} (BF)
+                (CD) edge [loop below] node {b,c} (CD)
+                    edge node {a} (CE)
+                (BF) edge [loop above] node {a} (BF)
+                    edge [bend left] node {b} (AF)
+                    edge node {c} (CF)
+                (CE) edge [loop below] node {a} (CE)
+                    edge [bend left] node {c} (CD)
+                    edge node {b} (CF)
+                (CF) edge [loop right] node {a,b,c} (CF)
+                   ; 
+        \end{tikzpicture}
+
+        For the DFA $D_4$ that accepts $ac$ but not $ab$, we do the product construction of $D_1 \times \overline{D_2}$. The only difference between $D_2$ and its negation is the accepting states, and thus the only difference between $D_3$ and $D_4$ are the accepting states. In $D_4$ the accepting states become $\set{A,B} \times \set{F} = \set{(A,F),(B,F)}$. The automata $D_4$ is shown below.
+
+         \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+            \node[state, initial] (AD) {AD};
+            \node[state] (BE) [right of=AD] {BE};
+            \node[state, accepting] (AF) [above right of=BE] {AF};
+            \node[state] (CD) [below right of=BE] {CD};
+            \node[state,accepting] (BF) [right of=AF] {BF};
+            \node[state] (CE) [right of=CD] {CE};
+            \node[state] (CF) [below right of=BF] {CF};
+
+            \path[->]
+                (AD) edge [loop above] node {b,c} (AD)
+                    edge node {a} (BE)
+                (BE) edge [loop above] node {a} (BE)
+                    edge node {b} (AF)
+                    edge node {c} (CD)
+                (AF) edge [loop above] node {b,c} (AF)
+                    edge node {a} (BF)
+                (CD) edge [loop below] node {b,c} (CD)
+                    edge node {a} (CE)
+                (BF) edge [loop above] node {a} (BF)
+                    edge [bend left] node {b} (AF)
+                    edge node {c} (CF)
+                (CE) edge [loop below] node {a} (CE)
+                    edge [bend left] node {c} (CD)
+                    edge node {b} (CF)
+                (CF) edge [loop right] node {a,b,c} (CF)
+                   ; 
+        \end{tikzpicture}
+
+    \item
+        The language accepted by this DFA is all strings in $\set{0,1}^*$ which have an odd number of 1:s in them.
+
+        Let $w$ be a string in $\set{0,1}^*$. We prove that the above is correct by simple induction on $|w|$.
+
+        We first note that the transition function for this DFA is defined as follows:
+
+        \begin{align*}
+            \delta(A,0) = A \\
+            \delta(A,1) = B \\
+            \delta(B,0) = B \\
+            \delta(B,1) = A \\
+        \end{align*}
+
+        Let $P(n)$ mean that for strings of length $n$, the only strings accepted are those with an odd number of 1's, and they are all accepted.
+
+        \begin{description}
+            \item[Base case]
+                $|w|=0 \Rightarrow w = \epsilon$. By definition $\hat{\delta}(q, \epsilon) = q$, so $\hat{\delta}(A,\epsilon) = A$, which is not an accepting state. Since $\epsilon$ contains no 1's, and 0 is an even number, $P(0)$ holds.
+
+            \item[Inductive step]
+                Assume $P(n)$. If $|w| = n + 1$ then $w = xa$ where $|x| = n$ and $a \in \set{0,1}$.
+
+                Then $\hat{\delta}(A, w) = \delta(\hat{\delta}(A, x), a)$. Since $P(n)$ holds, we know that $\hat{\delta}(A,x)$ is $A$ if $x$ has an even number of zeroes, ond $B$ if the number is odd.
+
+                We have two cases to consider for $a$: where it is 0, and where it is 1.
+
+                (Case of $a=0$) In this case, we do not transition, but stay in the same state as before. That means $\hat{\delta}(A, w) = \hat{\delta}(A,x)$. Now we also note that $a$ didn't increase the number of 1's, so $w$ contains as many 1's as $x$. Thus, by the inductive hypothesis, we are in A iff $w$ contains an even number of 1's.
+
+                (Case of $a=1$) In this case, we always transition to the other state, and our number of 1's increase by 1. Thus, if $x$ has an even number of 1's, $w$ has an odd number, and vice versa. By the same reasoning as above, if $x$ is accepted then $w$ is not, and vice versa.
+
+                We conclude that $P(n) \Rightarrow P(n+1)$.
+                
+            \item[Closure]
+                Since $P(0) \land (P(n) \Rightarrow P(n+1))$, we conclude $\forall n \in \mathbb{N}. P(n)$.
+
+        \end{description}
+
 \end{enumerate}
 
 
