@@ -29,11 +29,20 @@ offer_aux([H|T], Accepted, Automata) ->
     end.
 
 % Returns true if the offered string is accepted by the automata
-offer_string([], Automata) ->
-    lists:any(fun(Elem) -> Elem =:= Automata#automata.state end, Automata#automata.accepting);
+offer_string(String, Automata) ->
+    ExitState = delta_hat(Automata#automata.state, String, Automata#automata.delta),
+    lists:any(fun(Elem) -> Elem =:= ExitState end, Automata#automata.accepting).
 
-offer_string([H|T], Automata) ->
-    Delta = Automata#automata.delta,
-    NewState = Delta(Automata#automata.state, [H]),
-    NewAutomata = Automata#automata{state = NewState},
-    offer_string(T, NewAutomata).
+% Delta-hat function representing the repeated application of the delta function on a word.
+%
+% Input:
+% State     The initial state from which to apply delta-hat
+% String    The string to be read
+% Delta     The delta function of the automata
+delta_hat(State, [], _) ->
+    State;
+
+delta_hat(State, [H|T], Delta) ->
+    delta_hat(Delta(State, [H]), T, Delta).
+
+
