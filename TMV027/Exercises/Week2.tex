@@ -38,7 +38,7 @@
 \subsection*{Basic exercises}
 
 \begin{enumerate}
-    \item \textbf{Exercise 2.2.4:} Give DFA's accepting the following languages over the alphabet \{0,1\}:
+    \item {Exercise 2.2.4:} Give DFA's accepting the following languages over the alphabet \{0,1\}:
 
         All these are validated in the Programs folder in this repository, using Erlang
 
@@ -267,9 +267,11 @@
 
 \end{enumerate}
 
+\newpage
 \subsection*{Additional exercises}
 
 \begin{enumerate}
+        % 1
     \item 
         We give $D_1$ in two ways:
 
@@ -412,7 +414,36 @@
                     Since $P(0) \land (P(n) \Rightarrow P(n+1))$ we conclude $\forall n \in \mathbb{N}. P(n)$.
             \end{description}
         \end{proof}
-        
-\end{enumerate}
+        %end 1
+    
+    %2
+    \item
+        \begin{description}
+            \item[2.2.1]
+            \item[2.2.5]
+            \item[2.2.7]
+            \item[2.2.8]
+            \item[2.2.9]
+            \item[2.2.11]
+        \end{description}
 
 
+    \item
+        By definition of regular languages, we know there is some automaton that accepts $\mathcal{L}$. We wish to show that then there is some automata that accepts all prefixes of $\mathcal{L}$.
+
+        Intuitively, this is simple: There is some automaton $D = (Q, \Sigma, \delta, q_0, F)$ that accepts $\mathcal{L}$, and this automaton has zero or more accepting states. It must also have a number of states from which it is possible to reach an accepting state, and a number of states from which it is impossible to reach an accepting state. Every prefix of any word in $\mathcal{L}$. Let this automaton have transition function $\delta$. Then for every prefix $x$, there exists some $z \in \Sigma^*$ for which $xz \in \mathcal{L}$. This means $\hat{\delta}(q_0, xz)$ is an accepting state. We wish that now also $\hat{\delta}(q_0, x)$ to be an accepting state. Thus, we define an automaton $D_p = (Q, \Sigma, \delta, q_0, F_p)$ where $F_p = \set{q  | \exists z \in \Sigma^* . \hat{\delta}(q, z) \in F}$. Especially note that $D$ and $D_p$ only differ by the set of accepting states, and that since $\epsilon \in \Sigma^*$, $w \in \mathcal{L} \Rightarrow w\epsilon \in \mathcal{L} \Rightarrow F \subseteq F_p$.
+
+        More simply put: any word $x$ that can get us to a state which is not dead (that is, any state from which we can still reach any accepting state), has a some suffix that can take us to an accepting state, and thus $x$ is a prefix of a word in $\mathcal{L}$. So we simply modify the automaton that accepts $\mathcal{L}$ by chaning its accepting states to all state which are non-dead.
+
+        \begin{proof}
+            Why will this work? We want to accept $x$ iff for some $z$ it is true that $xz \in \mathcal{L}$.
+
+            (If part). Assume $xz \in \mathcal{L}$, meaning $x$ is the prefix of some word in $\mathcal{L}$. Then $\hat{\delta}(q_0, xz) = \hat{\delta}(\hat{\delta}(q_0, x), z)$ which means that it is possible to reach an accepting state from $\hat{\delta}(q_0, x)$. Then  $\hat{\delta}(q_0, x) \in F_p$, so $x$ is accepted by the automata.
+
+        (Only-if part) Assume that $D_p$ accepts $x$. Then $\hat{\delta}(q_0, x) \in F_p$. That means that there is some $z$ such that $\hat{\delta}(\hat{\delta}(q_0), x), z) \in F$. This in turn means $xz$ is accepted by $D$, and by the definition of prefixes, $x$ is a prefix of a word in $\mathcal{L}$.
+
+        We have proven that $D_p$ accepts all words that are prefixes of words in $\mathcal{L}$, and thus all words that are in $\mathsf{Prefix}(\mathcal{L})$. Sinece there is then an automata that accepts $\mathsf{Prefix}(\mathcal{L})$, it is a regular language.
+        \end{proof}
+\end{enumerate} 
+
+\end{document}
