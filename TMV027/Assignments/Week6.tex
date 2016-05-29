@@ -1,0 +1,231 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+%Numbering
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\usepackage{enumerate}
+
+%Formatting
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{alltt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Week 6: Context-free languages}
+\date{\today}
+\author{Rikard Hjort}
+
+\begin{document}
+\maketitle
+
+\section*{1}
+
+    For every step of this exercise, we will create a new grammar. For all of them the starting symbol will be $S$, and we will present a new set of productions. Sometimes we will also redefine the sets of terminals.
+
+\begin{enumerate}[(a)]
+
+    \item
+        We identify the nullable states by a sort of recursive inference. We first note that $D$ and $E$ both have $\epsilon$-productions, making them nullable. We then note that $C$ has a unit production $C \to D$. Since $D$ is nullable, so is $C$. Finally, $A$ has production $A \to DC$. Since both $D$ and $C$ are nullable, so is $A$. 
+
+        Looking at all other productions, none of them contain only symbols known to be nullable. Thus only $A,C,D$ and $E$ are nullable symbols.
+
+        The ensuing new set of productions, after using the algorithm for eliminating $\epsilon$-productions, is shown below. Identical productions have been removed.
+
+        \begin{align*}
+            S &\to AaA \mid aA \mid Aa \mid a \mid BbB \mid FfF \\
+            A &\to aaB \mid aa \mid DC \mid D \mid C \\
+            B &\to bB \mid bb \mid bBA \\
+            C &\to Cc \mid c \mid cC \mid D \\
+            D &\to dD \mid d \\
+            E &\to bB \mid eS \mid eE \mid e \\
+            F &\to fF \mid fFF
+        \end{align*}
+        
+       The variables and terminals remain the same. 
+
+    \item
+        We first identify all unit pairs. First, we establish that every variable is a unit pair with itself. We then turn to the productions and find that $(A,C),(A,D)$ and $(C,D)$ are unit pairs. We then try to use these new unit pairs to construct more unit pairs, but there are none.
+
+        The unit pairs, except for those that are the pairs of one symbol with itself, are  $(A,C),(A,D)$ and $(C,D)$.
+
+        We then remove all the unit productions. Then, for every unit pair, we add to the set of production bodies for the first variable all the production bodies of the second variable. We then remove all duplicate productions.\footnote{Since we will remove duplicates anyway, we don't actually go through the pain of duplicating all production bodies by taking into account all the unit pairs of a variable with itself.} The ensuing new set of productions is shown below.
+
+        \begin{align*}
+            S &\to AaA \mid aA \mid Aa \mid a \mid BbB \mid FfF \\
+            A &\to aaB \mid aa \mid DC \mid dD \mid d \mid Cc \mid c \mid cC \\
+            B &\to bB \mid bb \mid bBA \\
+            C &\to Cc \mid c \mid cC \mid dD \mid d \\
+            D &\to dD \mid d \\
+            E &\to bB \mid eS \mid eE \mid e \\
+            F &\to fF \mid fFF
+        \end{align*}
+
+        The variables and terminals remain the same.
+
+    \item
+        Every variable has at least one production in the grammar in (b), so all the variables are generating. It remains to find those which are unreachable. We denote the set of reachable symbols $R$.
+
+        The starting symbol is $S$, so $S$ is reachable. Then $\set{S} \subseteq R$.
+        
+        The bodies of the productions with $S$ as head contains the symbols $A,a,B,b,F$ and $f$, so they are all reachable. Then $\set{S,A,a,B,b,F,f} \subseteq R$.
+
+        Continuing with the productions of $A$, we find $\set{S,A,a,B,b,C,c,D,d,F,f} \subseteq R$.
+
+        Continuing with all other symbols we have found to be reachable, we find none of them add any new symbols to the set of reachables, so $\set{S,A,a,B,b,C,c,D,d,F,f} = R$. These are all the terminals and variables except $E$ and $e$. We remove all productions with $E$ as head. We also remove $E$ from the set of variables so that the new set of variables is $\set{S,A,B,C,D,F}$. Finally, we remove the terminal $e$ from the set of terminals, so the new set of terminals are $\set{a,b,c,d,f}$. The new set of productions are shown below.
+
+        \begin{align*}
+            S &\to AaA \mid aA \mid Aa \mid a \mid BbB \mid FfF \\
+            A &\to aaB \mid aa \mid DC \mid dD \mid d \mid Cc \mid c \mid cC \\
+            B &\to bB \mid bb \mid bBA \\
+            C &\to Cc \mid c \mid cC \mid dD \mid d \\
+            D &\to dD \mid d \\
+            F &\to fF \mid fFF
+        \end{align*}
+
+    \item
+        We start by creating, for each terminal $a$ (representing a generic terminal, not the terminal $a$ in our alphabet) that appears in a production body of length 2 or more, a variable $A$ with the single production $A \to a$. To make the replacement readable, I will name each such variable $T_a$, where $a$ is the terminal that the variable produces.
+
+        \begin{align*}
+            S &\to AT_aA \mid T_aA \mid AT_a \mid a \mid BT_bB \mid FT_fF \\
+            A &\to T_aT_aB \mid T_aT_a \mid DC \mid T_dD \mid d \mid CT_c \mid c \mid T_cC \\
+            B &\to T_bB \mid T_bT_b \mid T_bBA \\
+            C &\to CT_c \mid c \mid T_cC \mid T_dD \mid d \\
+            D &\to T_dD \mid d \\
+            F &\to T_fF \mid T_fFF \\
+            T_a &\to a \\
+            T_b &\to b \\
+            T_c &\to c \\
+            T_d &\to d \\
+            T_f &\to f \\
+        \end{align*}
+
+        All our production bodies now consist of either single terminals, or the concatenation of 2 or more variables. For every production body consisting of more than 2 variables, we introduce a new variable with a single production, the body of which is the same as that which we are replacing, except for that the first variable of the body is removed. We then replace the original body with the concatenation of the first variable and the new variable. For example, for the body $S \to AT_aA$ we introduce the variable $C_1$ with the single production $C_1 \to T_aA$ and replace the original production with $S \to AC_1$.
+
+        We repeat this procedure until all production bodies consist of either single terminals, or of two variables. In our grammar, no production has more than three variables even after the replacements, so one iteration is enough. The resulting productions are below.
+
+        \begin{align*}
+            S &\to AV_1 \mid T_aA \mid AT_a \mid a \mid BV_2 \mid FV_3 \\
+            A &\to T_aV_4 \mid T_aT_a \mid DC \mid T_dD \mid d \mid CT_c \mid c \mid T_cC \\
+            B &\to T_bB \mid T_bT_b \mid T_bV_5 \\
+            C &\to CT_c \mid c \mid T_cC \mid T_dD \mid d \\
+            D &\to T_dD \mid d \\
+            F &\to T_fF \mid T_fV_6 \\
+            T_a &\to a \\
+            T_b &\to b \\
+            T_c &\to c \\
+            T_d &\to d \\
+            T_f &\to f \\
+            V_1 &\to T_aA \\
+            V_2 &\to T_bB \\
+            V_3 &\to T_fF \\
+            V_4 &\to T_aB \\
+            V_5 &\to BA \\
+            V_6 &\to FF
+        \end{align*}
+
+        By the theoriems presented in the course, if we call the language generated by the grammar given in the problem $L$, then this final grammar defined by the production rules above generate $L - \set{\epsilon}$. We may note that the starting symbol of the original grammar only is the head of production bodies containing terminals, so it could never produce $\epsilon$. Therefore, the final, CNF grammar and the original grammar are equivalent.
+
+\end{enumerate}
+
+\newpage
+\section*{2}
+
+\begin{proof}
+We begin by assuming $\mathcal{L}$ is a context-free language. Then, by the pumping lemma for CFL:s, there exists a constant $n$ for which all strings in $\mathcal{L}$ of length $n$ or longer can be pumped. By setting $i=j=n$ we get the string $0^n1^n2^n3^{2n}$, which is in $\mathcal{L}$. We call this string $z$. By the pumping lemma, we can partition $z$ into $uvwxy$, such that
+
+
+\begin{enumerate}
+    \item $|vwx| \leq n$
+    \item $v$ and $x$ are not both $\epsilon$.
+    \item $\forall i . uv^iwx^iy \in \mathcal{L}$
+\end{enumerate}
+
+We will now prove that there is no way to partition $z$ in such a way that all these three conditions hold.
+
+By the first condition, we can locate seven intervals which the string $vwx$ can be in. It might consist of
+
+\begin{enumerate}
+    \item all 0's
+    \item 0's followed by 1's
+    \item all 1's
+    \item 1's followed by 2's
+    \item all 2's
+    \item 2's followed by 3's
+    \item all 3's
+\end{enumerate}
+
+The reason that $vwx$ can't consist of more than two different letters is that each letter, 0 through 3, is repeated $n$ or more times, which means that if $vwx$ would contain three or more letters, it would contain all instances of one of the letters, and then additional letters as suffix and prefix. But since each section of letters is of length $n$ or longer, that would mean that $|vwx| > n$.
+
+Let $z_2 = uv^2wx^2y$. By the pumping lemma, $z_2 \in \mathcal{L}$ if $\mathcal{L}$ is a CFL.
+
+Now if $vwx$ is all 0's, then for some $h$ it is true $z_2 = 0^h1^n2^n3^{2n}, h > n$ since $z_2$ is identical to $z$, except it has more leading 0's. That there are more leading 0's is because not both $v$ and $x$ can be $\epsilon$, so at least one of them consists of one or more 0's. But since $z_2$ have more 0's than 2's it can't be in the language, so $vwx$ can not be all 0's if $\mathcal{L}$. The same argument, holds if $z_2$ is all 2's. So $z_2$ can't be all 2's either.
+
+Next assume $vwx$ is all 1's. Then $z_2 = 0^n1^h2^n3^{2n}, h>n$ for some $h$, by the same reasoning as above: we have only added 1's by pumping. But this means $2n < n+h$, so the number of 3's are less than the number of 0's plus the number of 1's. But this violates a condition for being in the language, so $vwx$ can't be all 1's.
+
+If $vwx$ is all 3's, then we are adding more 3's by pumping, so $z_2 = 0^n1^n2^n3^h, h > 2n$ for some $h$. There are now more 3's than 0's and 1's together, so $vwx$ can't be all 3's.
+
+If $vwx$ consists of 0's followed by 1's, then obviously either $v$ must contain some 0's or $x$ must contain some 1's, since they cant both be empty. That means that $z_2 = 0^h1^g2^n3^{2n}, h > n \lor g > n$ for some $h$ and $g$. Then for sure $h + g > 2n$, meaning there are more 0's and 1's than there are 3's, so this can't be the right partition either. The same is true if $vxw$ is 1's followed by 2's – then $z_2 = 0^n1^h2^g3^{2n}, h > n \lor g > n$, for some $h$ and $g$, and the number of 3's are less than the number of 1's and 2's together.
+
+Only one possible partition remains: $vwx$ must be 2's followed by 3's. However, to our great disappointment, $v$ must consist of some number of 2's or $x$ must consist of some number of 3's so $z_2 = 0^n1^n2^h3^g, h > n \lor g > 2n$. So either the number of 0's and 2's are once again unequal, or if $h=n$ then $n + h < g$! This partition isn't the right one either.
+
+This means there is no way to partition $z$ into $uvwxy$ such that $uv^2wx^2y$ is also in $\mathcal{L}$. But assuming $\mathcal{L}$ is a CFL, there must be a way to do this partition. The only possible conclusion is that $\mathcal{L}$ is not a CFL.
+
+\end{proof}
+
+\newpage
+\section*{3}
+
+We derive the table in the standard way. The result is below.
+
+\begin{align*}
+    &\begin{array}{l l l l l}
+        a & b & b& c & c \\ \hline
+        \set{A} & \set{B} & \set{B} &\set{C} &\set{C} \\
+        \set{S,C} &\emptyset &\set{A} &\emptyset &\\
+        \emptyset & \emptyset & \set{S,B} &&\\
+        \emptyset & \set{B} &&&\\
+        \set{S,C} &&&&
+    \end{array}
+    \\
+\end{align*}
+
+Since the set in the top row contains the starting symbol, there is a way to derive $abbcc$ from the starting symbol, which means that $abbcc$ is in the language of the grammar. This is because the set in the top row is constructed by taking the set 
+\begin{align*}
+    &\set{\text{all variables that generate } a}\set{\text{all variables that generate } bbcc} \cup ... 
+    \\
+    &\cup \set{\text{all variables that generate } abbc}\set{\text{all variables that generate } c} = 
+    \\
+    &\set{A}\set{B} \cup \set{S,C}\set{S,B} \cup \emptyset\emptyset \cup \emptyset\set{C} =
+    \\
+    &\set{AB, SS, SB, CS, CB}
+\end{align*}
+
+which is all the two-variable concatenations that produce $abbcc$. The sets of varaibles that produce strings longer than 1 in the table are in turn constructed in the same way. We then look in our grammar for production bodies which can be found in the set above, and put all those variables in a new set, and put that on the new row, which will then contain all variables which produce the desired string.
+
+As a bonus, when constructing the table we found that the grammar is ambiguous. We noticed this when constructing the top row. The concatenation $\set{A}\set{B}$ yielded $\set{AB}$ where $AB$ is a production body of $S$. Also the concatenation $\set{S,C}\set{S,B}$ yielded $\set{SS,SB,CS,CB}$ where $SS$ is a production body of $S$. That means that we have two options for the first step of the derivation, so there are two different possible parse trees for $w$, which means that the grammar is ambiguous.
+
+\begin{align*}
+        S \Rightarrow SS \Rightarrow ABS \Rightarrow ABAC \Rightarrow ABBCC \xRightarrow{*} abbcc \\
+        S \Rightarrow AB \Rightarrow ABS \Rightarrow ABAC \Rightarrow ABBCC \xRightarrow{*} abbcc \\    
+\end{align*}
+
+\end{document}

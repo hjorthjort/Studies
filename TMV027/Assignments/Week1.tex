@@ -1,0 +1,342 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blindtext}
+
+%Formatting
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{alltt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Assignment 1: Formal Proofs, Alphabets and Words}
+\date{\today}
+\author{Rikard Hjort\\910107-1315\\hjortr@student.chalmers.se}
+
+\begin{document}
+\maketitle
+\pagenumbering{arabic}
+
+
+\section{}
+The proposition we want to prove is that the given equality holds for all positive integers. More formally, we wish to prove that
+
+$$\forall n \in \mathbb{Z}_+ . \sum_{1\leq k}^n \dfrac{1}{k(k+1)} = \dfrac{n}{n+1}$$
+
+\begin{proof}
+    We proove this statement using mathematical induction over the positive integers. 
+
+    Let $P(n)$ mean that the given equality holds for a certain $n \in \mathbb{Z}_+$.
+
+    \begin{description}
+        \item[Base case] 
+            For $n = 1$, the sum is reduced to $\dfrac{1}{1(1+1)} = \dfrac{1}{2} = \dfrac{n}{n+1}$, so we conclude $P(1)$ holds.
+        \item[Inductive step] 
+            Assume $P(n)$ holds. We shall prove that $P(n+1)$ holds.
+
+            $$P(n+1) \Leftrightarrow \sum_{1\leq k}^{n+1} \dfrac{1}{k(k+1)} = \dfrac{n+1}{n+2}$$
+
+            The left hand side of this equation can be rewritten as
+
+            $$LHS = \sum_{1\leq k}^{n} \dfrac{1}{k(k+1)} + \dfrac{1}{(n+1)(n+2)}$$
+            We note that in the last expression, the first term is equivalent to $\dfrac{n}{n+1}$ under our induction hypothesis. We can thus rewrite the left hand side further.
+
+            \begin{align*}
+                LHS &= \dfrac{n}{n+1} + \dfrac{1}{(n+1)(n+2)} \\
+                    &= \dfrac{n(n+2) + 1}{(n+1)(n+2)} \\
+                    &= \dfrac{n^2 + 2n + 1}{(n+1)(n+2)} \\
+                    &= \dfrac{(n+1)^2}{(n+1)(n+2)}\\
+                    &= \dfrac{n+1}{n+2} = RHS
+            \end{align*} 
+
+            Thus we have prooved that if $P(n)$ holds, then $P(n+1)$ must necessarily hold.
+
+        \item[Closure] 
+            Since the property holds for 1, the first positive integer, and we have proven that if it holds for one positive integer, it must hold for the succeeding positive integer, by induction we have proven that the equality holds for all positive integers.
+    \end{description}
+
+    $\therefore \forall n \in \mathbb{Z}_+ . P(n)$.
+\end{proof}
+
+\textbf{Note:} If we wanted to prove this for all natural numbers, we would simply need to use the base case 0, for which the proof is trivial. Since the sum then runs from 1 is less than 0, the sum has no terms and the value is 0. The right hand side of the equality becomes $\frac{0}{1} = 0$, so the base case of 0 holds.
+
+\newpage
+% Problem 2
+\section{}
+\renewcommand{\labelenumi}{\alph{enumi})}
+\begin{enumerate}
+    \item 
+        $f(1) = 1 - h(0) = 1 - 1 = 0$
+
+        $h(1) = 1 - g(1) = 1 - f(0) = 1 - 1 = 0$
+
+        $g(1) = f(0) = 1$
+
+        $f(2) = 1 - h(1) = 1 - 0 = 1$
+
+        $h(2) = 1 - g(2) = 1 - f(1) = 1 - 0 = 1$
+
+        $g(2) = f(1) = 0$
+
+        $f(3) = 1 - h(2) = 1 - 1 = 0$
+
+        $h(3) = 1 - g(3) = 1 - f(2) = 1 - 1 = 0$
+
+        $g(3) = f(2) = 1$
+
+    \item
+        The aim is to prove that $\forall n \in \mathbb{N} . f(n) + g(n) = 1$, which we will prove by mathematical induction $n$.
+
+        \begin{proof}
+            Let $P(n)$ be the property for some $n \in \mathbb{N}$ that states 
+            $$f(n) = h(n) \land f(n) + g(n) = 1$$
+
+            \begin{description}
+                \item[Base case] We prove $P(0)$ By simply looking at the given function definitions in the problem. From them we see that $f(0) = h(0) = 1$ and $g(0) = 1 - f(0) = 0$, meaning $f(n) + g(n) = 1 + 0 = 1$, so the base case holds.
+                \item[Inductive step] Assume that $P(n)$ holds (inductive hypothesis).
+                    From this, we will show that $P(n+1)$ holds. The function definition for $f$ gives us that
+
+                    $$f(n+1) = 1 - h(n) = 1 - f(n)$$
+
+                    where the last equality can be derived from the inductive hypothesis, which states that $f(n) = h(n)$. Also from the function definitions we get
+
+                    $$h(n+1) = 1 - g(n+1) = 1 - f(n)$$
+
+                    so we conclude that $f(n+1) = h(n+1) = 1 - f(n)$.
+
+                    Lastly, from the function definitions we get
+
+                    $$g(n+1) = f(n) = 1 - (1 - f(n)) = 1 - f(n+1)$$
+
+                    since we've shown that $1 - f(n) = f(n+1)$.
+
+                    This in turn gives us $g(n+1) = 1 - f(n+1) \Leftrightarrow g(n+1) + f(n+1) = 1$.
+
+                    $\therefore$ Given $P(n)$ we have shown $f(n+1) = h(n+1) \land f(n+1) + g(n+1) = 1$, which is equivalent to $P(n+1)$.
+
+                \item[Closure] Since $P(0)$ holds, and $P(n+1)$ holds given that $P(n)$ holds, by induction, $\forall n \in \mathbb{N} . P(n)$ or $\forall n \in \mathbb{N}. f(n) = h(n) \land f(n) + g(n) = 1$, or symbolically
+
+                    \begin{prooftree}
+                        \AxiomC{$P(0)$}
+                        \AxiomC{$\forall n \in \mathbb{N}.P(n) \Rightarrow P(n+1)$}
+                        \BinaryInfC{$\forall n \in \mathbb{N} . P(n)$}
+                    \end{prooftree}
+
+                \item[Deduction] Sine $P(n) \Leftrightarrow f(n) = h(n) \land f(n) + g(n) = 1$, from weakening we get $P(n) \Rightarrow f(n) + g(n) = 1$ and thus
+
+                    \begin{prooftree}
+                        \AxiomC{$\forall n \in \mathbb{N} . P(n)$}
+                        \UnaryInfC{$\forall n \in  \mathbb{N} . f(n) + g(n) = 1$}
+                    \end{prooftree}
+
+            \end{description}
+
+        \end{proof}
+
+\end{enumerate}
+
+\newpage
+% Problem 3
+\section{}
+\begin{enumerate}
+    \item 
+        \begin{description}
+            \item[Base case] '()' is in BP. 
+            \item[Inductive step] if $w$ is in $\mathsf{BP}$, then '('$w$')' is in $\mathsf{BP}$. If $w$ and $x$ is in $\mathsf{BP}$, then $wx$ is in $\mathsf{BP}$.
+            \item[Closure] There is no other way to construct elements in BP.
+        \end{description}
+
+    \item
+        Let $\Sigma =$ \{ '(' , ')' \}. Then $\mathsf{BP}$ $\subset \Sigma^*$.
+        We define
+        \begin{align*}
+            \mathsf{nrOP} : \Sigma^* \to \mathbb{N} \text{ where } \mathsf{nrOP}(w) &=
+            \begin{cases}
+                0 &\text{ if } w = \epsilon\\
+                1 + \mathsf{nrOP}(x) &\text{ if } w = \text{'('}x, x \in \Sigma^*\\
+                \mathsf{nrOP}(x) &\text{ otherwise }
+            \end{cases}
+            \\
+            \text{and}\\
+            \mathsf{nrCP} : \Sigma^* \to \mathbb{N} \text{ where } \mathsf{nrCP} (w) &=
+            \begin{cases} 
+                0 &\text{ if } w = \epsilon\\
+            1 + \mathsf{nrCP} (x) &\text{ if } w = \text{')'}x, x \in \Sigma^*\\
+                \mathsf{nrCP} (x) &\text{ otherwise }
+            \end{cases}
+        \end{align*}
+
+    \item
+        Before proceeding with the inductive proof, we first need a lemma that will help us.
+        \begin{lemma}\label{lemma:2}
+            $\forall w,x \in \Sigma^* . \mathsf{nrOP}(wx) = \mathsf{nrOP}(w) + \mathsf{nrOP}(x) \land \mathsf{nrCP}(wx) = \mathsf{nrCP}(w) + \mathsf{nrCP}(x)$
+        \end{lemma}
+        \begin{proof} The string $w$ is a concatenation of characters $a_1a_2...a_m$ where $a_i \in \Sigma$ and $k$ of these characters are equal to '('. Likewise, $x$ is a concatenation of characters $b_1b_2...b_m$ where $b_i \in \Sigma$ and $l$ of these characters are equal to '('.
+
+                    Now from the definition of $\mathsf{nrOP}$ we see the function iterates over a string, always checking the first character, incrementing itself by either 1 or 0 in each step, and that the only character that increases the value of the function is '('. All other characters leave the value unchanged. Thus
+
+            $$\mathsf{nrOP}(w) = \sum_{i = 1}^m \begin{cases} 1 \text{ if } a_i = \text{'('}\\ 0 \text{ otherwise } \end{cases} = \sum_{i = 1}^k 1 = k$$
+
+            and 
+            $$\mathsf{nrOP}(x) = \sum_{i = 1}^n \begin{cases} 1 \text{ if } b_i = \text{'('}\\ 0 \text{ otherwise } \end{cases} = \sum_{i = 1}^l 1 = l$$
+
+
+            If we concatenate these strings we get $wx = a_1a_2...a_mb_1b_2...b_n$ and thus 
+        \begin{align*}
+            \mathsf{nrOP}(wx) &= \sum_{i = 1}^{m+n} \begin{cases} 1 \text{ if } (i \leq m \land a_i = \text{'('}) \lor (i > m \land b_{i-m} = \text{'('})\\ 0 \text{ otherwise } \end{cases}\\
+                              & = \sum_{i = 1}^m  \begin{cases} 1 \text{ if } a_i = \text{'('}\\ 0 \text{ otherwise } \end{cases} +  \sum_{i = 1}^n \begin{cases} 1 \text{ if } b_i = \text{'('}\\ 0 \text{ otherwise } \end{cases}     \\
+                              & = k + l\\
+                              & = \mathsf{nrOP}(w) + \mathsf{nrOP}(x)
+        \end{align*}
+
+        The proof for $\mathsf{nrCP}$ is completely analogous, differing only in that we check for the presence of ')' instead of '('.
+
+        \end{proof}
+        Using our lemma, we prove that $\mathsf{nrOP}(x) = \mathsf{nrCP}(x)$ for all $x \in \mathsf{BP}$ by structural induction on $x$. Since the lemma holds for all pairs of elements in $\Sigma^*$ and $\mathsf{BP} \subset \Sigma^*$, the lemma holds for all pairs of elements in $\mathsf{BP}$.
+
+        Let $P(x)$ mean that $\mathsf{nrOP}(x) = \mathsf{nrCP}(x)$. We will prove that $\forall x \in \mathsf{BP}. P(x)$.
+
+        \begin{description}
+            \item[Base case] The base case for the definition of $\mathsf{BP}$ is '()'. Then from the function definitions we get
+            $$\mathsf{nrOP}(\text{'()'}) = 1 + \mathsf{nrOP}(\text{')'}) = 1 + \mathsf{nrOP}(\epsilon) = 1 $$
+        $$\mathsf{nrCP}(\text{'()'}) = \mathsf{nrCP}(\text{')'}) = 1 + \mathsf{nrCP}(\epsilon) = 1 $$
+
+        Thus,
+
+        \begin{prooftree}
+            \AxiomC{}
+            \UnaryInfC{P(\text{'()'})}
+        \end{prooftree}
+    \item[Inductive step] Assume that $P(x)$ holds for some element $ x \in \mathsf{BP}$. Then we can construct a new element '('$x$')', which is also in $\mathsf{BP}$. Then $P($'('$x$')') holds.
+
+        \begin{proof}
+    $$\mathsf{nrOP}(\text{'('}x\text{')'}) = 1 + \mathsf{nrOP} (x\text{')'})= 1 + \mathsf{nrOP}(x) + \mathsf{nrOP}(\text{')'}) = 1 + \mathsf{nrOP}(x) + \mathsf{nrOP}(\epsilon) = 1 + \mathsf{nrOP}(x)$$
+
+    where the second equality is given by lemma \ref{lemma:2} and the rest come from the definition of $\mathsf{nrOP}$.
+
+    Likewise, 
+
+$$\mathsf{nrCP}(\text{'('}x\text{')'}) = \mathsf{nrCP} (x\text{')'})= \mathsf{nrCP}(x) + \mathsf{nrCP}(\text{')'}) = \mathsf{nrCP}(x) + 1 + \mathsf{nrCP}(\epsilon) = \mathsf{nrCP}(x) + 1$$
+
+Since our inductive hypothesis states that $P(x)$ holds, we can conclude that $\mathsf{nrCP}(x) + 1 = 1 + \mathsf{nrOP}(x) \Leftrightarrow \mathsf{nrOP}(\text{'('}x\text{')'}) = \mathsf{nrCP}(\text{'('}x\text{')'})$.
+
+\begin{align}
+    \label{ptree:1}
+    \therefore
+    \AxiomC{$\forall x \in \mathsf{BP} . P(x)$}
+    \UnaryInfC{$\forall x \in \mathsf{BP}.P(\text{'('}x\text{')'})$}
+    \DisplayProof
+\end{align}
+
+\end{proof}
+
+Now assume $P(w)$ and $P(x)$ hold for some  $w,x \in \mathsf{BP}$. From this we prove that $P(wx)$ holds.
+
+\begin{proof}
+    From lemma \ref{lemma:2} it follows that $\mathsf{nrOP}(wx) = \mathsf{nrOP}(w) + \mathsf{nrOP}(x)$ and $\mathsf{nrCP}(wx) = \mathsf{nrCP}(w) + \mathsf{nrCP}(x)$. It follows that
+
+    $$\mathsf{nrOP}(wx) = \mathsf{nrOP}(w) + \mathsf{nrOP}(x) = \mathsf{nrCP}(w) + \mathsf{nrCP}(x) = \mathsf{nrCP}(wx)$$
+
+\begin{align}
+    \label{ptree:2}
+    \therefore
+    \AxiomC{$\forall w, x \in \mathsf{BP} . P(w) \land P(x)$}
+    \UnaryInfC{$\forall x \in \mathsf{BP}.P(wx)$}
+    \DisplayProof
+\end{align}
+
+\end{proof}
+\item[Closure] Since $P$ holds for the base case, and all the inductive steps, we conclude that P holds for all elements in $\mathsf{BP}$. Symbolically,
+
+    \begin{prooftree}
+        \AxiomC{$P(\text{'()'})$}
+        \AxiomC{$\forall x \in \mathsf{BP} .P(x) \Rightarrow P(\text{'('}x\text{')'})$}
+        \AxiomC{$\forall w,x \in \mathsf{BP}. (P(w) \land P(x)) \Rightarrow P(wx)$}
+        \TrinaryInfC{$\forall x \in \mathsf{BP} . P(x)$}
+        \UnaryInfC{$\forall x \in \mathsf{BP}. \mathsf{nrOP}(x) = \mathsf{nrCP}(x)$}
+    \end{prooftree}
+\end{description}
+
+\end{enumerate}
+
+%Problem 4
+\newpage
+\section{}
+
+
+First we prove the following lemma:
+
+\begin{lemma} \label{lemma:3}$\forall w \in \Sigma^{n+1} . \exists y \in \Sigma^n . \exists a \in \Sigma . w = ay$.
+        \end{lemma}
+
+        \begin{proof}
+            $\Sigma^n$ by definition contains every possible combination of $n$ consecutive symbols in $\Sigma$. Let $w \in \Sigma^{n+1}$ be such that $w = a_1a_2...a_{n+1}, a_i \in \Sigma$. Now every such string $w$ can be represented as $a_1y$, the concatenation of $a_1$ and a string $y$ of length $n$. Since we have stated that $\Sigma^n$ contains all strings of length $n$, it follows that $y \in \Sigma^n$. Thus every string $w \in \Sigma^{n+1}$ can be represented as $aw$ where $a \in \Sigma$ and $w \in \Sigma^n$.
+        \end{proof}
+
+Then, using mathematical induction on $|w|$ we shall prove $$\forall w \in \Sigma^* . \mathsf{rev}(\mathsf{rev}(w)) = w$$
+\begin{proof}
+
+    Let $n \in \mathbb{N}$ and $P(n) \Leftrightarrow \forall w \in \Sigma^n . \mathsf{rev}(\mathsf{rev}(w)) = w$.
+
+    \begin{description}
+        \item[Base case]
+            The base case is $|w|=0 \Leftrightarrow w = \epsilon$.
+            By definiton $\mathsf{rev}(\epsilon) = \epsilon$ and thus
+
+            $$\mathsf{rev}(\mathsf{rev}(w)) = \mathsf{rev}(\epsilon) = \epsilon$$
+
+            so $P(0)$ holds.
+            
+        \item[Inductive step] Assume $P(n)$ holds for some $n \in \mathbb{N}$. Based on this we wish to prove that $P(n+1)$ holds.
+
+        Let $w \in \Sigma^{n+1}$. Then by lemma \ref{lemma:3}, $\exists y \in \Sigma^n. \exists a \in \Sigma. w = ay$. By definition of the reverse function, $\mathsf{rev}(ay) = \mathsf{rev}(y)a$. Thus
+
+        $$\mathsf{rev}(\mathsf{rev}(ay)) = \mathsf{rev}(rev(y)a) = a\mathsf{rev}(\mathsf{rev}(y))$$
+
+        The second equality follows from the assumption stated in the problem. Furthermore
+        
+        $$P(n) \land y \in \Sigma^n \Rightarrow \mathsf{rev}(\mathsf{rev}(y)) = y$$
+
+        which means $\mathsf{rev}(\mathsf{rev}(ay)) = ay$.
+
+        Since 
+        
+        $$(\forall w \in \Sigma^{n+1} . \mathsf{rev}(\mathsf{rev}(w)) = w) \Leftrightarrow P(n+1)$$
+
+        we can conclude that $P(n) \Rightarrow P(n+1)$. And since $n$ is arbitrarily chosen, we can strengthen this further to $\forall n \in \mathbb{N} . P(n) \Rightarrow P(n+1)$. 
+        
+
+    \item[Closure]
+        From the base case we have $P(0)$, and from the inductive step we have $\forall n \in \mathbb{N} . P(n) \Rightarrow P(n+1)$. By induction we can conclude
+
+        \begin{prooftree}
+            \AxiomC{$P(0)$}
+            \AxiomC{$\forall n \in \mathbb{N} . P(n) \Rightarrow P(n+1)$}
+            \BinaryInfC{$\forall n \in \mathbb{N} . P(n)$}
+            \UnaryInfC{$\forall n \in \mathbb{N} . \forall w \in \Sigma^n . \mathsf{rev}(\mathsf{rev}(w)) = w$}
+        \end{prooftree}
+
+    \item[Deduction]
+        By definition 
+        $$\Sigma^* = \Sigma^0 \cup \Sigma^1 \cup \Sigma^2 ... = \bigcup_{n \in \mathbb{N}}\Sigma^n$$
+
+    Thus, $x \in \Sigma^* \Rightarrow \exists n \in \mathbb{N}.x \in \Sigma^n$. Then our conclusion from the closure states that $\mathsf{rev}(\mathsf{rev}(x)) = x$.
+
+    \end{description}
+\end{proof}
+\end{document}
