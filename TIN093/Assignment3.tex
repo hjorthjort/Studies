@@ -1,0 +1,105 @@
+%General
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%Symbols
+\usepackage{commath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%Numbering
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\usepackage{enumerate}
+
+%Formatting
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{alltt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=true}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{caption}
+
+\title{Assignment 3}
+\date{\today}
+\author{Rikard Hjort}
+
+\begin{document}
+\maketitle
+
+\section{}
+
+Call all deadlines $d_1 = d_2 = ... = d_n = W$. We may now select any set of jobs $J$ such that $\sum_{j \in J} s_j \leq W$, and it will be possible to execute them all, no matter in which order we perform them. The optimal solution is one such that $\sum_{j \in J} v_j$ is maximal.
+
+Solving the Knapsack problem means picking a number of items in any order such that the sum of their value is maiximal, and the total of their weights is below a threshold. Let $W$ be this threshold, let there be $n$ items where the $i$th item has weight $s_n$ and value $v_i$. The solution to the Knapsack problem is then to pick a set of items, $J^\prime$, such that $\sum_{j \in J^\prime} s_j$ is below the threshold $W$ and $\sum_{j \in J^\prime} v_j$ is maximized.
+
+It should then be clear that any Knapsack problem has an equivalent problem of weighted job scheduling, i.e., a solution to the job scheduling is \textit{exactly} a solution to the Knasack problem, and vice versa for any job scheduling problem with all weights equal.
+
+This requires actually no reduction time at all: just treat the weights in the Knapsack problem as job sizes, and the threshold as the deadline for all of them, or the other way around.
+
+\section{}
+
+Take any optimal solution $J = (j_1, j_2, ..., j_k)$. One of the $k$ jobs, $j_i$, has the earliest deadline. (If several have the same deadline, we can pick any of them and, a bit sloppily, call it "the" earliest). We now claim that we can take this job, move that to be the first job in the permutation, call this solution $J^\prime$, and this will still be valid (i.e, all scheduled jobs are finished before their deadlines) and optimal (i.e., the total value is maximized) solution.
+
+It is trivial to prove that if $J$ is optimal, so is $J^\prime$. Both sets contain the same jobs, the total value is the sum of the values of each job, and since addition is commutative, it does not matter in which order we sum numbers, the result will be the same. It follows that $\sum_{j \in J} v_j = \sum_{j \in J^\prime} v_j$. Then if $J$ is optimal, so is $J^\prime$.
+
+Now we need to prove only that $J^\prime$ is a valid solution. We already know that $j_i$ has a deadline that is at least as early as any other, i.e., all jobs have either the same or a later deadline. Consider the jobs $j_1, ..., j_{i-1}$. In $J$, these are all done before $j_i$, so $j_i$ starts only after they all finish. That means that $j_i$ finishes at time $\sum_{x=1}^i s_{j_x}$, which must be before $d_{j_i}$, or $J$ is not valid. We can then safely reorder the jobs so that $J^\prime = (j_i, j_1, j_2, ..., j_{i-1}, j_{i+1}, ..., j_k)$. All jobs $j_{i+1}$ and after don't get their schedule changed, and all those before still finish at least before $d_{j_i}$, which is valid since $d_{j_i} \leq d_{j_x}$ for all $1 \leq x \leq k$.
+
+$$\therefore J^\prime \text{ is both valid and optimal.}$$
+
+Let us order the jobs by deadline, and mark those which are in the optimal solution. We can now pick the first marked job and do that first. This is safe because of the property we have just proven. We now want to optimize the rest of the jobs. This amounts to decreasing all deadlines by the size of the first job, and then choosing which job we will do next, until all jobs in the solution has been picked. We can again do this by picking the first marked job. By induction, for any optimal solution, there is a solution containing the same jobs, but ordered by deadline.
+
+\section{}
+
+We begin by sorting all jobs by deadline.
+
+We define $OPT(j, t)$ as the maximal value that can be attained by completing any subset of the $j$ first jobs before time $t$.
+
+$$OPT(j, t) = \max\{OPT(j-1, t), OPT(j-1, p(\min\{t, d_j \} - s_j)) + V(j,t)\}$$
+
+where
+
+\[
+    V(j, t) = 
+    \begin{cases} 
+        v_j \text{ if } s_j \leq t\\
+        0 \text{ if } s_j > t
+    \end{cases}
+\]
+
+and $p(t)$ is the latest deadline before or at time $t$, or 0 if none exist. The $p$ function is strictly not necessary, but could save some time in an implementation if we calculate table values as we go, rather than calculate them all before checking the final optimal value.
+
+We initialize $OPT(0, t) = 0$ for all $t$ and $OPT(j, 0) = 0$ for all $j$. This indicates that choosing among 0 jobs can give no value, and no non-empty set of jobs can be completed in 0 time.
+
+We solve the problem by computing all values of the $OPT$ function, and then backtracing from $OPT(n, d_n)$.
+
+\subsection{Correctness}
+
+As we have proved, me may always order the jobs by deadline in an optimal solution. Therefore, we may choose the last job to be included first, and then optimize the remaining jobs, given the additional time constraint that there must be time to complete the chosen job. This is encoded in the decrementing of the available time in the $OPT$ function.
+
+For any $j$, we may include it or not. We should include it only if it means the total value is not decreased. We may include it only if the $t$ is such that there is time to perform $j$, in which case $V(j,t) = v_j$. (Technically, we should check that we can perform the job before both $t$ and $d_j$, but I assume here all jobs have sizes smaller then their deadlines. If not, those jobs could be quickly weeded out before running the algorithm). Further, if we include $j$, there are two possibilities: if $t > d_j$ we may still only perform the job starting at $d_j - s_j$, leaving $d_j - s_j$, or there would not be time to finish before the deadline. If $t < d_j$, then we must finish before $t$, leaving $t - s_j$ time for the other jobs. Thus we decrease $s_j$ from whichever is smaller of $t$ and $d_j$, and allow that much time for the previous jobs.
+
+We note that the time we leave for other jobs is strictly less if we choose to include job $j$ than if we do not include it. Therefore, the value of $OPT(j-1, t)$ is always at least as big as $OPT(j-1, p(\min\{t, d_j \} - s_j)) + V(j,t)$ if $V(j,t) = 0$, so we don't need to multiply the latter with 0, for example, to ensure correctness. However, when backtracing we must always ensure that if the values of these two are equal, we must choose the path that does not include $j$, or we might report it was included when it was in fact not, because there was no time to perform it.
+
+\subsection{Time analysis}
+
+We begin by noting that we consider comparisons of integers and addition to be an elementary operation.
+
+Any value of the $V$ function can be computed in $O(1)$ time, since it only performs a comparison.
+
+Further, we can compute $p(t)$ for all $t$ up to $d_n$ in $O(d_n)$ time by setting $p(d_j) = d_j$ for all deadlines, and then setting $p(t) = p(t-1)$ for all other values. This can be done in one scan of the deadlines in $O(n)$ time, and one scan from 0 to $d_n$ of the values of $p$ in $O(d_n)$ time.
+
+Finally, we compute the $OPT$ table. We set all initial values. Then for every $j$ going from 1 to $n$, we compute $OPT(j, t)$ for all $t$ going from 1 to $d_n$. Each computation runs in $O(1)$, since it involves only checking a precomputed value, $p(t-s_j)$, computing $V(j,t)$, checking two precomputed values int the $OPT$ table, doing addition, and checking the two obtained values and pick the greater. We calculate the value of $OPT(j,t)$ for in total $n d_n$ values for $j$ and $t$, so computing the table takes $O(n d_n)$ time.
+
+Backtracing requires $O(n)$ time, since at every step we decide once and for all if one of the jobs was included or not, which  only requires checking precomputed values and evaluation the $V$ function.
+
+The total time for the algorithm is then bounded by $O(n d_n)$. This is pseudopolynomial, so it is exponential in the input length, since $d_n$ is exponential to its length. We would not have expected anything less, since we know this problem is $\mathcal{NP}$-hard, since Knapsack is and we could reduce Knapsack to an instance of this scheduling problem in polynomial (in fact, constant) time.
+
+\end{document}
