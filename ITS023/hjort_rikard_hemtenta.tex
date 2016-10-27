@@ -2,38 +2,32 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
+\usepackage{apacite}
 
 %Symbols
 \usepackage{commath}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata}
 
 %Numbering
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
-\usepackage{enumerate}
 
 %Formatting
 \usepackage{bussproofs}
-\usepackage{hyperref}
 \usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{alltt}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
-\hypersetup{colorlinks=true}
-\hypersetup{colorlinks=true}
 \usepackage{graphicx}
 \graphicspath{ {img/} }
 \usepackage{caption}
 
 \title{ITS023 Hemtentamen 2016}
 \date{\today}
-\author{Rikard Hjort}
-
+\author{Rikard Hjort} 
 \begin{document}
 \maketitle
 
@@ -41,17 +35,97 @@
 
 \subsection{Problemläget}
 
-\clearpage
+% 1550 ord!
+
+Det är inte helt klart hur vanligt denguefeber är i Afrika \cite[s. 8]{WHO:2009}. Redan detta är ett stort hinder för arbetet med bekämpning. Särskilda insatser för att förebygga denguefeber, såsom utbildning och stora dräneringsprojekt, kan vara kostsamma. Problemet med denguefebers spridning orsakas delvis av bristen på informatin om var insatser behövs mest, vilket gör att resurser inte används så effektivt som möjligt.
+
+Vidare är en del av problemet hur sjukdomen sprids. Eftersom myggor är den huvudsakliga smittokällan \cite[s. 14]{WHO:2009} räcker inte karantäner eller vanliga sanitetsåtgärder för att stoppa sjukdomsspridningen. Istället behöver myggorna, specifikt \emph{Aedis aegypti}, stoppas från att föröka sig, vilket kräver insatser från alla i ett samhälle. De insatser som behövs är dessutom högst specifika (till skillnad från till exempel hygien och sanitet, vilket förebygger många sjukdomar).
+
+Slutligen framstår denguefeber inte heller som ett lika allvarligt problem som som vanligare och dödligare sjukdomar som HIV/AIDS. \cite[s. 8]{WHO:2009}. Detta försvårar arbetet med utrotningen av denguefeber, eftersom det gör det svårare att få stöd till insatser och att övertyga människorna i riskområden att anpassa sina vanor för att minska spridningen – både lekmän och de som arbetar direkt med hälsofrågor, som medicinsk personal, tjänstemän och politiker.
+
+Detta, att denguefeber hamnar i skymundan, kan försvåra insatser för att utrota myggen. De åtgärder som krävs på individnivå, till exempel att tömma krukor och fylla igen pölar \cite[s. 61]{Singapore:video, WHO:2009}, kommer vara svåra att få till om inte gemene man ser problemet som prioriterat. Det är därför viktigt att i första hand verka för att upplysa om farorna, och först som en följd på det vad som kan göras för att utrota myggor.
+
+\subsection{Åtgärder}
+
+Min bedömning är att IT inte ska spela en huvudroll för utrotningen av denguefeber, utan istället ska stödja övriga insatser genom att \emph{sprida} och \emph{samla} information. Specifikt bör IT stödja en effektiv fördelning av resurser och insatser, och utrotandet av \emph{Aedis aegypti}.
+
+\subsubsection{Samla information}
+
+Jag föreslår en gemensam plattform bestående av flera databaser. En databas till vilken medicinsk personal kan rapportera fall av denguefeber, misstänkta fall och vaccinationer skulle spela en central roll. En annan sådan databas skulle kunna innehålla relevant data om platser: områden med förhojd risk, platser där vattensamlingar kan bildas efter kraftiga regn, och hur väl utbyggd sanitetstjänster som sophämtning är i en viss stad. En förebild här kan vara Singapore, där det bland annat finns kartor över "aktiva kluster" av Dengue \cite{Singapore:clusters}.
+
+Målet med den här insatsen är att förbättra informationen till WHO, myndigheter och hälsovårds\-apparaten. Informationen kan de använda för att fatta informerade beslut om var insatser behövs – särskilt vid plötsliga utbrott, då det inte finns tid för insamling av information, men det är extra viktigt att sätta in rätt resurser på rätt plats så snabbt som möjligt. Sådan data skulle också kunna användas till kartläggningen av denguefeber för att öka förståelsen av dess spridning, vilket skulle förbättra vårt arbete, och genom den återkopplingsmekanismen leda till bättre informationsinsamling, och så vidare.
+
+\subsubsection{Sprida information}
+
+Eftersom en del av problemet med denguefeber är att sjukdomen lätt kommer i skymundan, är effektiv och relevant informationsspridning en viktig del av utrotningsarbetet.
+
+Jag föreslår även här en IT-plattform (vars data kan tillgängliggöras via både hemsidor och appar, beroende på lokalt kontext) med de bästa tillgängliga råden för privatpersoner, hushåll, arbetsplatser och större samhällen för hur man förstör potentialla habitat för \emph{Aedis aegypti}. Till exempel föreslår WHO en rad specifika insatser \cite[s. 60-64]{WHO:2009}. Plattformen kan utnyttja aktuell väderdata och rapporter om dengueutbrott, till exempel för automatiska utskick eller push-notifikationer till berörda parter när riskerna ökar.
+
+Ovanpå plattformen byggs sedan applikationer till smarta telefoner\footnote{I Kenya, Sydafrika och Nigeria är det nästan lika vanligt med smarttelefoner som i övriga världen \cite[s. 3]{ericsson}.}, hemsidor, och SMS-tjänster som lokala regeringar och hjälporganisationer kan använda för att skicka ut information när den behövs, dit den behövs. Efter kraftiga regnfall kan man till exempel uppmana befolkningen att undersöka och åtgärda vattensamlinar i till exempel ihåliga staket och tomma fat, till exempel med videoklipp som i Singapore \cite{Singapore:video}, eller ren text, beroende på uppkopplingsförhållandena.
+ 
+Informationsplattformen kan också direkt koppla in sig i plattformen för informations\emph{insamling}, och på så sätt kan människor få reda var denguefeber har rapporterats och var riskerna är stora, se till exempel klusterdata från Singapore \cite{Singapore:clusters} och övervakningsdata från Puerto Rico \cite[s. 73]{WHO:2009}. Detta torde öka kunskap kring och respekt för denguefeber. Insamlingsarbetet kan på så sätt ha en direkt påverkan på medvetenheten bland människor, och på så sätt förbättra även informationsspridningen, vilket gör att jag betraktar en insamlingsplattform som den högst prioriterade åtgärden.
+
+\subsubsection{Möjliga hinder}
+
+\paragraph{Malaria}
+% Lokalt kontext %
+Som nämnts så kommer denguefeber i skymundan på grund av andra sjukdomar, exempelvis malaria. I samhällen där malaria är vanligt kan därför informationsinsatser vara mindre effektiva, om man inte tar hänsyn till detta. Det kan då vara olämpligt att informera kraftigt om denguefeber, eftersom det riskerar att rinna av mottagaren. Men eftersom även malaria orsakas av myggor, som behöver tillgång till stillastående vatten, kan arbetet med denguefeber anpassas till det lokala kontextet för att vara maximalt effektivt. Om informationen i första hand gäller malariaprevention kan den få maximalt genomslag, utan att åtgärdena som föreslås är annorlunda.
+
+\paragraph{Lokala myndigheter}
+% Intressenter %
+Vår arbetsgrupp har till uppgift att utrota denguefeber. För våra ändamål är det därför viktigt att flytta denguefeber högt upp i medvetandet för befolkningen, och att göra det till en hög prioritet för befolkningen i de aktuella länderna. Som tidigare nämnts får andra sjukdomar mer uppmärksamhet. Det går inte att bortse från att detta skulle bero på att lokala myndigheter anser att dessa sjukdomar och problem är viktigare, och de därför inte kan gå in helhjärtat i bekämopningen av denguefeber. Åtgärder som syftar till att göra det lättare för lokala myndigheter att bekämpa denguefeber kan därför falla kort. För att nå våra mål är det viktigt att vi i WHO driver arbetat med att sprida information och att utbilda medicinsk personal i datainsamling. Vi behöver också göra det enkelt för lokala myndigheter att bidra, genom att bygga enkla integrationer med deras nuvarande sjukvårdssystem. Det kan till exempel röra sig om att vi samlar in data nedteckand på papper och för in den våra system.
+
+% Inflytandesfär %
+Som överstatligt organ är vi förstås begränsade i vad vi kan göra, och vår roll bör vara att skapa förutsättningar för lokala aktörer att ändra beteenden och samla data. Vi har även möjlighet att driva på förändringen med påverkansarbete riktat mot de lokala aktörerna. Vi har antagligen inte resurser att på egen hand undersöka och ta prover för att avgöra förekomsten av denguefeber. Det är något vi måste göra i samarbete med lokala myndigheter, genom att få utbilda medicinsk personal i lämplig provtagning och datainsamling, och i hur man kan använda de IT-plattformar vi tar fram.
+
+\paragraph{Bristande kunskap}
+Innan vi påbörjar utvecklingen av storskaliga plattformar måste vi självklart inleda en dialog med de som förväntas använda dem – lokala myndigheter och medicinsk personal – och se till att de får inflytande över utvecklingen. Vi vet inte än hur de skulle ställa sig till sådana plattformar jag föreslår, om de ens anser denguefeber vara viktigt nog att lägga tid och resurser på, samt om sådana plattformar passar in i deras arbete. Vi skulle till exempel kunna sätta ihop arbetsgrupper med representanter för WHO, lokala myndigheter, medicinsk personal och andra intressenter för att kartlägga intressen och behov. Innan vi har sådan information bör vi inte börja bygga en insamlingsplattform. Arbetet med en informationsplattform skulle däremot kunna påbörjas tidigare, eftersom en sådan skulle kunna användas av WHO och andra hjälporganisationer för att göra kampanjer, men jag föreslår ändå att vi avvaktar med allt arbete innan vi samlat intressenter för samtal, så att dyrbara resurser inte läggs på att bygga fel saker.
+
+\subsection{Följdproblem av åtgärder}
+
+% Följdproblem %
+Det är förstås inte helt oriskabelt att sätta upp system för masskommunikation och informationsinsamling. Eftersom vi arbetar med en mycket stor region, i vilken det finns länder med många olika regimtyper och statsapparater, finns risken att sådana plattformar används för övervakning och desinformation. Om en stat använder vår plattform för informationsinsamling för att få reda på sina medborgares sjukhusbesök, kan förtroendet för båda WHO och för statlig hälsoinformation kraftigt undermineras. Informationskampanjer försvagas då, och det blir svårare att få samtycke till insamling, och medborgare kan utsättas för faror som långt överstiger de som denguefeber utgör, genom statlig maktutövning.
+
+\subsection{Osäkerhetsparametrar}
+
+En viktig utmaning vi behöver ha respekt för är att vi arbetar med en mängd mycket olika länder, som i somliga fall har mycket litet utöver klimat gemensamt. Statskick, kultur och levnadsstandard skiljer sig markant. Vi kan därför omöjligt förutse hur våra plattformar kommer tas emot, eller om de kommer användas överallt. Den höga korruptionsgraden i till exempel Angola \cite{corruption:angola} gör att det kan vara svårt och riskabelt att få med lokala myndigheter i vårt arbete, eller att ge dem stöd i form av pengar till att integrera sig med vår plattform. 
+
+En annan risk för kontinuiteten i vår datainsamling är utbrott av andra sjukdomar, eller katastrofer som sätter stor press på sjukhusen. I någon form av katastrofsituation är det långt mer osannolikt att komplett information skulle samlas in från sjukhusen, eftersom viktigare saker kommer före. Tyvärr skulle sådana katastrofer mycket väl kunna sammanfalla med ökade risker för utbrott av denguefeber, om de till exempel beror på regnstormar eller andra myggburna sjukdomar.
+
+% 1550 ord!
+
 \section{}
 
-\clearpage
-\section{}
 
 \clearpage
-\section{}
+\subsection{Scratchpad}
+Sprids framförallt av människor. \cite[s. 16]{WHO:2009}. Ju färre infekterade desto mindre spridning. Det är därför extra viktigt att hålla infektionerna nere i urbana områden där människor rör sig över ett
 
-\bibliography{Bibl} 
+Områdena vi handskas med är otroligt olika. Somalia, Kongo-Kinshasa, Nigeria och Madagaskar är djupt olika länder, och det kommer krävas olika insatser. På vissa platser kan det vara svårt att nå ut direkt.
 
-\bibliographystyle{ieeetr}
+\subsubsection{Digitalkampanjer}
+
+\begin{itemize}
+    \item Digitalkampanjer (Se Singapore video)
+        \begin{itemize}
+            \item Stillastående vatten, varna om vattenpolisen.
+            \item Påminnelser efter regnfall att tömma stillastående vatten (bygg vana) \item Förbereda vaccineringskampanj
+        \end{itemize}
+    \item App för att rapportera sopansamlingar och vatten
+    \item Laser (sämre, inte riktigt värt det eftersom det är så ovanligt.)
+\end{itemize}
+
+I alla dessa länder finns inte en fungerande samhällsapparat. Att förbereda vaccinkampanjer där vore svårt. Att skicka in vaccin kan leda till att någon lägger beslag på och säljer vaccinet. Krävs att vi oberoende part kan sköta det, och garanteras skydd.
+
+Förbättring av vattentillgång (mer rinnande vatten) kan leda till mer stillastående vatten, eftersom man använder mer vatten totalt. Viktigt här med beteendeförändring.
+
+Även insatser för att ta bort stillastående vatten kan vara problematiska. Politiska beslut om sådana förbud kan slå hårt mot samhällen och grupper vars rena vattentillgångar inte kommer från rinnande vatten. Policyer som är okänsliga för det lokala kontextet kan då slå hårdare än själva denguefebern. WHO:s riktlinjer \cite[s. 61]{WHO:2009} fungerar för många typer av situationer, och policyer bör inte vara hårdare än dessa riktlinjer, t.ex. genom att förbjuda tunnor utomhus, när det räcker att förse dem med myggsäkra lock.
+
+\subsubsection{Åtgäders inflytande på varandra}
+
+\emph{Aedis aegypti} sprider många fler tropiska febersjukdomar än Denguefeber. Minskadet av dem leder därför till en minskning av även andra sjukdomar.
+\bibliography{hemtenta} 
+
+\bibliographystyle{apacite}
 
 \end{document}
