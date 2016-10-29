@@ -2,7 +2,21 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
+\usepackage[swedish]{babel}
+\selectlanguage{swedish}
+
+% Supress warning of hboxes in bibliography.
+\usepackage{etoolbox}
+\apptocmd{\sloppy}{\hbadness 2057\relax}{}{}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+
+% Bibliography
 \usepackage{apacite}
+\usepackage{multibib}
+\newcites{one}{Referenser}
+\newcites{two}{Referenser}
+\newcites{three}{Referenser}
+\newcites{four}{Referenser}
 
 %Symbols
 \usepackage{commath}
@@ -17,33 +31,33 @@
 \usepackage{bussproofs}
 \usepackage{amsthm}
 \usepackage{mathtools}
-\usepackage{alltt}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
 \usepackage{graphicx}
 \graphicspath{ {img/} }
 \usepackage{caption}
+\usepackage{hyperref}
+\hypersetup{breaklinks=true}
 
 \title{ITS023 Hemtentamen 2016}
 \date{\today}
 \author{Rikard Hjort} 
 \begin{document}
 \maketitle
+% Tempot och stilen i denna är bra: https://pingpong.chalmers.se/courseId/6794/node.do?id=3289921&ts=1475749801574&u=1825887321
 
 \section{Bekämpa denguefeber söder om Sahara}
 
 \subsection{Problemläget}
 
-% 1550 ord!
+% 1550 ord! Lägg till att plattformarna ska ha API:er, som är huvudtjänsten de tillhandahåller
+% Stryk alla vagheter. Beskriv rakt och utan alternativ. Självsäkerhet.
 
-Det är inte helt klart hur vanligt denguefeber är i Afrika \cite[s. 8]{WHO:2009}. Redan detta är ett stort hinder för arbetet med bekämpning. Särskilda insatser för att förebygga denguefeber, såsom utbildning och stora dräneringsprojekt, kan vara kostsamma. Problemet med denguefebers spridning orsakas delvis av bristen på informatin om var insatser behövs mest, vilket gör att resurser inte används så effektivt som möjligt.
+Det är inte helt klart hur vanligt denguefeber är i Afrika \citeone[s. 8]{WHO:2009}. Redan detta är ett stort hinder för arbetet med bekämpning. Särskilda insatser för att förebygga denguefeber, såsom utbildning och stora dräneringsprojekt, kan vara kostsamma. Problemet med denguefebers spridning orsakas delvis av bristen på informatin om var insatser behövs mest, vilket gör att resurser inte används så effektivt som möjligt.
 
-Vidare är en del av problemet hur sjukdomen sprids. Eftersom myggor är den huvudsakliga smittokällan \cite[s. 14]{WHO:2009} räcker inte karantäner eller vanliga sanitetsåtgärder för att stoppa sjukdomsspridningen. Istället behöver myggorna, specifikt \emph{Aedis aegypti}, stoppas från att föröka sig, vilket kräver insatser från alla i ett samhälle. De insatser som behövs är dessutom högst specifika (till skillnad från till exempel hygien och sanitet, vilket förebygger många sjukdomar).
+Vidare är en del av problemet hur sjukdomen sprids. Eftersom myggor är den huvudsakliga smittokällan \citeone[s. 14]{WHO:2009} räcker inte karantäner eller vanliga sanitetsåtgärder för att stoppa sjukdomsspridningen. Istället behöver myggorna, specifikt \emph{Aedis aegypti}, stoppas från att föröka sig, vilket kräver insatser från alla i ett samhälle. De insatser som behövs är dessutom högst specifika (till skillnad från till exempel hygien och sanitet, vilket förebygger många sjukdomar).
 
-Slutligen framstår denguefeber inte heller som ett lika allvarligt problem som som vanligare och dödligare sjukdomar som HIV/AIDS. \cite[s. 8]{WHO:2009}. Detta försvårar arbetet med utrotningen av denguefeber, eftersom det gör det svårare att få stöd till insatser och att övertyga människorna i riskområden att anpassa sina vanor för att minska spridningen – både lekmän och de som arbetar direkt med hälsofrågor, som medicinsk personal, tjänstemän och politiker.
+Slutligen framstår denguefeber inte heller som ett lika allvarligt problem som som vanligare och dödligare sjukdomar som HIV/AIDS. \citeone[s. 8]{WHO:2009}. Detta försvårar arbetet med utrotningen av denguefeber, eftersom det gör det svårare att få stöd till insatser och att övertyga människorna i riskområden att anpassa sina vanor för att minska spridningen – både lekmän och de som arbetar direkt med hälsofrågor, som medicinsk personal, tjänstemän och politiker.
 
-Detta, att denguefeber hamnar i skymundan, kan försvåra insatser för att utrota myggen. De åtgärder som krävs på individnivå, till exempel att tömma krukor och fylla igen pölar \cite[s. 61]{Singapore:video, WHO:2009}, kommer vara svåra att få till om inte gemene man ser problemet som prioriterat. Det är därför viktigt att i första hand verka för att upplysa om farorna, och först som en följd på det vad som kan göras för att utrota myggor.
+Detta, att denguefeber hamnar i skymundan, kan försvåra insatser för att utrota myggen. De åtgärder som krävs på individnivå, till exempel att tömma krukor och fylla igen pölar \citeone[s. 61]{Singapore:video, WHO:2009}, kommer vara svåra att få till om inte gemene man ser problemet som prioriterat. Det är därför viktigt att i första hand verka för att upplysa om farorna, och först som en följd på det vad som kan göras för att utrota myggor.
 
 \subsection{Åtgärder}
 
@@ -51,7 +65,7 @@ Min bedömning är att IT inte ska spela en huvudroll för utrotningen av dengue
 
 \subsubsection{Samla information}
 
-Jag föreslår en gemensam plattform bestående av flera databaser. En databas till vilken medicinsk personal kan rapportera fall av denguefeber, misstänkta fall och vaccinationer skulle spela en central roll. En annan sådan databas skulle kunna innehålla relevant data om platser: områden med förhojd risk, platser där vattensamlingar kan bildas efter kraftiga regn, och hur väl utbyggd sanitetstjänster som sophämtning är i en viss stad. En förebild här kan vara Singapore, där det bland annat finns kartor över "aktiva kluster" av Dengue \cite{Singapore:clusters}.
+Jag föreslår en gemensam plattform bestående av flera databaser. En databas till vilken medicinsk personal kan rapportera fall av denguefeber, misstänkta fall och vaccinationer skulle spela en central roll. En annan sådan databas skulle kunna innehålla relevant data om platser: områden med förhojd risk, platser där vattensamlingar kan bildas efter kraftiga regn, och hur väl utbyggd sanitetstjänster som sophämtning är i en viss stad. En förebild här kan vara Singapore, där det bland annat finns kartor över "aktiva kluster" av Dengue \citeone{Singapore:clusters}.
 
 Målet med den här insatsen är att förbättra informationen till WHO, myndigheter och hälsovårds\-apparaten. Informationen kan de använda för att fatta informerade beslut om var insatser behövs – särskilt vid plötsliga utbrott, då det inte finns tid för insamling av information, men det är extra viktigt att sätta in rätt resurser på rätt plats så snabbt som möjligt. Sådan data skulle också kunna användas till kartläggningen av denguefeber för att öka förståelsen av dess spridning, vilket skulle förbättra vårt arbete, och genom den återkopplingsmekanismen leda till bättre informationsinsamling, och så vidare.
 
@@ -59,11 +73,11 @@ Målet med den här insatsen är att förbättra informationen till WHO, myndigh
 
 Eftersom en del av problemet med denguefeber är att sjukdomen lätt kommer i skymundan, är effektiv och relevant informationsspridning en viktig del av utrotningsarbetet.
 
-Jag föreslår även här en IT-plattform (vars data kan tillgängliggöras via både hemsidor och appar, beroende på lokalt kontext) med de bästa tillgängliga råden för privatpersoner, hushåll, arbetsplatser och större samhällen för hur man förstör potentialla habitat för \emph{Aedis aegypti}. Till exempel föreslår WHO en rad specifika insatser \cite[s. 60-64]{WHO:2009}. Plattformen kan utnyttja aktuell väderdata och rapporter om dengueutbrott, till exempel för automatiska utskick eller push-notifikationer till berörda parter när riskerna ökar.
+Jag föreslår även här en IT-plattform (vars data kan tillgängliggöras via både hemsidor och appar, beroende på lokalt kontext) med de bästa tillgängliga råden för privatpersoner, hushåll, arbetsplatser och större samhällen för hur man förstör potentialla habitat för \emph{Aedis aegypti}. Till exempel föreslår WHO en rad specifika insatser \citeone[s. 60-64]{WHO:2009}. Plattformen kan utnyttja aktuell väderdata och rapporter om dengueutbrott, till exempel för automatiska utskick eller push-notifikationer till berörda parter när riskerna ökar.
 
-Ovanpå plattformen byggs sedan applikationer till smarta telefoner\footnote{I Kenya, Sydafrika och Nigeria är det nästan lika vanligt med smarttelefoner som i övriga världen \cite[s. 3]{ericsson}.}, hemsidor, och SMS-tjänster som lokala regeringar och hjälporganisationer kan använda för att skicka ut information när den behövs, dit den behövs. Efter kraftiga regnfall kan man till exempel uppmana befolkningen att undersöka och åtgärda vattensamlinar i till exempel ihåliga staket och tomma fat, till exempel med videoklipp som i Singapore \cite{Singapore:video}, eller ren text, beroende på uppkopplingsförhållandena.
+Ovanpå plattformen byggs sedan applikationer till smarta telefoner\footnote{I Kenya, Sydafrika och Nigeria är det nästan lika vanligt med smarttelefoner som i övriga världen \citeone[s. 3]{ericsson}.}, hemsidor, och SMS-tjänster som lokala regeringar och hjälporganisationer kan använda för att skicka ut information när den behövs, dit den behövs. Efter kraftiga regnfall kan man till exempel uppmana befolkningen att undersöka och åtgärda vattensamlinar i till exempel ihåliga staket och tomma fat, till exempel med videoklipp som i Singapore \citeone{Singapore:video}, eller ren text, beroende på uppkopplingsförhållandena.
  
-Informationsplattformen kan också direkt koppla in sig i plattformen för informations\emph{insamling}, och på så sätt kan människor få reda var denguefeber har rapporterats och var riskerna är stora, se till exempel klusterdata från Singapore \cite{Singapore:clusters} och övervakningsdata från Puerto Rico \cite[s. 73]{WHO:2009}. Detta torde öka kunskap kring och respekt för denguefeber. Insamlingsarbetet kan på så sätt ha en direkt påverkan på medvetenheten bland människor, och på så sätt förbättra även informationsspridningen, vilket gör att jag betraktar en insamlingsplattform som den högst prioriterade åtgärden.
+Informationsplattformen kan också direkt koppla in sig i plattformen för informations\emph{insamling}, och på så sätt kan människor få reda var denguefeber har rapporterats och var riskerna är stora, se till exempel klusterdata från Singapore \citeone{Singapore:clusters} och övervakningsdata från Puerto Rico \citeone[s. 73]{WHO:2009}. Detta torde öka kunskap kring och respekt för denguefeber. Insamlingsarbetet kan på så sätt ha en direkt påverkan på medvetenheten bland människor, och på så sätt förbättra även informationsspridningen, vilket gör att jag betraktar en insamlingsplattform som den högst prioriterade åtgärden.
 
 \subsubsection{Möjliga hinder}
 
@@ -88,44 +102,151 @@ Det är förstås inte helt oriskabelt att sätta upp system för masskommunikat
 
 \subsection{Osäkerhetsparametrar}
 
-En viktig utmaning vi behöver ha respekt för är att vi arbetar med en mängd mycket olika länder, som i somliga fall har mycket litet utöver klimat gemensamt. Statskick, kultur och levnadsstandard skiljer sig markant. Vi kan därför omöjligt förutse hur våra plattformar kommer tas emot, eller om de kommer användas överallt. Den höga korruptionsgraden i till exempel Angola \cite{corruption:angola} gör att det kan vara svårt och riskabelt att få med lokala myndigheter i vårt arbete, eller att ge dem stöd i form av pengar till att integrera sig med vår plattform. 
+En viktig utmaning vi behöver ha respekt för är att vi arbetar med en mängd mycket olika länder, som i somliga fall har mycket litet utöver klimat gemensamt. Statskick, kultur och levnadsstandard skiljer sig markant. Vi kan därför omöjligt förutse hur våra plattformar kommer tas emot, eller om de kommer användas överallt. Den höga korruptionsgraden i till exempel Angola \citeone{corruption:angola} gör att det kan vara svårt och riskabelt att få med lokala myndigheter i vårt arbete, eller att ge dem stöd i form av pengar till att integrera sig med vår plattform. 
 
 En annan risk för kontinuiteten i vår datainsamling är utbrott av andra sjukdomar, eller katastrofer som sätter stor press på sjukhusen. I någon form av katastrofsituation är det långt mer osannolikt att komplett information skulle samlas in från sjukhusen, eftersom viktigare saker kommer före. Tyvärr skulle sådana katastrofer mycket väl kunna sammanfalla med ökade risker för utbrott av denguefeber, om de till exempel beror på regnstormar eller andra myggburna sjukdomar.
 
 % 1550 ord!
 
-\section{}
+\bibliographyone{hemtenta} 
 
+\bibliographystyleone{apacite}
+
+
+% \subsection{Scratchpad}
+% Sprids framförallt av människor. \cite[s. 16]{WHO:2009}. Ju färre infekterade desto mindre spridning. Det är därför extra viktigt att hålla infektionerna nere i urbana områden där människor rör sig över ett
+
+% Områdena vi handskas med är otroligt olika. Somalia, Kongo-Kinshasa, Nigeria och Madagaskar är djupt olika länder, och det kommer krävas olika insatser. På vissa platser kan det vara svårt att nå ut direkt.
+
+% \subsubsection{Digitalkampanjer}
+
+% \begin{itemize}
+%     \item Digitalkampanjer (Se Singapore video)
+%         \begin{itemize}
+%             \item Stillastående vatten, varna om vattenpolisen.
+%             \item Påminnelser efter regnfall att tömma stillastående vatten (bygg vana) \item Förbereda vaccineringskampanj
+%         \end{itemize}
+%     \item App för att rapportera sopansamlingar och vatten
+%     \item Laser (sämre, inte riktigt värt det eftersom det är så ovanligt.)
+% \end{itemize}
+
+% I alla dessa länder finns inte en fungerande samhällsapparat. Att förbereda vaccinkampanjer där vore svårt. Att skicka in vaccin kan leda till att någon lägger beslag på och säljer vaccinet. Krävs att vi oberoende part kan sköta det, och garanteras skydd.
+
+% Förbättring av vattentillgång (mer rinnande vatten) kan leda till mer stillastående vatten, eftersom man använder mer vatten totalt. Viktigt här med beteendeförändring.
+
+% Även insatser för att ta bort stillastående vatten kan vara problematiska. Politiska beslut om sådana förbud kan slå hårt mot samhällen och grupper vars rena vattentillgångar inte kommer från rinnande vatten. Policyer som är okänsliga för det lokala kontextet kan då slå hårdare än själva denguefebern. WHO:s riktlinjer \cite[s. 61]{WHO:2009} fungerar för många typer av situationer, och policyer bör inte vara hårdare än dessa riktlinjer, t.ex. genom att förbjuda tunnor utomhus, när det räcker att förse dem med myggsäkra lock.
+
+% \subsubsection{Åtgäders inflytande på varandra}
+
+% \emph{Aedis aegypti} sprider många fler tropiska febersjukdomar än Denguefeber. Minskadet av dem leder därför till en minskning av även andra sjukdomar.
 
 \clearpage
-\subsection{Scratchpad}
-Sprids framförallt av människor. \cite[s. 16]{WHO:2009}. Ju färre infekterade desto mindre spridning. Det är därför extra viktigt att hålla infektionerna nere i urbana områden där människor rör sig över ett
+\section{Livscykelanalys}
+% 1118 ord!
 
-Områdena vi handskas med är otroligt olika. Somalia, Kongo-Kinshasa, Nigeria och Madagaskar är djupt olika länder, och det kommer krävas olika insatser. På vissa platser kan det vara svårt att nå ut direkt.
+Nästan all mänsklig nytta kan genereras på mer än ett sätt. En anteckning kan göras med en enkel blyertspenna, en avancerad stiftpenna eller reservoirpenna. En inrikesresa kan göras med tåg, bil, buss eller flyg. De olika alternativen har dessutom inte bara olika stor miljöpåverkan, utan också olika sorters miljöpåverkan. Där en reservoirpenna kräver mängder av energi och metall för att tillverka, kräver en enkel blyertspenna trä och grafit, men å andra sidan kan den inte användas lika länge, utan måste kasseras efter någon tid. 
 
-\subsubsection{Digitalkampanjer}
+\subsection{Fördelar}
 
-\begin{itemize}
-    \item Digitalkampanjer (Se Singapore video)
-        \begin{itemize}
-            \item Stillastående vatten, varna om vattenpolisen.
-            \item Påminnelser efter regnfall att tömma stillastående vatten (bygg vana) \item Förbereda vaccineringskampanj
-        \end{itemize}
-    \item App för att rapportera sopansamlingar och vatten
-    \item Laser (sämre, inte riktigt värt det eftersom det är så ovanligt.)
-\end{itemize}
+Den stora behållningen av LCA är möjligheten att mäta båda olika sorters miljöpåverkan och storleken på miljöpåverkan i förhållande till nyttan som varan eller tjänsten skapar, mätt i "funktionell enhet", och avgöra vad som har en stor miljöpåverkan respektive liten. LCA tar dessutom hänsyn till hela kedjan av nyttoproduktion, "från vaggan till graven", så att man i siffor kan se den totala miljöpåverkan man orsakar om man väljer ett viss alternativ för nyttoproduktion istället för ett annat (LCA In A Nutshell, s. 21; Lindfors \& Antonsson, s. 95).
 
-I alla dessa länder finns inte en fungerande samhällsapparat. Att förbereda vaccinkampanjer där vore svårt. Att skicka in vaccin kan leda till att någon lägger beslag på och säljer vaccinet. Krävs att vi oberoende part kan sköta det, och garanteras skydd.
+En annan fördel med LCA är att det finns standarder och konventioner kring hur LCA bör utföras, vilket skiljer det från verktyg som är interna i ett företag eller organisation på så sätt att fler människor kan förstå och granska en given LCA, vilket åtminstone i teorin innebär att det ställs höga krav på objektivitet i en LCA. Den allmänt accepterade strukturen för en LCA tillsammans med en gemensam terminologi underlättar diskussionen kring LCA (Lindfors \& Antonsson, s. 95).
 
-Förbättring av vattentillgång (mer rinnande vatten) kan leda till mer stillastående vatten, eftersom man använder mer vatten totalt. Viktigt här med beteendeförändring.
+\subsection{Nackdelar}
 
-Även insatser för att ta bort stillastående vatten kan vara problematiska. Politiska beslut om sådana förbud kan slå hårt mot samhällen och grupper vars rena vattentillgångar inte kommer från rinnande vatten. Policyer som är okänsliga för det lokala kontextet kan då slå hårdare än själva denguefebern. WHO:s riktlinjer \cite[s. 61]{WHO:2009} fungerar för många typer av situationer, och policyer bör inte vara hårdare än dessa riktlinjer, t.ex. genom att förbjuda tunnor utomhus, när det räcker att förse dem med myggsäkra lock.
+Lindfors \& Antonsson nämner en rad nackdelar med LCA. Till exempel säger de att LCA ger en "översikts\-bild, som alltid innehåller osäkerheter", att de många olika metoder som går under namnet LCA gör att olika LCA:er kan ge olika resultat, att avsaknad av eller lågkvalitativ data ger stora osäkerheter och att även om LCA-metoden syftar till att vara så helttäckande som möjligt, så går det aldrig att täcka in alla aspekter (Lindfors \& Antonsson, s. 101).
 
-\subsubsection{Åtgäders inflytande på varandra}
+Vidare nämnde Marcus Wendin i sin föreläsning att LCA inte tar upp lokala aspekter, såsom hur stora risker eller hur mycket miljöförstöring ett område utsätts för, utan alla skadeverkningar buntas ihop i totaler. Han nämnde också att en LCA förstås är väldigt tidskrävande eftersom den innehåller många steg, där vart och ett måste utföras noggrant. Till exempel behöver man i inventeringsanalysen ta hänsyn till \emph{alla} material- och energiflöden in i systemet, och likaså alla utflöden.
 
-\emph{Aedis aegypti} sprider många fler tropiska febersjukdomar än Denguefeber. Minskadet av dem leder därför till en minskning av även andra sjukdomar.
-\bibliography{hemtenta} 
+En LCA säger inte heller någonting om vad som \emph{borde} göras, utan kan bara beskriva hur stor miljö\-påverkan är eller skulle kunna vara. Inte heller tar en LCA hänsyn till aspekterna ekonomisk eller social hållbarhet. Till detta kan man istället använda till exempel ABCD-modellen.
 
-\bibliographystyle{apacite}
+\subsection{Att kompensera för LCA:s svagheter}
+
+\subsubsection{Tidsaspekten}
+
+En LCA är som sagt ytterst tidskrävande. Strukturen är hyfsat rigid och lämpar sig inte i alla lägen. En viss nivå av felxibilitet kan ändå åstadkommas genom att anpassa omfattningen av en LCA. Det finns vissa föredefinierade omfattningsnivåer:  screening, complete, organisational för bakåtblickande; och scenario och region/sektor för framåtsyftande \citetwo{Wendin}. Genom att till exempel välja att göra en screening av en befintlig produkt istället för en LCA med complete-omfattning kan man bli klar snabbare och få värdefull information att agera på, men på bekostnad av exakthet och möjlighet att kommunicera resultaten utåt.
+
+\subsubsection{Olika metoder som ger olika resultat}
+
+Anna-Karin Jörnbrink tog i sin föreläsning upp att om en organisation är först med att göra en LCA som inkluderar en viss produkt eller produktkategori, sätter de en \emph{de facto}-standard kring vilka data som är relevanta, hur de ska samlas in och vilka uppskattningar som är rimliga. Anledningen är att följande LCA:er ska vara jämförbara med de befintliga. Därför kommer nästa LCA efterlikna den första, vilket gör att nästa LCA behöver göra samma antaganden och titta på samma data som de två första. Denna snöbollseffekt ger en stor makt till den som gör den första LCA:en. Detta agerande kan ses som ett svar på frågan hur företag och organisationer idag gör för att kompensera för problemet att olika LCA:er kan ge olika resultat, beroende på hur de utförs.
+
+Detta sättet att handskas med problemet är förstås inte optimalt. Det är problematiskt att den första iterationen i praktiken huggs i sten, eftersom det rimligen borde vara den första LCA:n som hade sämst förutsättningar: den är gjord utan tidigare erfarenheter eller diskussioner på området. Det kan dessutom vara så att denna första LCA i väl stor utsträckning är anpassad till den första organsisationens föreställningar och förutsättningar, och att det blir krystat för andra att följa. En organisation kan inte heller ensam ändra konventionen, om det finns en intressekonflikt där vissa andra organisationer drar fördel av den konvention som råder.
+
+Ett sätt att undvika denna spelteoretiska lose-lose-situation är att ha organisationer med en medlande roll, som oberoende miljöorganisationer eller samarbetsorganisationer. Dessa kan utveckla den första LCA:n, eller driva konventionen åt ett håll som ligger i alla andra organisationers intresse, är mer objektiv, eller på annat sätt innebär en förbättring.
+
+\subsubsection{Datakvalitet}
+
+Problemet med bristande datakvalitet skulle i viss mån kunna kringgås genom att arbeta med intervaller. Om vi till exempel gör en LCA för tidningsläsning och vill räkna med möjligheten att läsa tidningen på Ipad, behöver vi uppskatta hur stor del av tiden som Ipaden används till detta. I brist på data måste vi göra en högst osäker uppskattning. Här kan det vara bra att lägga in flera möjliga siffror: som minst gissar vi att en genomsnittlig Ipad används till 3 procent till tidningsläsning, som mest 50 procent, men vi skulle gissa att den faktiskt används till 19 procent till tidningsläsning. Eftersom LCA-modeller i regel är linjära bör ändring mellan fasta värden i modellen ge begripliga utslag i slutresultatet. Att underhålla en lista på intervall som kan ersätta fasta värden i modellen ger goda möjligheter att "leka" i efterhand, och se hur olika antaganden påverkar utfallet. Risken med detta är förstås att små ändringar i uppskattningar ger kraftiga utslag i slutresultatet, vilket leder till att det inte går att dra särskilt trovärdiga slutsatser. Å andra sidan har man då identifierat en intressant "hot spot" som det kan vara extra intressant att arbeta vidare med.
+
+\subsection{Ett alternativ: ABCD-modellen}
+
+I de lägen då en organisation inte bara vill identifiera hur stor miljöpåverkan olika produkter och tjänster har, utan också ställa om sin verksamhet till mer hållbarhet, även ur social och ekonomisk synpunkt, kan ABCD-modellen användas. Denna tar, enligt upphovsorganisationen \citetwo[s. 14]{TNS}och min egen erfarenhet, ett större perspektiv på hållbarhet, och är har dessutom som explicit syfte att sätta upp en handlingsplan för att uppnå hållbarhetsvisioner. För organisationer vilka vill förbättra sitt hållbarhetsarbete och bibehålla eller öka sina vinster kan detta vara en bättre metod än att genomföra och utvärdera en LCA.
+
+\bibliographytwo{hemtenta2}
+\bibliographystyletwo{apacite}
+
+\clearpage
+\section{En hållbarare transportsektor}
+% 1483 ord!
+
+Min analys är att de tre metoderna elektrifiering, automatisering och tjänstefiering är kompletterande utvecklingar mot en hållbar transportsektor. De är också intressanta för att tackla olika delproblem i transportsektorn, och har olika tidshorisont för när de kommer göra en markant skillnad. 
+
+I Sverige orsakas merparten av transportsektorns koldioxidutsläpp för transporter av vägtrafik, enligt Trafikverkets siffror \citethree{tv}. Alltså skulle omställningnar i för landtransporter kunna minksa de totala utsläppen i sektorn kraftigt.
+
+\subsection{Elektrifiering}
+
+Elektrifiering är på många sätt den minst komplicerade utvecklingen mot en hållbar transportsektor. I teorin skulle transportsektorn kunna vara så gott som klimatneutral, borträknat tillverkning och underhåll av fordon, om den drevs av förnybara och klimatneutrala energikällor. Eftersom el, i teorin, kan framställas på klimatneutrala sätt, är därför eldrivna fordon ett på många vis självklart sätt att åstadkomma hållbar utveckling inom transportsektorn.
+
+Här stöter vi dock det första problemet med elektrifieringen, nämligen hur ren själva elen är. I sin föreläsning (slide 8) tog Per-Erik Holmberg upp kostnaden i koldioxidutsläpp per kilometer för olika former av bilar, och det är inte självklart att elbilen står som vinnare. De större utsläppen vid tillverkning, samt de utsläpp som följer av att elen som förbrukas kommer from delvis "smutsig" energimix gör att elektrifiering kan leda till större utsläpp till exempel dieselbilar som drivs av biodiesel. En förutsättning för att elektrifiering ska göra transportsektorn mer hållbar är därför en mer storskalig omställning av ett lands energiförsörjning, vilket kan kräva en hel del politisk styrning, eller lönsingar där el- och bilbolag går ihop för att skapa den nödvändiga omställningen.
+
+Ytterligare en aspekt av elektrifieringen som togs upp och som kräver samarbeten långt utanför bil\-företagens gränser är elleveransen. En förutsättning för storskalig omställning är möjligheten att ladda elfordon. Det kräver laddstolpar utspridda över hela landet. Det vore inte lönsamt för enskilda biltillverkare att bygga ut sådana, eftersom även andra tillverkare då skulle kunna dra nytta av dem utan att behöva betala för eller driva utbyggnaden. Därför skulle det krävas storskaliga samarbeten mellan biltillverkare, eller statliga eller överstatliga projekt, för att bygga ut sådana nät. På samma sätt skulle det krävas kostsamma investeringar för att bygga laddinfrastruktur för tunga fordon, till exempel genom elvägar.
+
+\subsubsection{Rekyleffekter}
+
+Det finns här också en överhängande risk för en rekyleffekt. Om till exempel politiska inictament, såsom högre bensinskatt, utsläppsrätter, eller något annat som driver upp priserna på transport, kan en elektrifiering leda till ökad bilkörning när det slår igenom om det då är avsevärt billigare än bensin- och dieselbilar. Detsamma gäller om en sådan prisökning drivits fram av ökade oljepriser, eller om laddning blir väldigt billigt i förhållande till bensin- och dieselpriserna.
+
+\subsection{Automatisering}
+
+Autonoma fordon har en klar möjlighet att köra mer miljövänligt än människor, eftersom de kan programeras att köra miljövänligt, till skillnad från mänskliga förare vilka kan ha andra intressen (som att komma fram fort), bli trötta och så vidare. Exakt hur miljövänliga sådana bilar skulle vara är dock svårt att säga. De finns däremot förutsättningar för autonoma fordon att bidra till tjänstefieringen av transportsektorn, vilket vi återkommer till.
+
+Ur de andra hållbarhetsaspekterna är autonoma fordon desto mer intressanta. De bidrar till ekonomisk hållbarhet genom att ersätta ett dyrt men i dagsläget nödvändigt yrke, chaufför, med ett datorprogram som är i princip gratis i drift. På så vis kan både denna och framtida generationer dra nytta av billigare och snabbare transporter.
+
+Ur det sociala perspektivet är de autonoma fordonen mer koplicerade. Enligt SCB var lastbilsförare 2014 det 16:e vanligaste yrket i Sverige med dryga 55\ 000 yrkesverksamma \citethree{scb}. En omställning till autonoma fordon skulle innebära en plötsligt ökad arbetslöshet i den här gruppen. För många av dessa kan detta komma att leda till ett socialt utanförskap, eller att de blir en extra belastning på omgivningen. Detta ställer krav på det offentliga samhället på ett sätt som inte är socialt hållbart, eftersom det inte tillgodoser dagens sociala behov, och i värsta fall gör det svårare för framtida generationer att tillfredställa sina, om utanförskapet får allvarliga bieffekter på samhället.
+
+\subsection{Tjänstefiering}
+
+Till skillnad från de två tidigare möjliga utvecklingarna är tjänstefiering inte något som förutsätter teknisk utveckling – det finns inga nya tekniker som måste förfinas innan den här utvecklingen blir möjlig i stor skala. De nödvändiga teknikerna - internet och enkel tillgång till internet även på språng – finns på plats, och det som återstår är att åstadkomma disruptiva tjänster och affärsmodeller som på allvar kan ändra konsumtionsmönster. Däremot kan autonoma fordon kraftigt öka tillgängligheten av flexibla transporttjänster. När en chaufför inte behöver avlönas och det inte kostar något för en bil att stå still kan priserna pressas.
+
+Fördelen med tjänstefiering är att färre fordon kan användas till att transportera fler människor längre, genom samägda fordon och samåkning. Det finns här också möjlighet att få fler att välja mer miljövänliga färdsätt, som cykel och tåg: om man vet att det går att få tag i en bil behöver man inte alltid ha en egen med sig, och kan istället välja färdmedel som är bättre för miljön åt ena hållet, och ta bilen andra, istället för att tvunget alltid ta bilen eftersom man kan komma att behöva den. Även system för att hyra cykel istället för att äga kan ha samma effekt.
+
+Ytterligare en fördel med tjänstefieringen är en ökad social hållbarhet. Sådana tjänster kan demokratisera resande och göra det mer flexibelt. Människor som är idag inte kan resa annat än kollektivt på egen hand kan genom smarta tjänster få tillgång till platser de tidigare behövt rationalisera bort, vilket gör att de kan ta sig till arbeten och aktiviteter på fler ställen utan att äga en egen bil. Det ökar också möjligheten till nöjesresande vilket kan ge en ökad livskvalitet för många.
+
+\subsubsection{Rekyleffekter}
+
+Tjänstefiering har hög risk för rekyleffekter. Om bilar blir mer tillgängliga även för de som inte idag äger en bil, till exempel genom bilpoolar och samåkningstjänster, ser jag det som att det finns en markant risk för att bilåkningen kan öka markant.
+
+En annan aspekt som sannolikt leder till ökad bilåkning är att företagen som skapar tjänsterna har ett intresse av att konsumenter använder tjänsten, om affärsmodellen är sådan att man betalar för hur mycket man använder tjänsten. Därmed ligger det i företagens intresse att göra tjänsten tillgänglig, flexibel och attraktiv, så att konsumenter ska välja den före andra transportmedel. De tjänster som kommer vara förskonade från den effekten är de som använder en affärsmodell med fasta priser, så att de istället tjänar på att folk köper tjänsten men inte använder den. Det kan till exempel vara bilpooler med fasta månadskostnader.
+
+\subsection{Slutsats}
+% elektrifiering är inkrementell
+% automatisering och tjänstefiiering är disruptiva
+
+Elektrifiering har stor potential att göra transportsektorn mer hållbar ur ett miljöperspektiv, eftersom det finns ett visst transportbehov i den moderna ekonomin – varor och människor behöver förflyttas – och det finns ingen grad av effektivisering genom smartare körning och bättre logisitik som helt kan kompensera för detta. I slutändan måste massa förflyttas, vilket innebär arbete. Eftersom det är en sektor som i grund och botten utför fysikaliskt arbete måste den kunna utnyttja hållbara energikällor. Dessutom har FN som mål att kraftigt öka mängden hållbar energi i den globala energimixen till 2030 \citethree{un}. Om transportsektorn rör sig mot elektrifiering på vägen kan detta verka som en morot för att skynda på arbetet med att nå det målet, och vice versa. På så vis kan dessa två utvecklingar stärka varandra. Detta kan underlätta utbyggnaden av elnät för att försörja transportsektorn när elektricitet och inte drivmedel blir den huvudsakliga energibäraren. Den största nackdelen med elektrifieringen är dess brist på lönsamhet, så länge fossila bränslen är förhållandevis billiga.
+
+Tjänstefiering har också en stor potential, men risken för allvarliga rekyleffekter är stor, då resande i personbil blir mer tillgängligt. Smarta tjänster kan fylla ett tomrum mellan dagens kollektivtrafik, i vilken stora mängder potentiella bilister reser i ett enda fordon, genom att få in fler människor i färre småfordon, men det är fortfarande ett miljömässigt mindre hållbart resande än kollektivtrafik. En övergång till eldrivna fordon kombinerat med renare elproduktion kan dock eliminera skadorna med ökat resande. Då kan tjänstefieringen verkligen komma till sn rätt, då den minskar antalet fordon som behövs, och bidrar till en ökad social hållbarhet.
+
+Automatisering tror jag inte har mycket att bidra med i termer av att göra utvecklingen mer hållbar. Däremot så har den stor potential att skapa värde och ekonomisk utveckling. En förutsättning för att denna utveckling ska vara hållbar är dock att det går att transportera människor och varor effektivt, att detta inte leder till alltför stora utsläpp, och att samhället har en förmåga att hantera den arbetslöshet som följer på automation, för att undvika koncentration av tillgångar hos de som äger produktionsmedlen samtidigt som de som tidigare arbetade med dem saknar egen försörjning.
+
+\paragraph{Kort angående andra transportmedel}
+Jag har avgränsat min analys till landtransporter, eftersom, så vitt jag kan utröna, varken elektrifiering, automatisering eller tjänstefiering är på väg att omvälva flyg- och båttransporter, varken för person- eller varutransport.
+
+% 1483 ord!
+
+\bibliographythree{hemtenta3}
+\bibliographystylethree{apacite}
+\clearpage
+\section{Flygtrafik: Politisk styrning och det hållbara samhället}
+
+
 
 \end{document}
