@@ -47,19 +47,19 @@
 
 \subsection{Problemläget}
 
-Det är inte helt klart hur vanligt denguefeber är i Afrika \citeone[s. 8]{WHO:2009}. Redan detta är ett stort hinder för arbetet med bekämpning, eftersom man inte vet var insatser behövs mest, vilket gör att resurser inte används så effektivt som möjligt; utbildning och stora dräneringsprojekt kan vara kostsamma insatser. Denguefeber framstår inte heller som ett lika allvarligt problem som som vanligare och dödligare sjukdomar som HIV/AIDS \citeone[s. 8]{WHO:2009}. Detta gör det svårare att få stöd till insatser och att övertyga människor i riskområden att anpassa sina vanor för att minska spridningen. De åtgärder som krävs på individnivå för att förstöra habitat för mygggor, främst \emph{Aedis aegypti} \citeone[s. 60-161]{WHO:2009} kommer vara svåra att få till om inte gemene man ser problemet som prioriterat.
+Det är inte helt klart hur vanligt denguefeber är i Afrika \citeone[s. 8]{WHO:2009}. Redan detta är ett stort hinder för arbetet med bekämpning, eftersom man inte vet var insatser behövs mest, vilket gör att resurser inte används så effektivt som möjligt; utbildning och stora dräneringsprojekt kan vara kostsamma insatser. Denguefeber framstår inte heller som ett lika allvarligt problem som som vanligare och dödligare sjukdomar som HIV/AIDS \citeone[s. 8]{WHO:2009}. Detta gör det svårare att få stöd till insatser och att övertyga människor i riskområden att anpassa sina vanor för att minska spridningen. De åtgärder som krävs på individnivå för att förstöra habitat för myggor, främst \emph{Aedis aegypti} \citeone[s. 60-161]{WHO:2009}, kommer vara svåra att få till om inte gemene man ser problemet som prioriterat.
 
-Det är också svårt att övertyga människor om vikten av att bekämpa denguefeber om man inte vet hur vanligt det är, var det håller på att spridas, etc. Därför behöver informationsbristen lösas för att kuna bedriva effektivt påverkansarbete.
+Det är också svårt att övertyga människor om vikten av att bekämpa denguefeber om de inte vet hur vanligt det är, var det håller på att spridas, etc. Därför behöver informationsbristen lösas för att kunna bedriva effektivt påverkansarbete.
 
 \subsection{Åtgärder}
 
-Jag föreslår därför två IT-plattformar med tillhörande databaser: en för att samla och en för att sprida information. Plattformarna görs tillgängliga via API:er, och betrodda aktörer kan uppdatera datan i plattformarna. På så sätt kan man göra plattformarna tillgängliga på det sätt som passar det lokala kontextet: SMS-tjänst, smarthpone-app, webbapplikation eller datorprogram.
+Jag föreslår att vi bygger två IT-plattformar: en för att samla och en för att sprida information. Plattformarna görs tillgängliga via API:er, och betrodda aktörer kan uppdatera datan i plattformarna. På så sätt kan man göra plattformarna tillgängliga på det sätt som passar det lokala kontextet: SMS-tjänst, app, webbapplikation eller datorprogram.
 
 \subsubsection{Samla information}
 
 Den första plattformen (Plattform 1) har databaser för betrodda aktörer: en för att registrera bekräftade och misstänkta sjukdomsfall; en annan registrerar vaccinationer; ytterligare en innehåller platsdata om områden som haft förhöjd risk, platser där stillastående vattensamlingar bildas, och information om städer, till exempel hur sophanteringen fungerar. 
 
-Målet med Plattform1 är att hjälpa WHO, myndigheter och hälsovårds\-apparaten att fatta informerade beslut om var insatser behövs – särskilt vid plötsliga utbrott, då det är försent att börja samla information, men den är som mest nödvändig. Plattform 1 skulle också kunna användas till forskning om denguefebers spridning, vilket skulle underlätta hjälparbetet ytterligare. Slutligen skulle Plattform 1 också kunna användas för att informera allmänheten, vilket vi återkommer till.
+Målet med Plattform 1 är att hjälpa WHO, myndigheter och hälsovårds\-apparaten att fatta informerade beslut om var insatser behövs – särskilt vid plötsliga utbrott, då det är för sent att börja samla information, men den är som mest nödvändig. Plattform 1 skulle också kunna användas till forskning om denguefebers spridning, vilket skulle underlätta hjälparbetet ytterligare. Slutligen skulle Plattform 1 också kunna användas för att informera allmänheten, vilket vi återkommer till.
 
 \subsubsection{Sprida information}
 
@@ -69,6 +69,16 @@ Ovanpå plattformen byggs sedan applikationer till smarttelefoner, hemsidor, och
  
 Plattform 2 kan också läsa data från Plattform 1 för att upptäcka ökade risker. Ett bra exempel är Singapores karta över ''aktiva kluster'' \citeone{Singapore:clusters} och övervakningsdata från Puerto Rico \citeone[s. 73]{WHO:2009}. Plattform 1 kan på så sätt ha en viktig påverkan på medvetenheten om denguefeber, vilket är högprioriterat, vilket gör att jag betraktar en Plattform 1 som den högst prioriterad.
 
+\subsection{Följdproblem av åtgärder}
+
+% Följdproblem %
+Eftersom vi arbetar med en mycket stor region, i vilken det finns länder med många olika regimtyper och statsapparater, finns risken att sådana plattformar används för övervakning och desinformation. Om en stat till exempel använder vår plattform för att få reda på sina medborgares sjukhusbesök, eller sprida falsk data i skrämselsyfte, kan förtroendet för båda WHO och för statlig hälsoinformation kraftigt undermineras, vilket gör datainsamling och informationsspridning mycket svårt.
+
+\subsection{Osäkerhetsparametrar}
+
+Den höga korruptionsgraden i vissa länger, till exempel Angola \citeone{corruption:angola}, gör att det kan vara svårt och riskabelt att få med stater i vårt datainsamlingsarbete, eftersom vi inte vet om de ser Plattform 1 som en lämplig väg att sprida desinformation, eller om de alls vill delta. Jag föreslår därför att vi börjar använda Plattform 1 i ett utvalda stater och gradvis expanderar till fler, efter utvärdering.
+
+\subsection{Övriga aspekter}
 
 \subsubsection{Malaria}
 % Lokalt kontext %
@@ -84,16 +94,6 @@ Som överstatligt organ är vi begränsade i vad vi kan göra, och vår roll bö
 % Bristande information
 Vi vet inte än hur lokala aktörer skulle ställa sig till plattformarna, men det är de som förväntas använda dem. Jag föreslår att vi sätter ihop arbetsgrupper med representanter för WHO, lokala myndigheter, medicinsk personal och andra intressenter, för att få återkoppling på hur plattformarna bör se ut, och om de ens ska byggas. Innan dess bör vi inte påbörja någon utveckling, för att inte riskera att bygga fel saker.
 
-\subsection{Följdproblem av åtgärder}
-
-% Följdproblem %
-Eftersom vi arbetar med en mycket stor region, i vilken det finns länder med många olika regimtyper och statsapparater, finns risken att sådana plattformar används för övervakning och desinformation. Om en stat till exempel använder vår plattform för att få reda på sina medborgares sjukhusbesök, eller sprida falsk data i skrämselsyfte, kan förtroendet för båda WHO och för statlig hälsoinformation kraftigt undermineras, vilket gör datainsamling och informationsspridning mycket svårt.
-
-\subsection{Osäkerhetsparametrar}
-
-Den höga korruptionsgraden i till exempel Angola \citeone{corruption:angola} gör att det kan vara svårt och riskabelt att få med stater i vårt datainsamlingsarbete, eftersom vi inte vet om de ser Plattform 1 som en lämplig väg att sprida desinformation, eller om de alls vill delta. Jag föreslår därför att vi börjar använda Plattform 1 i ett utvalda stater och gradvis expanderar till fler, efter utvärdering.
-
-
 \bibliographyone{hemtenta} 
 
 \bibliographystyleone{apacite}
@@ -104,15 +104,15 @@ Den höga korruptionsgraden i till exempel Angola \citeone{corruption:angola} g�
 
 \subsection{Fördelar}
 
-Nästan all mänsklig nytta kan genereras på mer än ett sätt. En anteckning kan till exempel göras med en enkel blyertspenna eller reservoirpenna, men en resrvoirpenna håller längre. De olika alternativen har inte bara olika stor miljöpåverkan, utan också olika sorters miljöpåverkan: där en reservoirpenna kräver smådelar av plast och metall, bläck och mycket energi, kräver en enkel blyertspenna trä och grafit. 
+Nästan all mänsklig nytta kan genereras på mer än ett sätt. En anteckning kan till exempel göras med en enkel blyertspenna eller reservoarpenna, men en resrvoarpenna håller längre. De olika alternativen har dessutom inte bara olika stor miljöpåverkan, utan också olika sorters miljöpåverkan: där en reservoarpenna kräver smådelar av plast och metall, bläck och mycket energi, kräver en enkel blyertspenna trä och grafit. 
 
-Den stora behållningen av LCA är möjligheten att mäta båda olika sorters miljöpåverkan och storleken på miljöpåverkan i förhållande till nyttan som varan eller tjänsten skapar, mätt i ''funktionell enhet''. Den kan dessutom avgöra vad som har en stor miljöpåverkan respektive liten. LCA tar dessutom hänsyn till hela kedjan av nyttoproduktion, ''från vaggan till graven'', så att man i siffor kan se den totala miljöpåverkan man orsakar om man väljer ett viss alternativ för nyttoproduktion istället för ett annat, och även identifiera var det finns störst potential till förbättring \citetwo[s. 95]{la} \citetwo[s. 21]{hitch}.
+Den stora fördelen med LCA är möjligheten att mäta båda olika sorters miljöpåverkan och storleken på miljöpåverkan i förhållande till nyttan som varan eller tjänsten skapar, mätt i ''funktionell enhet''. LCA tar dessutom hänsyn till hela kedjan av nyttoproduktion, ''från vaggan till graven'', så att man i siffor kan se den totala miljöpåverkan man orsakar om man väljer ett viss alternativ för nyttoproduktion istället för ett annat, och även identifiera vilka delar i processen det finns störst potential till förbättring. \citetwo[s. 95]{la} \citetwo[s. 21]{hitch}.
 
 En annan fördel med LCA är att det finns standarder och konventioner kring hur LCA bör utföras, vilket skiljer det från verktyg som är interna i ett företag eller organisation på så sätt att fler människor kan förstå och granska en given LCA, vilket åtminstone i teorin innebär att det ställs höga krav på objektivitet i en LCA. Den allmänt accepterade strukturen för en LCA tillsammans med en gemensam terminologi underlättar diskussionen kring LCA \citetwo[s. 95]{la}. Det gör också att LCA kan användas vid inköp där köparen anser att miljöpåverkan är en viktig aspekt \citetwo[s. 176]{dahlin}.
 
 \subsection{Nackdelar}
 
-Lindfors och Antonsson nämner en rad nackdelar med LCA. Till exempel säger de att LCA ger en ''översikts\-bild, som alltid innehåller osäkerheter'', att de många olika metoder som går under namnet LCA gör att olika LCA:er kan ge olika resultat, att avsaknad av eller lågkvalitativ data ger stora osäkerheter och att även om LCA-metoden syftar till att vara så helttäckande som möjligt, så går det aldrig att täcka in alla aspekter \citetwo[s. 101]{la}.
+Lindfors och Antonsson nämner en rad nackdelar med LCA. Till exempel säger de att LCA ger en ''översikts\-bild, som alltid innehåller osäkerheter'', att de många olika metoder som går under namnet LCA gör att olika LCA:er kan ge olika resultat, att avsaknad av eller lågkvalitativ data ger stora osäkerheter och att även om LCA-metoden syftar till att vara så heltäckande som möjligt, så går det aldrig att täcka in alla aspekter \citetwo[s. 101]{la}.
 
 Vidare nämnde Marcus Wendin i sin föreläsning att LCA inte tar upp lokala aspekter, såsom hur stora risker eller hur mycket miljöförstöring ett område utsätts för, utan alla skadeverkningar buntas ihop i totaler. Han nämnde också att en LCA förstås är väldigt tidskrävande eftersom den innehåller många steg, där vart och ett måste utföras noggrant. Till exempel behöver man i inventeringsanalysen ta hänsyn till \emph{alla} material- och energiflöden in i systemet, och likaså alla utflöden.
 
@@ -122,11 +122,11 @@ En LCA säger inte heller någonting om vad som \emph{borde} göras, utan kan ba
 
 \subsubsection{Tidsaspekten}
 
-En LCA är som sagt ytterst tidskrävande. Strukturen är relativt rigid och lämpar sig inte i alla lägen. En viss nivå av felxibilitet kan ändå åstadkommas genom att anpassa omfattningen av en LCA. Det finns vissa föredefinierade omfattningsnivåer:  screening, complete, organisational för bakåtblickande; och scenario och region/sektor för framåtsyftande \citetwo{Wendin}. Genom att till exempel välja att göra en screening av en befintlig produkt istället för en LCA med complete-omfattning kan man bli klar snabbare och få värdefull information att agera på, men på bekostnad av exakthet och möjlighet att kommunicera resultaten utåt.
+En LCA är som sagt ytterst tidskrävande. Strukturen är relativt rigid och lämpar sig inte i alla lägen. En viss nivå av flexibilitet kan ändå åstadkommas genom att anpassa omfattningen av en LCA. Det finns vissa föredefinierade omfattningsnivåer:  screening, complete, organisational för bakåtblickande; och scenario och region/sektor för framåtsyftande \citetwo{Wendin}. Genom att till exempel välja att göra en screening av en befintlig produkt istället för en LCA med complete-omfattning kan man bli klar snabbare och få värdefull information att agera på, men på bekostnad av exakthet och möjlighet att kommunicera resultaten utåt.
 
 \subsubsection{Olika metoder som ger olika resultat}
 
-Anna-Karin Jörnbrink tog i sin föreläsning upp att om en organisation är först med att göra en LCA som inkluderar en viss produkt eller produktkategori, sätter de en \emph{de facto}-standard kring vilka data som är relevanta, hur de ska samlas in och vilka uppskattningar som är rimliga. Anledningen är att senare LCA:er ska vara jämförbara med de befintliga. Därför kommer nästa LCA efterlikna den första, o.s.v. Detta kan ses som ett sätt att handskas med att olika LCA:er kan ge olika resultat, beroende på hur de utförs. Det är dock problematiskt att den första iterationen i praktiken rikserar att huggas i sten, eftersom det rimligen borde vara den första LCA:n som hade sämst förutsättningar: den är gjord utan tidigare erfarenheter eller diskussioner på området. Det kan dessutom vara så att denna första LCA i väl stor utsträckning är anpassad till den första organsisationens föreställningar och förutsättningar. 
+Anna-Karin Jörnbrink tog i sin föreläsning upp att om en organisation är först med att göra en LCA som inkluderar en viss produkt eller produktkategori, sätter de en \emph{de facto}-standard kring vilka data som är relevanta, hur de ska samlas in och vilka uppskattningar som är rimliga. Anledningen är att senare LCA:er ska vara jämförbara med de befintliga. Därför kommer nästa LCA efterlikna den första, o.s.v. Detta kan ses som ett sätt att handskas med att olika LCA:er kan ge olika resultat, beroende på hur de utförs. Det är dock problematiskt att den första iterationen i praktiken riskerar att huggas i sten, eftersom det rimligen borde vara den första LCA:n som hade sämst förutsättningar: den är gjord utan tidigare erfarenheter eller diskussioner på området. Det kan dessutom vara så att denna första LCA i väl stor utsträckning är anpassad till den första organisationens föreställningar och förutsättningar. 
 
 Ett sätt att undvika denna spelteoretiska lose-lose-situation är att LCA:er utförs av en tredje part, som oberoende miljöorganisationer eller samarbetsorganisationer. Dessa kan utveckla den första LCA:n, eller driva konventionen åt ett håll som ligger i alla andra organisationers intresse, är mer objektiv, eller på annat sätt innebär en förbättring.
 
@@ -136,7 +136,7 @@ Problemet med bristande datakvalitet kan i viss mån kringgås genom att arbeta 
 
 \subsection{Alternativa metoder}
 
-I rapporten ''Att mäta produkters miljöbelastning'', lyfts miljöpåverkansanalyser som ett kompletterande medel för att bedöma produkters miljöbelastning \citetwo[s. 15]{nat}. En sådan är en kvalitativ analys, till skillnad från en mer kvantitativ LCA, ämnad att identifiera vilka faktorer som är de viktigaste för att reducera en produkts miljöpåverkan \citetwo[s. 2-3]{eea}, och kan vara ett användbart verktyg för att identfiera områden för att göra detaljerade LCA:er \citetwo[s. 15]{nat}.
+I rapporten ''Att mäta produkters miljöbelastning'', lyfts miljöpåverkansanalyser som ett kompletterande medel för att bedöma produkters miljöbelastning \citetwo[s. 15]{nat}. En sådan är en kvalitativ analys, till skillnad från en mer kvantitativ LCA, ämnad att identifiera vilka faktorer som är de viktigaste för att reducera en produkts miljöpåverkan \citetwo[s. 2-3]{eea}, och kan vara ett användbart verktyg för att identifiera områden för att göra detaljerade LCA:er \citetwo[s. 15]{nat}.
 
 % \subsection{Ett alternativ: ABCD-modellen}
 
@@ -148,13 +148,9 @@ I rapporten ''Att mäta produkters miljöbelastning'', lyfts miljöpåverkansana
 \clearpage
 \section{En hållbarare transportsektor}
 
-Min analys är att de tre metoderna elektrifiering, automatisering och tjänstefiering är kompletterande utvecklingar mot en hållbar transportsektor. De är också intressanta för att tackla olika delproblem i transportsektorn, och har olika tidshorisont för när de kommer göra en markant skillnad. 
-
-I Sverige orsakas merparten av transportsektorns koldioxidutsläpp för transporter av vägtrafik, enligt Trafikverkets siffror \citethree{tv}. Alltså skulle omställningnar i för landtransporter kunna minska de totala utsläppen i sektorn kraftigt.
-
 \subsection{Elektrifiering}
 
-Elektrifiering är på många sätt den minst komplicerade utvecklingen mot en hållbar transportsektor. I teorin skulle transportsektorn kunna vara så gott som klimatneutral, borträknat tillverkning och underhåll av fordon, om den drevs av el från klimatneutrala energikällor. Därför är eldrivna fordon ett på många vis självklart sätt att åstadkomma hållbar utveckling inom transportsektorn.
+Elektrifiering är därför på många sätt den minst komplicerade utvecklingen mot en hållbar transportsektor. Om alla vägfordon drevs av el från klimatneutrala, förnybara källor skulle transportsektorns utsläppa minska kraftigt.
 
 Här stöter vi dock det första problemet med elektrifieringen: elproduktion. I sin föreläsning (slide 8) tog Per-Erik Holmberg upp kostnaden i koldioxidutsläpp per kilometer för olika former av bilar. De större utsläppen vid tillverkning av elbilar, samt de utsläpp som följer av att elen som förbrukas kommer från en delvis icke-klimatneutral energimix gör att elektrifiering kan leda till större utsläpp än till exempel dieselbilar som drivs av biodiesel. En förutsättning för att elektrifiering ska göra transportsektorn mer hållbar är därför en mer storskalig omställning av ett lands energiförsörjning, vilket kan ta lång tid.
 
@@ -162,37 +158,47 @@ Ytterligare ett hinder för elektrifieringen som togs upp på föreläsningen ä
 
 \subsubsection{Rekyleffekter}
 
-Det finns här också en överhängande risk för en rekyleffekt: om elbilsteknik blir billig, till exempel genom subventioner, kan bilkörningen öka i reltion till kostnadsminskningen. Detsamma kan hända om till exempel bensinskatt, utsläppsrätter eller oljebrist driver upp priserna på transport.
+Om elbilsteknik blir billig, till exempel genom subventioner, kan bilkörning och -ägande öka proportionerligt mot kostnadsminskningen. Ett sätt att motverka detta är att istället fokusera på att göra fossila bränslen dyrare, vilket drabbar ekonomin snarare än miljön.
 
 \subsection{Automatisering}
 
-Autonoma fordon har en klar möjlighet att köra mer miljövänligt än människor, eftersom de kan programmeras att köra miljövänligt, medan mänskliga förare kan ha andra prioriteringar. Exakt hur miljövänliga sådana bilar skulle vara är dock svårt att säga. De finns däremot förutsättningar för autonoma fordon att bidra till tjänstefieringen av transportsektorn, vilket vi återkommer till.
+Det finns vissa indikationer på att autonoma fordon kan åstadkomma sotra utsläppminskningar relativt manuella fordon \citethree{aut}. Det finns också förutsättningar för autonoma fordon att bidra till tjänstefieringen av transportsektorn, vilket vi återkommer till.
 
-Ur de andra hållbarhetsaspekterna är autonoma fordon desto mer intressanta. De bidrar till ekonomisk hållbarhet genom att ersätta ett dyrt men i dagsläget nödvändigt yrke, chaufför, med ett datorprogram som är i princip gratis i drift. På så vis kan både denna och framtida generationer dra nytta av billigare och snabbare transporter.
+Ur ekonomiskt och socialt hållbarhetsperspektiv är autonoma fordon ännu mer intressanta. De bidrar till ekonomisk hållbarhet genom att ersätta ett dyrt men i dagsläget nödvändigt yrke, chaufför, med ett datorprogram som är i princip gratis i drift. På så vis kan både denna och framtida generationer dra nytta av billigare och snabbare transporter.
 
-Ur det sociala perspektivet är de autonoma fordonen mer komplicerade. Enligt SCB var lastbilsförare 2014 det 16:e vanligaste yrket i Sverige med dryga 55\ 000 yrkesverksamma \citethree{scb}. Plötslig massarbetslöshet bland yrkesförare kan leda till ökat socialt utanförskap och belastningar på det offentliga samhället. Detta är inte socialt hållbart, eftersom det inte tillgodoser dagens sociala behov, och i värsta fall gör det svårare för framtida generationer att tillfredställa sina, om utanförskapet får allvarliga bieffekter på samhället.
+Ur det sociala perspektivet är de autonoma fordonen mer komplicerade. Enligt SCB var lastbilsförare 2014 det 16:e vanligaste yrket i Sverige med dryga 55\ 000 yrkesverksamma \citethree{scb}. Plötslig massarbetslöshet bland yrkesförare kan leda till ökat socialt utanförskap och belastningar på det offentliga samhället. Detta är inte socialt hållbart, eftersom det inte tillgodoser dagens sociala behov, och i värsta fall gör det svårare för framtida generationer att tillfredsställa sina, om utanförskapet får allvarliga bieffekter på samhället.
 
-\subsection{Tjänstefiering}
-
-Fördelen med tjänstefiering som den beskrevs i föreläsningen av Per-Erik Holmberg är att färre fordon kan användas till att transportera fler människor längre, genom samägda fordon och samåkning. Det finns också möjlighet att få fler att välja mer miljövänliga färdsätt, som cykel och tåg: om man vet att det går att få tag i en bil behöver man inte alltid ha en egen med sig, och kan välja miljövänliga färdsätt åt ena hållet, och bil åt andra. 
-
-Ytterligare en fördel med tjänstefieringen är en ökad social hållbarhet. Sådana tjänster kan demokratisera resande genom att göra det billigt och flexibelt. Människor som idag inte har råd med bil kommer kunna ta sig till arbeten och aktiviteter på fler ställen. Det ökar också möjligheten till nöjesresande vilket kan ge en ökad livskvalitet för många.
-
-Tjänstefiering är också lovande eftersom det saknas tekniska hinder: disrubtiva tjänster som ändrar konsumtionsmönster är allt som behövs. En framtida utveckling av autonoma fordon kan dessutom kraftigt öka tillgängligheten av flexibla transporttjänster, eftersom tillgången till chaufförer inte är en begränsning.
+Autonoma fordon är dessutom socialt problematiska såtillvida att de skapar moraliska dilemman, till exempel vem som är ansvarig vid en krock. Detta kan dock uppvägas av att autonoma fordon är förväntas vara mer säkra, och dessutom bättre kan utnyttja väginfrastruktur, enligt föreläsningen med Per-Erik Holmberg.
 
 \subsubsection{Rekyleffekter}
 
-Tjänstefiering har hög risk för rekyleffekter, eftersom de gör bilkörning mer tillgängligt, genom till exempel bilpoolar och samåkningstjänster, som kan locka människor som idag reser mer miljövänligt att börja köra istället.
+En potentiell rekyleffekt av automatisering är förstås ökat bilåkande, eftersom det blir enklare och smidigare att åka bil när man som människa inte behöver köra den.
+
+\subsection{Tjänstefiering}
+
+Fördelen med tjänstefiering som den beskrevs i föreläsningen är att färre fordon kan användas till att transportera fler människor längre, genom samägda fordon och samåkning. Det finns också möjlighet att få fler att välja mer miljövänliga färdsätt, som cykel och tåg: om man vet att det går att få tag i en bil behöver man inte alltid ha en egen med sig, och kan välja miljövänliga färdsätt åt ena hållet, och bil åt andra. 
+
+Ytterligare en fördel med tjänstefieringen är en ökad social hållbarhet. Sådana tjänster kan demokratisera resande genom att göra det billigt och flexibelt. Människor som idag inte har råd med bil kommer kunna ta sig till arbeten och aktiviteter på fler ställen. Det ökar också möjligheten till nöjesresande vilket kan ge en ökad livskvalitet för många.
+
+Tjänstefiering är också lovande eftersom det saknas tekniska hinder: disruptiva tjänster som ändrar konsumtionsmönster är allt som behövs. Däremot kan  automatisering kraftigt öka tillgängligheten av flexibla transporttjänster, eftersom tillgången till chaufförer inte är en begränsning.
+
+\subsubsection{Rekyleffekter}
+
+Tjänstefiering har hög risk för rekyleffekter, eftersom de gör bilkörning mer tillgängligt, genom till exempel bilpooler och samåkningstjänster, som kan locka människor som idag reser mer miljövänligt att börja köra istället.
 
 En annan aspekt som sannolikt leder till ökad bilåkning är att företagen som skapar tjänsterna ofta har ett intresse av att konsumenter använder tjänsten. Därmed ligger det i företagens intresse att göra tjänsten tillgänglig, flexibel och attraktiv, för att locka kunder att köra mycket. Affärsmodell med fasta priser, som tjänar på att kunder köper tjänsten men inte använder den, är ett sätt att undvika det incitamentet för företagen.
 
 \subsection{Slutsats}
 
-Elektrifiering har stor potential att vara nyckeln till en hållbar transportsektor. Eftersom det är en sektor som i grund och botten utför fysikaliskt arbete måste den kunna utnyttja hållbara energikällor. Ingen grad av effektivisering kan kompensera helt för detta. Dessutom har FN som mål att kraftigt öka mängden hållbar energi i den globala energimixen till 2030 \citethree{un}. Elektrifiering av transporter kan verka som en morot för att påskynda detta. Den största nackdelen med elektrifieringen är dess brist på lönsamhet, så länge fossila bränslen är förhållandevis billiga.
+De omställningar som Per-Erik Holmberg diskuterade i sin föreläsning gällde framförallt vägtransporter. I Sverige orsakas merparten av transportsektorns koldioxidutsläpp för transporter av vägtrafik, enligt Trafikverkets siffror \citethree{tv}. Alltså skulle omställningar i vägtransporter kunna minska de totala utsläppen i sektorn kraftigt.
+
+Elektrifiering har stor potential att vara nyckeln till en hållbar transportsektor. Eftersom det är en sektor som i grund och botten utför fysikaliskt arbete måste den kunna utnyttja hållbara energikällor. Ingen grad av effektivisering kan kompensera helt för detta. Dessutom har FN som mål att kraftigt öka mängden hållbar energi i den globala energimixen till 2030 \citethree{un}, och om transportsektorn elektrifieras ökar incitamenten för detta ytterligare. Den största nackdelen med elektrifieringen är dess brist på lönsamhet, så länge fossila bränslen är förhållandevis billiga.
 
 Tjänstefiering har också en stor potential, men risken för allvarliga rekyleffekter är stor. En övergång till eldrivna fordon kombinerat med renare elproduktion kan dock eliminera skadorna med ökat resande, och då kan tjänstefieringen verkligen komma till sin rätt, då den minskar antalet fordon som behövs, kan effektivisera resor och bidrar till en ökad social hållbarhet.
 
-Automatisering har stor potential att skapa ekonomisk utveckling, men förutsättning för att denna utveckling ska vara hållbar är följande: att det går att transportera människor och varor effektivt och miljövänligt, och att samhället har en förmåga att undvika koncentration förmgenhetskoncentration hos ägarna av produktionsmedlen, när robotar kör och människor blir arbetslösa.
+Automatisering har stor potential att skapa ekonomisk utveckling, men förutsättning för att denna utveckling ska vara hållbar är följande: att det går att transportera människor och varor effektivt och miljövänligt, och att samhället har en förmåga att undvika koncentration förmögenhetskoncentration hos ägarna av produktionsmedlen, när robotar kör och människor blir arbetslösa.
+
+De olika utvecklingarna kan alla bidra till hållbarhet, och kan förstås vara kompletterande.
 
 \bibliographythree{hemtenta3}
 \bibliographystylethree{apacite}
