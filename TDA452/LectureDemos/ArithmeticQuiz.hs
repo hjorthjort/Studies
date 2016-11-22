@@ -10,7 +10,7 @@ main = do putStrLn "Welcome to the Arithmetic Quiz!"
           forever quiz
 
 quiz =
-    do e <- generate rExpr
+    do e <- generate $ rExpr 3
        putStr ("\n"++showExpr e++" = ")
        answer <- getLine
        let correct = show (eval e)
@@ -20,7 +20,7 @@ quiz =
 
 
 -- | A representation of simple arithmetic expressions
-data Expr 
+data Expr
     = Num Integer
       | Add Expr Expr
       | Mul Expr Expr
@@ -41,18 +41,30 @@ showExpr :: Expr -> String
 showExpr (Num x) = show x
 showExpr (Add x y) = showExpr x ++ " + " ++ showExpr y
 showExpr (Mul x y) = showFactor x ++ " * " ++ showFactor y
-
-showFactor (Add e1 e2) = "(" ++ showExpr (Add e1 e2) ++ ")"
-showFactor e = showExpr e
+    where
+        showFactor (Add e1 e2) = "(" ++ showExpr (Add e1 e2) ++ ")"
+        showFactor e = showExpr e
 
 instance Show Expr where show = showExpr
-instance Eq Expr where 
+instance Eq Expr where
     e1 == e2 = eval e1 == eval e2
 
 -- * Generating arbitrary expressions
 
-rExpr :: Gen Expr
-rExpr = undefined
+range = 4
+level = fromInteger range
 
---instance Arbitrary Expr where
---  arbitrary =
+rExpr :: Int -> Gen Expr
+rExpr s = frequency [(1, rNum), (s,rBin s)]
+    where
+        rNum = elements $ map Num [-range..range]
+        rBin s = do
+            let s' = s `div` 2
+            op <- elements [Mul, Add]
+            e1 <- rExpr s'
+            e2 <- rExpr s'
+            return $ op e1 e2
+
+instance Arbitrary Expr where
+    arbitrary = sized rExpr
+
