@@ -1,3 +1,5 @@
+module ArithmeticQuiz
+    where
 -- | Arithmetic Quiz
 -- An exercise with recursive data types
 -- Functional Programming course 2016.
