@@ -3,28 +3,34 @@ module Parser
 
 import ArithmeticQuiz
 import Data.Char
+import Data.Maybe
+import Test.QuickCheck
 
 u = undefined
 
-expr :: Parser Expr
-parse = expr . filter (not . isSpace)
+parse :: String -> Expr
+parse = maybe (error "Not a valid expression") id . readExpr
+
+readExpr s = case expr (filter (not.isSpace) s) of
+               Just (e, "") -> Just e
+               _            -> Nothing
+
+chain :: Parser Expr -> Char -> (Expr ->  Expr -> Expr) -> Parser Expr
+chain p c f s =
+    case p s of
+      Just (e, c':s') | c == c' -> case chain p c f s' of
+                                     Just (e', s'') -> Just (e `f` e', s'')
+                                     Nothing        -> Just (e, c:s')
+      r                         -> r
 
 -- BNF-style grammar
 -- <expression> ::= <term> | <term> "+" <expression>
 expr :: Parser Expr
-expr s = case term s of
-           Just (t, '+':s') -> case expr s' of
-                                 Just (e, s'')  -> Just (t `Add` e, s'')
-                                 Nothing        -> Just (t, '+':s')
-           r                -> r
+expr = chain term '+' Add
 
 -- <term>       ::= <factor> | <factor> "*" <term>
 term :: Parser Expr
-term s = case factor s of
-           Just (n, '*':s') -> case term s' of
-                                 Just (n', s'') -> Just (n `Mul` n', s'')
-                                 Nothing        -> Just (n, '*':s')
-           r                -> r
+term = chain factor '*' Mul
 
 -- <factor>     ::= "(" <expression> ")" | <number>
 factor :: Parser Expr
@@ -46,3 +52,9 @@ num :: Parser Expr
 num s = case reads s of
           (i,s'):_  -> Just (Num i, s')
           _         -> Nothing
+
+
+-- Testing
+
+prop_readExpr e = let s = show e in
+                      readExpr s == Just e

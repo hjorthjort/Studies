@@ -102,7 +102,7 @@ range = 4
 level = fromInteger range
 
 rExpr :: Int -> Gen Expr
-rExpr s = frequency [(1, rNum), (1, rVar), (s,rBin s)]
+rExpr s = frequency [(1, rNum), (s,rBin s)]
     where
         rNum = fmap Num arbitrary
         rVar = elements $ map Var $ map (:"") ['a'..'z']
