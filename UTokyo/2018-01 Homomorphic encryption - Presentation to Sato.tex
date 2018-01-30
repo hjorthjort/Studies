@@ -1,0 +1,108 @@
+\documentclass{article}
+
+\title{Homomorphic Encryption primer}
+\author{Rikard Hjort}
+\date{\today}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+\maketitle
+\paragraph{Sources} \href{https://crypto.stanford.edu/craig/craig-thesis.pdf}{Gentry, 2009 PhD thesis} and \href{https://en.wikipedia.org/wiki/Homomorphic_encryption}{Wikipedia article on Homomorphic encryption}
+
+\section{What is homomorphic encryption?}
+
+In short, a homomorphic encryption scheme is one where we can compute on encrypted data, resulting in an encrypted result. With a homomorphic scheme, an untrusted entity can perform computations on data it can't decrypt, in a way that is useful to the entity which can decrypt it.
+
+Formally, we want for public key $pk$ message $m$, cipertext $c = Encrypt(pk, m)$, some function (which may or may not be a general function) $f: \{0, 1\}^* \rightarrow \{0,1\}^*$, to be able to use a function $Evaluate$ such that
+
+$$ Evaluate(pk, f, c) = Encrypt(pk, f(m))$$
+
+This makes the ciphertext a \textit{functor} on which we can use $Evaluate$ as the mapping that allows us to map certain function onto it. However, the function space might be limited, depending on the encryption scheme.
+
+Important note: It is enough that we can implement multiplication and addition on a ring to encode any function, since we can use laws of boolean algebra to represent any boolean function this way. That is why we will focus on multiplication and addition a lot.
+
+(I will skip including $pk$ as an argument from now on, as it's precence is obvious.)
+
+There are different ``levels'' of homomorphic encryption. For example, RSA is multiplicatively homomorphic. This means that for messages $x_1, x_2$ and public key $(e, m)$, 
+
+$$ \mathcal{E}(x_1) \cdot \mathcal{E}(x_2) = x_1^e x_2^e \;\bmod\; m = (x_1x_2)^e \;\bmod\; m = \mathcal{E}(x_1 \cdot x_2)$$
+
+\noindent This is by accident. It follows from the construction of RSA, but there was no real application of it immediately obvious.
+
+\subsection{Homomorphic encryption vs. Fully homomorphic encryption}
+
+A fully homomorphic encryption is one that would allow us to apply \textit{any} function $f$, often expressed as any possible boolean circuit, $C$.
+
+How to create such an encryption scheme was an open problem until Gentry, 2009 (dissertation).
+
+\section{Partially homomorphic schemes}
+
+There are some partially homomorphic systems that have been in place for a long time, where either additon or multiplication works. Let $\mathcal{E}(x)$ be the encryption of $x$ under the scheme.
+
+\subsection{RSA}
+RSA is, as mentioned, muliplicatively homomorphic.
+
+
+\section{Gentry's solution}
+
+The idea is this: encrypt a message by adding some noise to it, which is decipherable for anyone with the private key, but not by the public key. It is, however, only decipherable as long as the noise $n \gg N$ for some number $N$. \footnote{This is probably dictaded by information theory. If any level of noise was possible, then for and $m$ and $m'$, we could pick $n$ so that $m + n = m'$.} This value, with noise, can then be added and multiplied. But when we do so, we also multiply the noise. This is fine, as long as the total noise doesn't pass $N$.
+
+This gives us what Gentry calls ``somewhat homomorphic encryption'': we can perform multiplication and addition up to a certain \textit{depth}. He estimates this possible depth to be $\log \log N - \log \log n = \log (\frac{\log N}{\log n})$. The resaon (I think) is that the inner logarithm simply comes from the number of times we can multiply before we reach the threshold. For $p$ multiplications, $n^p$ is a lower threshold for the added noise, and $N \approx n^q$ means $\frac{\log N}{\log n} \approx \frac{q \log n}{\log n} = q$, which is then the number of multiplications, $p$, we can perform before $n^p \approx N$. Since we are muliplying messages of the form $m+n$, we get some extra terms, which I suppose is why we need the outer logerithm. Gentry doesn't supply a proof, however. I'm curious as to how he gets these numbers.
+
+This somewhat homomorphic encryption can then be bootstrapped, by creating a function, $Recrypt$, which can take an encrypted message with noise $N' < N$, and output a re-encryption of the same message with noise $n' < \sqrt{N}$. $Recrypt$ doesn't need the private key, and can thus be used by the untrusted machine which is doing these computations. Since the new noise is $< \sqrt{N}$, we can then safely multiply the encrypted messages again without passing the $N$ threshold. By using $Recrypt$ whenever needed (which, in general, is after each multiplication or addition), we obtain a fully homomorphic encryption scheme.
+
+The difficulty of breaking the encryption scheme comes from the difficulty of some standard hard problems on \textit{ideal lattices}, for which there is no known efficient solution, much like RSA relies on there being no eficient way to factor large numbers.
+
+The public key contains a ``hint'' of the private key, enough to do some processing, but not decrypt fully. This is similar to server-aided cryptography, where much computational burden can be put on an external entity, without giving them enough information to perform decryption.
+
+\subsection{An example of how it works}
+
+The real scheme uses ideal lattices (which are ideals of rings, so multiplication and addition is defined on them), which have some useful properties. However, Gentry gives an example of the scheme using integers, to give an idea of how the scheme works. It is probably not a secure scheme, since integers don' necessarily have the required properties. Here is the example:
+
+Private key $p$ is any odd integer, $p > 2N \ll n$. We encrypt the message bit by bit, separately. An encryption of bit $b$ is $kp + 2x + b$, where $kp$ is any random multiple of $p$, and $x$ is a random integer in $(-\frac{n}{2}, \frac{n}{2})$, $n$ being the range of allowed noise. Then you can decrypt using $p$, with $b \leftarrow (c \mod p) \mod 2$. This works because $kp + 2x + b \equiv 2x + b \mod p$ (note that $2x \in (-n, n) \subset (-N, N)$), and $2x + b \equiv b \mod 2$.
+
+For additon:
+
+$$c \leftarrow b_1 + b_2 + 2(x_1 + x_2) + (k_1 + k_2)p = b_1 \oplus b_2 + 2x + kp$$
+
+And multiplication:
+
+$$ c \leftarrow b_1 * b_2 + 2(b_1 x_2 + b_2 x_1 + 2x_1 x_2) + kp = b_1*b_2 + 2x + kp$$
+
+which we can still decrypt, as long as $c \in [-N, N] \subset (-\frac{p}{2}, \frac{p}{2})$. since this gives a single possible value of $c \mod p$.
+
+\paragraph{Sidenote}
+A homomorphism in algebra is a relationship between two algebraic structures, such as two groups or two rings. For a two rings $R$ with operations $*_R$ and $+_R$  and $S$ with operations $*_S$ and $+_S$, a homomorphism is a function $\omega: R \rightarrow S$ such that for $r_1, r_2 \in R$
+
+$$ \omega(r_1 *_R r_2) = \omega(r_1) *_S \omega(r_2)$$
+\noindent and
+$$ \omega(r_1 +_R r_2) = \omega(r_1) +_S \omega(r_2).$$
+
+\noindent In a group the idea is the same, but for only one operation.
+
+This is analogous to the idea that for some messages $b_1, b_2$ and encyption function $\mathcal{E}$, in a homomorphic scheme, $\mathcal{E}(b_1 * b_2)  = \mathcal{E}(b_1) * \mathcal{E}(b_2)$.
+
+\section{More modern solutions}
+
+Gentry's system was prohibitively slow, and was hard to use in practice. Since then, more advanced and optimized cryptosystems which are fully homomorphic have emerged, many of them with Gentry as one of the creators. All of them build on Gentry's initial idea of constructing a somewhat homomorphic system, and then bootstrapping.
+
+\section{Questions relevant to voting application}
+
+\begin{itemize}
+    \item Can we encrypt homomorphically when everyone holds different keys?
+    \item Can we make sure the result can only be computed by computing everyone's vote, not less (since less would allow us to easily discern what anyone voted).
+    \item We may only need additative homomorphism. What use cases would we need fully homomorphic encryption? Could we use of fully homomorphic help us make the result only computable from all votes?
+\end{itemize}
+
+
+\section{Next steps}
+
+\begin{itemize}
+    \item Finish introduction of Gentry's thesis, and perhaps chapters 2, 3 and 4, and any other reading necessary to understand these.
+    \item Research the new, more efficient schemes.
+    \item Evaluate their use in voting and/or edge computing.
+\end{itemize}
+
+\end{document}
