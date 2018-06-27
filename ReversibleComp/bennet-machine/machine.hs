@@ -15,6 +15,13 @@ myRules = [
 myInput = let ones = repeat '1' in
   take 2 ones ++ '$':take 1 ones
 
+-- Helpful constansts.
+
+lastState = maximum $ map (\(_,_,_,_,s') -> s') myRules
+numToSym num = C $ head $ show num -- Hack: Assume less than 10 rules.
+numRules = length myRules
+n = numToSym numRules
+
 -- Convert to reversible.
 
 data Program = Program [Quadruple]
@@ -27,12 +34,6 @@ quadruples = concat $ map quintToQuad $ zip [1..] myRules
             Q (Compute s) (Sym symIn, Ignore, Sym Blank) (W symOut, S R, W Blank) (Compute' ruleNum),
             Q (Compute' ruleNum) (Ignore, Sym Blank, Ignore) (shift, W (numToSym ruleNum), S Z) (Compute s')
           ]
-
-lastState = maximum $ map (\(_,_,_,_,s') -> s') myRules
-numToSym num = C $ head $ show num -- Hack: Assume less than 10 rules.
-numRules = length myRules
-n = numToSym numRules
-
 
 copyStates = [
   Q (Compute lastState) (Sym Blank, Sym n, Sym Blank) (W Blank, W n, W Blank) (Copy' 1),
@@ -53,21 +54,17 @@ copyStates = [
       Q (Copy  2) (Sym (C character), Sym n , Sym (C character)) (W (C character), W n, W (C character)) (Copy' 2)
     symbolCopyStates = (map copyStateFor $ nub input) ++ (map copyAuxStateFor $ nub input)
 
-retraceSteps = [
-  Q (Retrace lastState) (Ignore, Sym n, Ignore) (S Z, W Blank, S Z) (Retrace' numRules),
-  Q (Retrace' numRules) (Sym Blank, Ignore, Sym Blank) (W Blank, S L, W Blank) (Retrace (lastState - 1))
-               ]
-  ++
-  (concat $ map retrace $ tail $ reverse $ zip [1..] myRules)
-
-retrace ((ruleNum), (s, symIn, symOut, shift, s')) = [
-  Q (Retrace s') (Ignore, Sym (C (head $ show ruleNum)), Ignore) (invertShift shift, W Blank, S Z) (Retrace' ruleNum), -- Again, hack, assume less than 10 original rules.
-  Q (Retrace' ruleNum) (Sym symOut, Ignore, Sym Blank) (W symIn, S L, W Blank) (Retrace s)
-                                        ]
+retraceSteps = concat $ map retrace $ reverse $ zip [1..] myRules
   where
-    invertShift (S L) = S R
-    invertShift (S R) = S L
-    invertShift (S Z) = S Z
+    retrace ((ruleNum), (s, symIn, symOut, shift, s')) =
+      [
+        Q (Retrace s') (Ignore, Sym (numToSym ruleNum), Ignore) (invertShift shift, W Blank, S Z) (Retrace' ruleNum),
+        Q (Retrace' ruleNum) (Sym symOut, Ignore, Sym Blank) (W symIn, S L, W Blank) (Retrace s)
+      ]
+        where
+          invertShift (S L) = S R
+          invertShift (S R) = S L
+          invertShift (S Z) = S Z
 
 input = myInput
 rulesList = quadruples ++ copyStates ++ retraceSteps
@@ -240,22 +237,3 @@ instance Show Action where
   show (S Z)   = "0"
   show (S R)   = "+"
 
--- Scratch
-
--- quadruples = [
---   -- Regular states.
---   ((Compute 1, (Sym Blank, Ignore, Sym Blank)), ((W Blank, S R, W Blank), Compute' 1)),      -- 1
---   ((Compute' 1, (Ignore, Sym Blank, Ignore)), ((S R, W (C '1'), S Z), Compute 2)),           -- 1
---   ((Compute 2, (Sym (C '$'), Ignore, Sym Blank)), ((W Blank, S R, W Blank), Compute' 2)),    -- 2
---   ((Compute' 2, (Ignore, Sym Blank, Ignore)), ((S Z, W (C '2'), S Z), Compute 4)),           -- 2
---   ((Compute 2, (Sym (C '1'), Ignore, Sym Blank)), ((W Blank, S R, W Blank), Compute' 3)),    -- 3
---   ((Compute' 3, (Ignore, Sym Blank, Ignore)), ((S R, W (C '3'), S Z), Compute 3)),           -- 3
---   ((Compute 3, (Sym (C '1'), Ignore, Sym Blank)), ((W (C '1'), S R, W Blank), Compute' 4)),  -- 4
---   ((Compute' 4, (Ignore, Sym Blank, Ignore)), ((S R, W (C '4'), S Z), Compute 3)),           -- 4
---   ((Compute 3, (Sym (C '$'), Ignore, Sym Blank)), ((W (C '1'), S R, W Blank), Compute' 5)),  -- 5
---   ((Compute' 5, (Ignore, Sym Blank, Ignore)), ((S L, W (C '5'), S Z), Compute 4)),           -- 5
---   ((Compute 4, (Sym (C '1'), Ignore, Sym Blank)), ((W (C '1'), S R, W Blank), Compute' 6)),  -- 6
---   ((Compute' 6, (Ignore, Sym Blank, Ignore)), ((S L, W (C '6'), S Z), Compute 4)),           -- 6
---   ((Compute 4, (Sym Blank, Ignore, Sym Blank)), ((W Blank, S R, W Blank), Compute' 7)),      -- 7
---   ((Compute' 7, (Ignore, Sym Blank, Ignore)), ((S Z, W N, S Z), Compute 5))                  -- 7
---   ]
