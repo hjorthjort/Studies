@@ -1,5 +1,5 @@
 import Data.List
---import Control.Monad
+import Text.Printf
 
 -- My machine of choice.
 myRules = [
@@ -13,65 +13,56 @@ myRules = [
   ]
 
 myInput = let ones = repeat '1' in
-  take 2 ones ++ '$':take 3 ones
+  take 2 ones ++ '$':take 1 ones
 
 -- Convert to reversible.
+
+data Program = Program [Quadruple]
+data Quadruple = Q { s:: AutomatonState, tapeS :: (TapeState, TapeState, TapeState), actions :: (Action, Action, Action), s' :: AutomatonState } deriving Eq
 
 quadruples = concat $ map quintToQuad $ zip [1..] myRules
   where
       quintToQuad (ruleNum, (s, symIn, symOut, shift, s')) =
-        let len = length myRules in
-        if ruleNum < len then
           [
-            ((Compute s, (Sym symIn, Ignore, Sym Blank)), ((W symOut, S R, W Blank), Compute' ruleNum)),
-            ((Compute' ruleNum, (Ignore, Sym Blank, Ignore)), ((shift, W (C (head $ show ruleNum)), S Z), Compute s')) -- Hack: Assume less than 10 rules.
-        ]
-        else
-          [
-            ((Compute s, (Sym Blank, Ignore, Sym Blank)), ((W Blank, S R, W Blank), Compute' len)),
-            ((Compute' len, (Ignore, Sym Blank, Ignore)), ((S Z, W N, S Z), Compute s'))
+            Q (Compute s) (Sym symIn, Ignore, Sym Blank) (W symOut, S R, W Blank) (Compute' ruleNum),
+            Q (Compute' ruleNum) (Ignore, Sym Blank, Ignore) (shift, W (numToSym ruleNum), S Z) (Compute s')
           ]
 
-lastState = maximum $ map (\s -> case s of {Compute i -> i; Compute' _ -> -1}) $ map (\((_, _), (_, state)) -> state) quadruples
+lastState = maximum $ map (\(_,_,_,_,s') -> s') myRules
+numToSym num = C $ head $ show num -- Hack: Assume less than 10 rules.
+numRules = length myRules
+n = numToSym numRules
 
-numRules = length quadruples `div` 2
 
 copyStates = [
-  ((Compute lastState, (Sym Blank, Sym N, Sym Blank)), ((W Blank, W N, W Blank), Copy' 1)),
-  ((Copy' 1, (Ignore, Ignore, Ignore)), ((S R, S Z, S R), Copy 1)),
-  ((Copy' 2, (Ignore, Ignore, Ignore)), ((S L, S Z, S L), Copy 2))
+  Q (Compute lastState) (Sym Blank, Sym n, Sym Blank) (W Blank, W n, W Blank) (Copy' 1),
+  Q (Copy' 1) (Ignore, Ignore, Ignore) (S R, S Z, S R) (Copy 1),
+  Q (Copy' 2) (Ignore, Ignore, Ignore) (S L, S Z, S L) (Copy 2)
   ]
   ++
   symbolCopyStates
   ++
   [
-    ((Copy 1, (Sym Blank, Sym N, Sym Blank)), ((W Blank, W N, W Blank), Copy' 2)),
-    ((Copy 2, (Sym Blank, Sym N, Sym Blank)), ((W Blank, W N, W Blank), Retrace lastState))
+    Q (Copy 1) (Sym Blank, Sym n, Sym Blank) (W Blank, W n, W Blank) (Copy' 2),
+    Q (Copy 2) (Sym Blank, Sym n, Sym Blank) (W Blank, W n, W Blank) (Retrace lastState)
   ]
   where
     copyStateFor character =
-      ((Copy  1, (Sym (C character), Sym N , Sym Blank)), ((W (C character), W N, W (C character)), Copy' 1 ))
-
+      Q (Copy  1) (Sym (C character), Sym n , Sym Blank) (W (C character), W n, W (C character)) (Copy' 1)
     copyAuxStateFor character =
-      ((Copy  2, (Sym (C character), Sym N , Sym (C character))), ((W (C character), W N, W (C character)), Copy' 2 ))
+      Q (Copy  2) (Sym (C character), Sym n , Sym (C character)) (W (C character), W n, W (C character)) (Copy' 2)
     symbolCopyStates = (map copyStateFor $ nub input) ++ (map copyAuxStateFor $ nub input)
 
-
 retraceSteps = [
-  ((Retrace lastState, (Ignore, Sym N, Ignore)), ((S Z, W Blank, S Z), Retrace' numRules)),
-  ((Retrace' numRules, (Sym Blank, Ignore, Sym Blank)), ((W Blank, S L, W Blank), Retrace (lastState - 1)))
+  Q (Retrace lastState) (Ignore, Sym n, Ignore) (S Z, W Blank, S Z) (Retrace' numRules),
+  Q (Retrace' numRules) (Sym Blank, Ignore, Sym Blank) (W Blank, S L, W Blank) (Retrace (lastState - 1))
                ]
   ++
-  concat (map retrace (zip [1..] myRules))
-  ++
-  [
-  ((Retrace 2, (Ignore, Sym N, Ignore)), ((S L, W Blank, S Z), Retrace' 1)),
-  ((Retrace' 1, (Sym Blank, Ignore, Sym Blank)), ((W Blank, S L, W Blank), Retrace' 1))
-  ]
+  (concat $ map retrace $ tail $ reverse $ zip [1..] myRules)
 
 retrace ((ruleNum), (s, symIn, symOut, shift, s')) = [
-  ((Retrace s', (Ignore, Sym (C (head $ show ruleNum)), Ignore)), ((invertShift shift, W Blank, S Z), Retrace' ruleNum)), -- Again, hack, assume less than 10 original rules.
-  ((Retrace' ruleNum, (Sym symOut, Ignore, Sym Blank)), ((W symIn, S L, W Blank), Retrace s))
+  Q (Retrace s') (Ignore, Sym (C (head $ show ruleNum)), Ignore) (invertShift shift, W Blank, S Z) (Retrace' ruleNum), -- Again, hack, assume less than 10 original rules.
+  Q (Retrace' ruleNum) (Sym symOut, Ignore, Sym Blank) (W symIn, S L, W Blank) (Retrace s)
                                         ]
   where
     invertShift (S L) = S R
@@ -93,7 +84,7 @@ data ThreeTuringMachine = TTM {
 data Action = W Symbol | S Shift deriving Eq
 data Shift = L | Z | R deriving Eq
 data MachineState = MS { automatonState :: AutomatonState, tapes:: Tapes } deriving Eq
-type Rules = [((AutomatonState, (TapeState, TapeState, TapeState)), ((Action, Action, Action), AutomatonState))]
+type Rules = [Quadruple]
 data TapeState = Sym Symbol | Ignore
 
 instance Eq TapeState where
@@ -105,7 +96,7 @@ instance Eq TapeState where
 data AutomatonState = Compute Int | Compute' Int | Copy Int | Copy' Int | Retrace Int | Retrace' Int deriving (Ord, Eq)
 
 -- Tapes.
-data Symbol = C Char | Blank | N deriving (Ord, Eq) -- Alphabet.
+data Symbol = C Char | Blank deriving (Ord, Eq) -- Alphabet.
 data Tape = Tape Prev Next -- Two infinite stacks
 type Prev = [Symbol]
 type Next = [Symbol]
@@ -148,9 +139,11 @@ step ttm@(TTM {machineState = ms, rules = rs, terminateState = term}) =
           Right $ ttm {machineState = updateAccordingToRule result ms}
 
 ruleLookup input rules =
-  case lookup input rules of
-    Nothing -> Left (concat ["Rule could not be found: ", show input])
-    Just result -> Right result
+  case (input, rules) of
+    (_, []) -> Left (concat ["Rule could not be found: ", show input])
+    ((state, tape), r@(Q{s = state', tapeS = tape'}):rs) ->
+      if state == state' && tape == tape' then Right (actions r, s' r)
+      else ruleLookup input rs
 
 readTapes :: Tapes -> Either String (Symbol, Symbol, Symbol)
 readTapes (Tapes {standard = s, history = h, output = o}) = do
@@ -163,6 +156,16 @@ readTapes (Tapes {standard = s, history = h, output = o}) = do
       r (Tape _ (n:ns)) = Right n
 
 main = do
+  putStrLn "Quadruples"
+  putStrLn $ take (length "Quadruples") (repeat '=')
+  putStrLn ""
+  putStrLn $ show $ Program $ rules machine
+  putStrLn ""
+  putStrLn "Computation"
+  putStrLn $ take (length "Computation") (repeat '=')
+  putStrLn ""
+  putStrLn $ "| State | Standard  | History   | Output      | "
+  putStrLn $ "|-------|-----------|-----------|-------------| "
   putStrLn $
     prettyTrace $ map singleTrace $ reverse $ executionTrace machine
     where
@@ -192,25 +195,30 @@ concatIntersperseMap i f xs = concat $ intersperse i $ map f xs
 
 -- Showing.
 
+instance Show Program where
+  show (Program qs) = let header = ("| State | Tape    | Action  | State'|") in
+    header ++ "\n" ++ map (\c -> if c == '|' then '|' else '-') header ++ "\n" ++ concatIntersperseMap "\n" show qs
+
+instance Show Quadruple where
+  show q = printf "| %-4s | %s | %s | %s |" (show (s q)) (show (tapeS q)) (show (actions q)) (show (s' q))
+
 instance Show ThreeTuringMachine where
-  show TTM {machineState = (MS {automatonState = as, tapes = ts}) } = concat [show as, ", ", show ts]
+  show TTM {machineState = (MS {automatonState = as, tapes = ts}) } = printf "| %s | %s |" (show as) (show ts)
 
 instance Show AutomatonState where
-  show (Compute i)     = concat ["A", "_", show i]
-  show (Compute' i)    = concat ["A", "_", show i, "'"]
-  show (Copy i)        = concat ["B", "_", show i, ""]
-  show (Copy' i)       = concat ["B", "_", show i, "'"]
-  show (Retrace i)     = concat ["C", "_", show i]
-  show (Retrace' i)    = concat ["C", "_", show i, "'"]
+  show (Compute i)     = printf "A_%d  " i
+  show (Compute' i)    = printf "A_%d' " i
+  show (Copy i)        = printf "B_%d  " i
+  show (Copy' i)       = printf "B_%d' " i
+  show (Retrace i)     = printf "C_%d  " i
+  show (Retrace' i)    = printf "C_%d' " i
 
 instance Show Tapes where
-  show (Tapes {standard = s, history = h, output = o}) = concat ["[", commaSeparatedTapes, "]"]
-    where
-      commaSeparatedTapes = concatIntersperseMap ", " show [s, h, o]
+  show (Tapes {standard = s, history = h, output = o}) = printf "%-10s| %-10s| %-10s " (show s) (show h) (show o)
 
 instance Show Tape where
   show tape = let Tape ps ns = printableTape tape in
-    concatMap (concatMap show) [reverse ps, [C '>'], ns]
+    printf "`%s%s%s`" (concatMap show $ reverse ps) ">" (concatMap show ns)
 
 -- Removes blanks.
 printableTape :: Tape -> Tape
@@ -223,12 +231,11 @@ instance Show TapeState where
   show Ignore = "/"
 
 instance Show Symbol where
-  show (C c) = ' ':c:""
-  show N = " N"
-  show Blank = " b"
+  show (C c) = c:""
+  show Blank = "b"
 
 instance Show Action where
-  show (W sym) = "Write " ++ show sym
+  show (W sym) = show sym
   show (S L)   = "-"
   show (S Z)   = "0"
   show (S R)   = "+"
