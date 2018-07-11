@@ -7,7 +7,7 @@
 \newcommand{\ord}{\text{ord}}
 
 \title{Generators of $Z^*_p$}
-\author{Rikard Hjort}
+\author{Rikard Hjort\\\texttt{hjortr@student.chalmers.se}}
 \date{\today}
 
 \begin{document}
@@ -16,29 +16,33 @@
 
 \section{Generators of $Z^*_{17}$}
 
-Since $\phi(16) = 8}$ we expect to find 8 generators. The table below shows
+Since $\phi(16) = 8$ we expect to find 8 generators. The table below shows
 which they are. The top column lists the generators, and each row represents
 taking the generator to the power $2, 3, 4, ... 16$.
 
 \vspace{1em}
 \begin{tabular}{l | l l l l l l l l}
-a      &  3 &  5 &  6 &  7 & 10 & 11 & 12 & 14 \\ \hline
-a^{2 } &  9 &  8 &  2 & 15 & 15 &  2 &  8 &  9 \\
-a^{3 } & 10 &  6 & 12 &  3 & 14 &  5 & 11 &  7 \\
-a^{4 } & 13 & 13 &  4 &  4 &  4 &  4 & 13 & 13 \\
-a^{5 } &  5 & 14 &  7 & 11 &  6 & 10 &  3 & 12 \\
-a^{6 } & 15 &  2 &  8 &  9 &  9 &  8 &  2 & 15 \\
-a^{7 } & 11 & 10 & 14 & 12 &  5 &  3 &  7 &  6 \\
-a^{8 } & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 \\
-a^{9 } & 14 & 12 & 11 & 10 &  7 &  6 &  5 &  3 \\
-a^{10} &  8 &  9 & 15 &  2 &  2 & 15 &  9 &  8 \\
-a^{11} &  7 & 11 &  5 & 14 &  3 & 12 &  6 & 10 \\
-a^{12} &  4 &  4 & 13 & 13 & 13 & 13 &  4 &  4 \\
-a^{13} & 12 &  3 & 10 &  6 & 11 &  7 & 14 &  5 \\
-a^{14} &  2 & 15 &  9 &  8 &  8 &  9 & 15 &  2 \\
-a^{15} &  6 &  7 &  3 &  5 & 12 & 14 & 10 & 11 \\
-a^{16} &  1 &  1 &  1 &  1 &  1 &  1 &  1 &  1 \\
+$a    $ &  3 &  5 &  6 &  7 & 10 & 11 & 12 & 14 \\ \hline
+$a^{2 }$ &  9 &  8 &  2 & 15 & 15 &  2 &  8 &  9 \\
+$a^{3 }$ & 10 &  6 & 12 &  3 & 14 &  5 & 11 &  7 \\
+$a^{4 }$ & 13 & 13 &  4 &  4 &  4 &  4 & 13 & 13 \\
+$a^{5 }$ &  5 & 14 &  7 & 11 &  6 & 10 &  3 & 12 \\
+$a^{6 }$ & 15 &  2 &  8 &  9 &  9 &  8 &  2 & 15 \\
+$a^{7 }$ & 11 & 10 & 14 & 12 &  5 &  3 &  7 &  6 \\
+$a^{8 }$ & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 \\
+$a^{9 }$ & 14 & 12 & 11 & 10 &  7 &  6 &  5 &  3 \\
+$a^{10}$ &  8 &  9 & 15 &  2 &  2 & 15 &  9 &  8 \\
+$a^{11}$ &  7 & 11 &  5 & 14 &  3 & 12 &  6 & 10 \\
+$a^{12}$ &  4 &  4 & 13 & 13 & 13 & 13 &  4 &  4 \\
+$a^{13}$ & 12 &  3 & 10 &  6 & 11 &  7 & 14 &  5 \\
+$a^{14}$ &  2 & 15 &  9 &  8 &  8 &  9 & 15 &  2 \\
+$a^{15}$ &  6 &  7 &  3 &  5 & 12 & 14 & 10 & 11 \\
+$a^{16}$ &  1 &  1 &  1 &  1 &  1 &  1 &  1 &  1 \\
 \end{tabular}
+\vspace{1em}
+\\
+These numbers seems correct on inspection. For example, $a^8 = 16 = -1$ for all
+generators, which is in coordance with Proposition 5, and $a^9 = -a$, accordingly.
 
 \section{Prove propositions}
 \subsection{If $k \mid p-1$ then $|O_k| = \phi(k)$} 
@@ -119,10 +123,7 @@ time where $P(x)$ is a polynomial, and the test must be repeated up to $O(\log
 p)$ times, yielding a $O(\log p) * O(P(\log p))$ time bound, which is obviously
 polynomial in $\log p,$ $Q.E.D.$.
 
-% Look from page 413 and 414 in book.
-
 \section{An algorithm for finding generators of $\z p$}
-% Verify with book.
 
 \begin{description}
 \item[Input] $p$, a prime number and $F$, the facorization of $p-1$. Let $n =

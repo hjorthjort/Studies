@@ -17,7 +17,7 @@ def print_generators(p):
     i = 0
     for cyclic in gen:
         i += 1
-        print(("a^%-2d: & " % i)
+        print(("$a^%-2d$: & " % i)
               + (("%2d & " * len(gen[0]))[:-2] + "\\\\") % tuple(cyclic))
 
-print_generators(11)
+print_generators(17)
