@@ -1,6 +1,9 @@
 ### Markdown ###
 *.html
 
+### Emacs ###
+auto
+
 ### LaTeX ###
 *.acn
 *.acr
