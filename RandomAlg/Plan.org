@@ -1,0 +1,12 @@
+* Quadratic residue
+
+** Motivation
+Get it out of the way, so I can be done with school soon.
+
+Get a good grade that I can be proud of.
+
+Develop a better understanding & intuition of discrete log.
+
+** Goal
+- [ ] Write third step of random algorithm.
+- [ ] Summarize the equivalence between factorization and square finding.

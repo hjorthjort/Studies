@@ -1,0 +1,59 @@
+#-*- mode: org -*-
+#+STARTUP: showall
+
+# From https://stories.sagefy.org/eight-big-ideas-of-learning-tl-dr-edition-95302c848d87
+
+I want this to be a checklist: Things to do before, during and after studying.
+As algorithmically as possible. I want to make these habits.
+
+* The routine:
+
+** Sitting down
+  - [ ] Put phone on quiet
+  - [ ] Close all (unnecessary) tabs
+  - [ ] If it's noisy, put on some techno on YouTube.
+  - [ ] Do you have somewhere you need to go? Sometime you need to leave? Set a timer for that time.
+  - [ ] Set pomodoro timer.
+** Starting
+  - [ ] Open learning plan in org-mode
+  - [ ] Write down in learning plan: What is my motivation for learning this? (Get studying out
+    of the way, because I need it for something else, deeply interesting, etc.)
+  - [ ] Write down a goal in learning plan, small and achievable.
+    - [ ] This can be a knowledge goal: summarize an article, set up an environment
+    - [ ] It can also be a skill goal: write a program that does X, make a proof, do an exercise.
+  - [ ] Open mind-map in notebook.
+** Wrapping up
+  - [ ] Check off goals you met.
+  - [ ] Remove redundant goals, try to cut down to just a few per branch.
+  - [ ] Look for any gaps you can fill in the mind map.
+    
+* In-between
+** Figuring out a task
+  - [ ] ???
+  - [ ] Look over the material you have. Table of contents, headings, Wikipedia ...
+    - [ ] Fill in some main ideas.
+    - [ ] Mark things you might need to learn first.
+    - [ ] Mark things you already learnt, but may want to review.
+** Starting
+** Getting to work
+  - [ ] Go top-down from a main topic in the mind map.
+  - [ ] In org-mode, list a few choices you can make for where to start.
+** Working
+  - [ ] When you see several ways to go next, make note in org-mode.
+  - [ ] Mark a default option.
+  - [ ] On timer:
+    - [ ] What am I paying attention to? Should I?
+    - [ ] How well do I understand? How *difficult* is this?
+    - [ ] Do I have a strategy? Is it working?
+  - [ ] Fill in mind-map: what problems can this solve?
+    
+* Groups of topics
+
+** Do one thing at a time
+** Set and adhere to goals
+** Adapt to prior knowledge
+** Build the graph
+** Empower choice
+** Dive Deep
+** Make it real
+** Learn together
