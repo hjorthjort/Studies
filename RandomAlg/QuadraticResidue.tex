@@ -24,7 +24,7 @@
 \maketitle
 \section{Algorithm for finding non-residue}
 
-If $p = 2$, then $\z = \{1\}$, and since 1 is a a \qr, $\z$ contains no \qr
+If $p = 2$, then $\z = \{1\}$, and since 1 is a a \qr, $\z$ contains no \qnr
 s. We will therefore restrict ourselves to the case when $p \geq 3$.
 
 \begin{lemma}\label{half}
@@ -32,14 +32,12 @@ s. We will therefore restrict ourselves to the case when $p \geq 3$.
 \end{lemma}
 \begin{proof}
   Since $\z$ is cyclic, it has at least one generator, $g$. By proposition 2,
-  $g^k$ is a \qr~iff $k \mid 2$. Since $\ord(g) = |\z|= p-1$, and $p$ is odd,
+  $g^k$ is a \qr~iff $2 \mid k$. Since $\ord(g) = |\z|= p-1$, and $p$ is odd,
   there are precisely $\frac{p-1}{2}$ values of $k$ for which $g^k$ is a \qr,
   and as many that are \qnr s.
 \end{proof}
 
-This means that random sampling is efficient.
-
-This makes it simple to devise an algorithm.
+This means that random sampling is efficient, which makes it simple to devise an algorithm.
 \begin{algorithm}
   \hfill\break
   \begin{description}
@@ -48,7 +46,7 @@ This makes it simple to devise an algorithm.
   \end{description}
   \begin{enumerate}
   \item\label{start} Pick a random integer $1 < a < p$. (Skip 1 as it is always
-    both \qr s.)
+    a \qr.)
   \item Calculate $a^{\frac{p-1}{2}} = r$.
     \begin{enumerate}
     \item If $r = 1$, repeat from step \ref{start}.
@@ -73,12 +71,12 @@ has a $\frac{1}{2}$ probability to find a \qnr at every iteration. The total
 runtime is donimated by exponentiation, and thus runs in polynomial time in
 $\log p$.
 
-\section{Find \qr of $a \in \z$ given a \qnr~$b$}
+\section{Find root of $a \in \z$ given $a$ and a \qnr~$b$}
 
 We start with some helpful findings. 
 
 \begin{lemma}\label{2roots}
-  Every \qr~of $\z$ has exactly 2 roots.
+  Every \qr~of $\z$ has exactly 2 roots, $b$ and $c$, with $b = -c$.
 \end{lemma}
 
 \begin{proof}
@@ -90,8 +88,8 @@ We start with some helpful findings.
   which means $c^{-1}b$ is its own inverse (keep in mind $\z$ is Abelian).
   Recall that that $|O_2| = \phi(2) = 1$, and $\ord(-1) = 2$, and thus $O_2 =
   \{-1\}$. Thus, only one element is its own inverse, namely $-1$. This means
-  that $c^{-1}b = -1$, which in turn means $b=c^{-1}$. Thus, $a$ can have
-  precicesly 2 roots, which are each other's inverses.
+  that $c^{-1}b = -1$, which in turn means $b=-c$. Thus, $a$ can have
+  precicesly 2 roots, whith one being $b$, and the other $-c = p - c$.
 \end{proof}
 
 \begin{lemma}\label{plusminus}
@@ -117,14 +115,18 @@ note that $a^{\frac{p-1}{2}} \equiv 1 \mod p \Rightarrow a^{\frac{p-1}{2}}a
 safely divide $p+1$ by 4, and get $a^{\frac{p+1}{4}}$ as a root of $a$, and
 $p - a^{\frac{p+1}{4}}$ as the other.
 
-\subsection{$p \equiv 5 \mod 5$}
+\subsection{$p \equiv 5 \mod 8$}
+
 If $p \equiv 1 \mod 4$, there are two more cases: $p \equiv 1 \mod 8$ and $p
 \equiv 5 \mod 8$. The second case is simpler. $a^{\frac{p-1}{2}} = 1$ means
 $a^{\frac{p-1}{4}}$ is a root of 1 (we can safely divide by 4, as $p -1 \equiv 4
 \mod 8$), and thus $\pm 1$. If $a^{\frac{p-1}{4}} = 1$, we are done by the same
-trick as before and return $a^{\frac{p+3}{4}}$. However, if $a^{\frac{p-1}{4}} =
--1$, we can make use of $b$. $b^{\frac{p-1}{2}} = -1$ by lemma \ref{plusminus},
-so
+trick as before: $a^{\frac{p-1}{4}}a = a^{\frac{p+3}{4}} = a$, so we return
+$a^{\frac{p+3}{8}}$, which is a root of $a$ ($p+3 \equiv 0 \mod 8$, so again,
+the division in the exponent is safe).
+
+However, if $a^{\frac{p-1}{4}} = -1$, we
+can make use of $b$. $b^{\frac{p-1}{2}} = -1$ by lemma \ref{plusminus}, so
 
 $$a^{\frac{p-1}{4}} * b^{\frac{p-1}{2}} = 1 \Rightarrow a^{\frac{p+3}{4}} *
 b^{\frac{p-1}{2}} = a $$
@@ -132,10 +134,9 @@ b^{\frac{p-1}{2}} = a $$
 Dividing by 2 again gives us that $\pm a^{\frac{p+3}{8}} * b^{\frac{p-1}{4}}$ is
 the roots of $a$.
 
-\subsection{$p \equiv 1 \mod 5$}
-This is by far the trickiest case. TODO.
 
-\section{Computational relation between square roots modulo $n$ and factoring $n$}
-Equivalent, TODO
+\subsection{$p \equiv 1 \mod 5$}
+I have not yet solved this case.
+
 
 \end{document}
