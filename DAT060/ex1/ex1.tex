@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[shortlabels]{enumerate}
+\usepackage{fitch}
+\usepackage{amsmath}
+
+\author{Rikard Hjort}
+
+\begin{document}
+\maketitle
+\section*{Problem 1}
+\begin{enumerate}[(1)]
+    \item Depending on how we interpret ``if six turns out to be nine'', and whether we care to consider Jimmy's and Johnny's drinking separately.
+
+        In the simplest case, we can define:
+
+        \begin{align*}
+            p &:= \text{six turns out to be nine} \\
+            q &:= \text{Jimmy and Johnny drink wine} \\
+        \end{align*}
+        Then the proposition is $$p \rightarrow q$$.
+
+        Another reading I see as possible is that $p$ means ``six $ \leftrightarrow$ nine'' so another possibility is, given
+        \begin{align*}
+            p_6 &:= \text{six} \\
+            p_9 &:= \text{nine} \\
+        \end{align*}
+        giving 
+        $$(p_6 \rightarrow p_9) \land (p_9 \rightarrow p_6) \rightarrow q$$
+
+        Lastly, we could consider Jimmy and John separately.
+        \begin{align*}
+            q_{Jimmy} &:= \text{Jimmy drinks wine} \\
+            q_{Johnny} &:= \text{Johnny drinks wine} \\
+        \end{align*}
+        giving the fullest version I can think of for the formula, namely
+        $$(p_6 \rightarrow p_9) \land (p_9 \rightarrow p_6) \rightarrow q_{Jimmy} \land q_{Johnny}$$
+
+    \item
+        One way to do this is to note that any one of the logicians liking pets ensures none of the other could like pets. Thus, we can define
+        \begin{align*}
+            p &:= \text{Miranda likes pets} \\
+            q &:= \text{Haskell likes pets} \\
+            r &:= \text{Kleen likes pets} \\
+        \end{align*}
+        and, remembering that de Morgan's laws gives us $ \lnot(\phi \lor \psi) \leftrightarrow \lnot \phi \land \lnot \psi)$ and make the formula
+
+        $$(p \rightarrow \lnot(q \lor r)) \land (q \rightarrow \lnot(p \lor r)) \land (r \rightarrow \lnot(p \lor q))$$
+
+\end{enumerate}
+
+\newpage
+
+% Fuck this
+% \section*{Problem 2}
+% 
+% For simple typesetting, I use Fitch style notation, which I find is very similar to the notation system in the course book.
+% 
+% \begin{enumerate}[(1)]
+%     \item
+% 
+% \begin{equation*}
+%     \begin{fitch}
+%      p \lor (q \lor r) & premise \\
+%  \fa p & assumption \\
+%  \fa p \lor q & \lor i_1 2 \\
+%  \fa (p \lor q) \lor r & \lor i_2 3 \\
+%  \fa (q \lor r) & assumption \\
+%  \fa \fa q & assumption \\
+%  \fa \fa \fa p \lor q & \lor i_2 6\\
+%  H H H & Main Proof Step
+%     \end{fitch}
+% \end{equation*}
+% \end{enumerate}
+% 
+% 
+\end{document}
