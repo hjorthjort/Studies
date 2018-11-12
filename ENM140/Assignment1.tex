@@ -11,58 +11,51 @@ hjortr@student.chalmers.se}
 \maketitle
 
 \paragraph{Overview}
-There are a few different ways to have to tax property, for example the Georgian tax, which
-is based purely on land value (thus not penalizing development), and tax based
-on full property value. Both of these rely on a government assessing property value.
+Consider a property tax scheme, where a land owner specify land value themselves,
+and are taxed 3~\% of the value every year.\footnote{Sometimes called Harberger tax. Inspired by \url{https://vitalik.ca/general/2018/04/20/radical_markets.html}} The value is reported to the government, and is kept constant until a new value is reported.
 
-Consider a different scheme, where a land owner specify land value themselves,
-and are taxed 3~\% of the value every year.
-  \footnote{Sometimes called Harberger tax. Inspired by \url{https://vitalik.ca/general/2018/04/20/radical_markets.html}}
- The value is reported to the government, and is kept constant until a new value is reported.
-
-There is a simple incentive not to cheat: the posted value of land is
-effectively an asking price. Anyone can buy the land (and the structures on it)
-for the asking price, whihc would force the previous owner out. The transfer of
-ownership happens immediately, and the new owner may set any price they choose.
-The current land users then then have 3 months to vacate.
+The posted value of land is then effectively an asking price. Anyone can buy the land (and the structures on it)
+for the asking price. The transfer of
+ownership happens immediately, and the new owner may set any price they choose. The current land users then then have 3 months to vacate.
 
 \paragraph{Players}
-We consider the game being for a single piece of land, and we can then imagine
-exactly 2 players: a current owner (paying tax), and a market, consisting of all
-other entities, including the government. This also better captures the rational
-game theory actors than more granular approaches, since we may well assume the
+The game is over 1 piece of land, with 2 players: a current owner,
+and a market, consisting of all other prospective land owners.\footnote{This captures the rational
+game theory actors better than more granular approaches, since we may well assume the
 market is, in some sense, rational, and will offer only a price which the market
-(meaning some entity) thinks it can get back from development of the property.
+(meaning some entity) thinks it can get back from development of the property.}
+Call these players ``land-lord'' and ``market''. We assume the property starts
+out in the hands of the land-lord. 
 
 \paragraph{Actions and strategies}
-We can look at this as a sequential game. In the first round, the owner sets an
-asking price. Then every round (we can imagine them representing a month), and
-the market may choose to buy the property at the old asking price, and set a new
-asking price. If they don't the owner may change the price (up or down).
+Model this as a sequential game. In every round, the land-lord sets an asking
+price, and the market places a bid. The player with the highest bid takes
+control of the property. If the market wins, the land-lord gets the full value
+of their bid.
 
-One strategy may be to set a high price (higher than the expected utility for
-the owner), hoping someone else will pay that price, giving a profit. Another
-strategy is to set a very low price, reducing tax costs, hoping no one will buy,
-but riskining losing the property, and having to buy it back.
-
-I can't really see any mixed strategies that make sense.
+One strategy for the land-lord may be to set a high price (higher than the
+expected utility), hoping someone else will pay that price, giving a profit.
+Another strategy is to set a very low price, reducing tax costs, hoping no one
+will buy, but riskiing losing the property, and having to buy it back later.
 
 \paragraph{Utilities}
-Say that an owner expects his land yields him a montly (net) income or utility of
-30~000~SEK. Losing the property and being vacated for some time means losing this income, but also
-some ``switching costs'' of administration, ruined planning, etc., which we
-value at 10~000~SEK. This cost is incurred 3 iterations (months) after losing
-ownership, unless they buy back. Further, the value of the property increases for the owner
+Every month they retain ownership, the landlord get 30~000~SEK of utility they, and pay
+0.25~\% of their current asking price in tax.
+
+Losing the property, and having it be lost for more than 3 rounds (``getting
+vacated'') costs 20~000~SEK. If the land-lord buys back within 3 rounds, no
+switching cost is incurred.
+
+Further, the utility of owning of the property increases for the owner
 the longer they hold it\footnote{This could be senitimental value, or value of
-  continued development towards long term plans}, so every 10 months of future ownership increases the
-value of the property (to the owner) by 10~\%.
+  continued development towards long term plans}, so every 12 rounds of
+ownership the utility increases by 3~\%. If the land-lord is vacated, the
+utility goes back to 30~000~SEK per round.
 
-The market has similar valuations for the property, but let's say there is one
-player who value the property slightly higher, who thinks they can get
-35~000~SEK of utility per month, with the same switching cost and projected
-value increase.
+The market expects to be able to get 35~000~SEK of utility per month, with the
+same switching cost and projected value increase.
 
-
+The game is played for 240 rounds (20 years), to avoid infinite growth problem.
 \end{document}
 
 ideas
