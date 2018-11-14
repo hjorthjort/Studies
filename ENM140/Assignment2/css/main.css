@@ -1,0 +1,138 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  position: relative;
+  margin: 20pt;
+}
+table {
+  border-collapse: collapse;
+}
+thead tr {
+  height: 14pt;
+}
+
+thead tr:last-child {
+  border-bottom: 1px solid #999999;
+}
+
+td {
+  padding: 0.2em 1em 0.2em 0;
+}
+
+#code {
+  margin: 0;
+  padding: 0;
+}
+
+.CodeMirror, #settings, #error, #results {
+  width: 100%;
+  margin: 0;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.CodeMirror {
+  font-size: 1.2em;
+  height: 350px;
+}
+@media (min-height: 750px) {
+  .CodeMirror {
+    height: 500px;
+  }
+}
+#error {
+  list-style-type: none;
+  background-color: #fcc;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#error li {
+  margin: 0;
+  padding: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+#settings, #results {
+  background-color: #eee;
+  border: none;
+}
+#settings div.parameters {
+  display: inline-block;
+  margin: 0;
+  margin-right: 3em;
+  float: left;
+  min-height: 30pt;
+  vertical-align: middle;
+}
+input, label {
+  padding: 0.5em;
+  margin: 0.5em 0.5em 0 0;
+}
+#settings input[type=text] {
+  width: 4em;
+  margin-right: 3em;
+}
+#settings input#regex {
+  width: 8em;
+}
+#settings input[type=checkbox] {
+  margin-top: 1em;
+}
+button {
+  padding: 1em;
+  min-width: 200px;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+#results {
+  margin-top: 1em;
+}
+
+#results-overview {
+  margin-right: 20px;
+}
+
+#results-overview table caption {
+  color: #a6e22e;
+}
+#details-tables {
+}
+
+td.test-failed {
+  color: #d00;
+  font-weight: bold;
+}
+
+td.test-passed {
+  color: #207000;
+}
+
+
+table {
+  margin-bottom: 2em;
+  width: 100%;
+}
+
+table caption {
+  font-size: 1.2em;
+  background-color: #373832;
+  color: #f8f8f2;
+  padding: 5pt;
+  margin-bottom: 10pt;
+}
+
+table td {
+  font-size: 0.9em;
+}
+path, line { 
+  stroke: #333;
+  stroke-width: 2px;
+  fill: none;
+}
+svg text {
+  alignment-baseline: middle;
+  font-size: 18px;
+}
