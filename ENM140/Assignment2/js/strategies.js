@@ -9,26 +9,29 @@ if (cid === undefined) {
 }
 
 // Exchange this for your own cid
-cid = 'examplecid';
+cid = 'hjortr';
 
 // Defect: action 0
 // Cooperate: action 1
 
-
 strategies[cid + '10a'] = function () {
   function chooseAction(me, opponent, t) {
-    // Always defect
-    return 0;
+      // Defect in last round.
+      if (t == 9) return 0;
+      if (t == 0) return 1;
+      // TfT.
+      return (opponent[t-1]);
   }
 
   return chooseAction;
 }
 
-
 strategies[cid + '10b'] = function () {
   function chooseAction(me, opponent, t) {
-    // Always cooperate
-    return 1;
+      if (t == 9) return 0;
+      if (t == 0) return 1;
+      // Small chance of defecting.
+      return Math.random() < 0.1 ? 0 : 1;
   }
 
   return chooseAction;
@@ -36,121 +39,191 @@ strategies[cid + '10b'] = function () {
 
 
 strategies[cid + '10c'] = function () {
-  function chooseAction(me, opponent, t) {
-    // Tit for tat
-
-    if (t == 0) {
-      return 1; // cooperate in first round
+    let defections = 0;
+    function chooseAction(me, opponent, t) {
+        // Allow only 2 mistakes.
+        if (t == 9) return 0;
+        defections += 1 - opponent[t-1];
+        if (defections >= 2) {
+            return 0;
+        }
+        return 1;
     }
-
-    return opponent[t-1]; // otherwise copy opponent
-  }
-
-  return chooseAction;
+    return chooseAction;
 }
-
 
 
 strategies[cid + '200a'] = function () {
   function chooseAction(me, opponent, t) {
-    // Tit for two tats
+      if (t >= 198) return 0;
+      if (t <= 1) return 0; // Defect twice;
+      if (opponent[2] == 1) return 0; // Look for gullible suckers.
 
-    if (t <= 1) {
-      return 1; // cooperate round 0 and 1
-    }
-
-    if (opponent[t-2] == 0 && opponent[t-1] == 0) {
-      return 0; // defect if last two opponent moves were defect
-    }
-
-    return 1; // otherwise cooperate
-  }
-
-  return chooseAction;
-}
-
-
-strategies[cid + '200b'] = function () {
-  // evil is a state variable for this strategy.
-  // The initialization code ('var evil = false;'') will be run
-  // before each game, so the variable evil will always equal
-  // false when the game starts.
-
-  var evil = false; // start out as not evil
-
-  function chooseAction(me, opponent, t) {
-    // This strategy uses the state variable 'evil'.
-    // In every round, turn evil with 5% probability.
-    // (And remain evil until the 200 rounds are over.)
-    if (Math.random() < 0.05) {
-      evil = true;
-    }
-
-    // If evil, defect
-    if (evil) return 0;
-
-    return 1; // and cooperate otherwise
+      // Play TfT.
+      return (opponent[t-1]);
   }
   return chooseAction;
 }
 
+strategies[cid + '200b'] = function() {
+    // Cooperate if you haven't seen too many defections, but defect yourself towards the end.
+    let maxDefections = 15;
+    let defections = 0;
+    function chooseAction(me, opponent, t) {
+        if (t >= 198) return 0; // Start being uncooperative at the end.
+        if (t <= 1) return 1;
+        defections += 1 - opponent[t-1];
+        if (defections > maxDefections) return 0;
+        return 1;
+    }
+    return chooseAction;
+}
 
 strategies[cid + '200c'] = function () {
-  function chooseAction(me, opponent, t) {
-    // Cooperate initially, but always defect if opponent has defected
-    // more than 10 times in total
-
-    var maxDefects = 10;
-    if (t < maxDefects) {
-      return 1;
+    // Play Tf2T, but exploit other Tf2T towards the end.
+    function chooseAction(me, opponent, t) {
+        if (t <= 1) return 1;
+        if (t >= 160 && t % 2 == 0) return 0; // Start being uncooperative at the end.
+        if (opponent[t-1] == 1 || opponent[t-2] == 1) return 1;
+        return 0;
     }
-
-    var numDefects = 0;
-    // Loop through all previous time steps
-    for (var i = 0; i < t; i++) {
-      if (opponent[i] == 0) { // if opponent defected in round i
-        numDefects = numDefects + 1; // then add to counter
-      }
-
-      if (numDefects > maxDefects) {
-        return 0; // Defect if opponent has defected at least 10 times
-      } else {
-        return 1; // Otherwise cooperate
-      }
-    }
-  }
-
-  return chooseAction;
+    return chooseAction;
 }
-
-
 strategies[cid + '200mistakes'] = function () {
+    // NOTE: Starts abusing later than 200x.
+    // Play Tf2T, but exploit other Tf2T towards the end.
+    function chooseAction(me, opponent, t) {
+        if (t <= 1) return 1;
+        if (t >= 175 && t % 2 == 0) return 0; // Start being uncooperative at the end.
+        if (opponent[t-1] == 1 || opponent[t-2] == 1) return 1;
+        return 0;
+    }
+    return chooseAction;
+}
+
+// Strategy for the replicator dynamics.
+strategies[cid + '200replicator'] = function () {
+    // Takes mistake rate into account, and allows opponent some extra patience.
+
+    // Plays a "Patient Even Steven" (Even Steven defined in the comments
+    // below), but uses the known mutation rate. Essentially, this strategy
+    // punishes defections (in the long run), but discounts the "expected"
+    // mistakes from the mistake rate.
+    // This performs really well in the replicator dynamics, even for very high
+    // mistake rates, up to 10%.
+    let sum = (acc, x) => acc + x;
+    let totalMistakes = 0;
+    let lastMove; // Save to approximate mistake rate.
+    function chooseAction(me, opponent, t) {
+        if (t > 0 && lastMove != me[t-1]) totalMistakes++;
+        let approxMistakeRate = totalMistakes / t;
+        if (t > 200 * (1 - approxMistakeRate)) return 0; // Defect a lot at the end, proportional to expected mistakes.
+        let myBetrayals = t - me.slice(0, t).reduce(sum, 0);
+        let oppBetrayals = t - opponent.slice(0, t).reduce(sum, 0);
+        if (oppBetrayals * (1 - approxMistakeRate) > myBetrayals) lastMove =  0;
+        else lastMove = 1;
+
+        return lastMove;
+    }
+    return chooseAction;
+}
+
+// Interesting and/or common strategies.
+
+  // Powerful strategies (good adversaries)
+
+strategies['evenSteven'] = function() {
+    // Tries to make sure the number of defections are the same for bot players.
+    let sum = (acc, x) => acc + x;
+    function chooseAction(me, opponent, t) {
+        let myBetrayals = t - me.slice(0, t).reduce(sum, 0);
+        let oppBetrayals = t - opponent.slice(0, t).reduce(sum, 0);
+        if (oppBetrayals > myBetrayals) return 0;
+        return 1;
+    }
+    return chooseAction;
+}
+
+strategies['200tf2t'] = function () {
+function chooseAction(me, opponent, t) {
+if (t == 199) return 0;
+// Tit for two tats
+
+if (t <= 1) {
+return 1; // cooperate round 0 and 1
+}
+
+if (opponent[t-2] == 0 && opponent[t-1] == 0) {
+return 0; // defect if last two opponent moves were defect
+}
+
+return 1; // otherwise cooperate
+}
+
+return chooseAction;
+}
+
+
+// Common strategies (bad adversaries)
+
+/*
+strategies['detective'] = function() {
+    let gullible = false;
+    function chooseAction(me, opponent, t) {
+        if (t <= 1) return 1;
+
+        if (t == 3) return 1;
+        if (t == 4) {
+            gullible = opponent[0] + opponent[1] + opponent[2] + opponent[3] == 4;
+        }
+        // Exploit gullibles.
+        if (gullible) return 0;
+        // TfT.
+        return opponent[t-1];
+    }
+    return chooseAction;
+}
+
+strategies['alwaysD'] = function () {
+    function chooseAction(me, opponent, t) {
+        return 0;
+    }
+    return chooseAction;
+}
+
+strategies['trigger'] = function () {
+    let betrayed = false;
+    function chooseAction(me, opponent, t) {
+        if (t == 0) return 1;
+        if (opponent[t-1] == 0) betrayed = true;
+        if (betrayed) return 0;
+        return 1;
+    }
+    return chooseAction;
+}
+
+strategies['tft'] = function () {
+    function chooseAction(me, opponent, t) {
+        if (t == 0) return 1;
+        return opponent[t-1];
+    }
+    return chooseAction;
+}
+
+/*
+
+strategies['alwaysC'] = function () {
   function chooseAction(me, opponent, t) {
-    // This code does the exact same thing as the 200c strategy, but
-    // implemented in another way, which might appeal more or less
-    // to your style of thinking/programming.
-
-    //Slice out the part of history between time 0 and time t.
-    var maxDefects = 10;
-    if (t < maxDefects) {
-      return 1; // cooperate if there is no chance t >= maxDefects
-    }
-
-    function sum(array) {
-      return array.reduce(function (a, b) { return a + b; });
-    }
-
-    // Each cooperate action contributes 1 to the sum
-    var passedHistory = opponent.slice(0, t);
-    var numCooperate = sum(passedHistory);
-    var numDefects = passedHistory.length - numCooperate;
-
-    if (numDefects >= maxDefects) {
-      return 0; // Defect if opponent has defected at least maxDefect times
-    }
-
-    return 1; // Otherwise cooperate
+  return 1;
+  }
+  return chooseAction;
   }
 
-  return chooseAction;
+strategies[cid + 'alternate'] = function() {
+    function chooseAction(me, opponent, t) {
+        if (t % 2 == 0) return 1;
+        else return 0;
+    }
+    return chooseAction;
 }
+*/
