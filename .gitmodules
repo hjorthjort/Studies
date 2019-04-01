@@ -1,0 +1,18 @@
+[submodule "TDA342"]
+	path = TDA342
+	url = git@github.com:hjorthjort/TDA342.git
+[submodule "ffr105"]
+	path = ffr105
+	url = git@bitbucket.org:hjorthjort/ffr105.git
+[submodule "tda352"]
+	path = tda352
+	url = git@bitbucket.org:hjorthjort/tda352.git
+[submodule "ffr135"]
+	path = ffr135
+	url = git@bitbucket.org:hjorthjort/ffr135.git
+[submodule "pltjapan"]
+	path = pltjapan
+	url = git@bitbucket.org:hjorthjort/pltjapan.git
+[submodule "physics_based_animation"]
+	path = physics_based_animation
+	url = git@bitbucket.org:hjorthjort/physics_based_animation.git
