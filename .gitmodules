@@ -19,3 +19,6 @@
 [submodule "DAT026/bouncing-balls"]
 	path = DAT026/bouncing-balls
 	url = git@github.com:mhgbrg/bouncing-balls.git
+[submodule "DAT280"]
+	path = DAT280
+	url = git@github.com:Palmmro/ParaFunc.git
