@@ -16,3 +16,6 @@
 [submodule "physics_based_animation"]
 	path = physics_based_animation
 	url = git@bitbucket.org:hjorthjort/physics_based_animation.git
+[submodule "DAT026/bouncing-balls"]
+	path = DAT026/bouncing-balls
+	url = git@github.com:mhgbrg/bouncing-balls.git
