@@ -22,3 +22,6 @@
 [submodule "DAT280"]
 	path = DAT280
 	url = git@github.com:Palmmro/ParaFunc.git
+[submodule "TDA283-project"]
+	path = TDA283-project
+	url = git@github.com:ayberkt/TDA283-project.git
