@@ -25,3 +25,6 @@
 [submodule "TDA283-project"]
 	path = TDA283-project
 	url = git@github.com:ayberkt/TDA283-project.git
+[submodule "ENM140/TheAuctionGame"]
+	path = ENM140/TheAuctionGame
+	url = git@github.com:hjorthjort/TheAuctionGame.git
